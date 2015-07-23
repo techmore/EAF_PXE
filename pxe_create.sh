@@ -3,6 +3,8 @@
 sudo apt-get -y update; echo ""
 echo "This program assumes dban-2.2.8_i586.iso and ubuntu-14.04.2-desktop-i386.iso are in the downloads folders or it will attempt a download from a hard coded location that may fail."; echo ""
 
+# 7/23/15 DBan has been updated
+# http://sourceforge.net/projects/dban/files/dban/dban-2.3.0/dban-2.3.0_i586.iso
 if [ ! -f ~/Downloads/dban-2.2.8_i586.iso ]; then
    echo "~/Downloads/dban-2.2.8_i586.iso NOT found, attempting to download."
    echo "--Downloading dban-2.2.8_i586.iso..."
@@ -18,7 +20,6 @@ http://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.4.2
 
 # 7/23/15 Clonezilla version updated
 # if [ ! -f ~/Downloads/clonezilla-live-2.3.2-22-i586.iso ]; then
-
 if [ ! -f ~/Downloads/clonezilla-live-2.4.2-10-i586.iso ]; then
    echo "clonezilla-live-2.4.2-10-i586.iso NOT found, attempting to download."
    echo "--Downloading clonezilla-live-2.4.2-10-i586.iso ..."
