@@ -39,6 +39,18 @@ Net install 64bit
 http://archive.ubuntu.com/ubuntu/dists/trusty-updates/main/installer-amd64/current/images/netboot/netboot.tar.gz
 Net install 32bit
 http://archive.ubuntu.com/ubuntu/dists/trusty-updates/main/installer-i386/current/images/netboot/netboot.tar.gz
+
+Edubuntu
+http://cdimage.ubuntu.com/edubuntu/releases/14.04.2/release/edubuntu-14.04.2-dvd-amd64.iso.torrent
+http://cdimage.ubuntu.com/edubuntu/releases/14.04.2/release/edubuntu-14.04.2-dvd-i386.iso.torrent
+
+Lubuntu
+http://cdimage.ubuntu.com/lubuntu/releases/14.04.2/release/lubuntu-14.04.2-desktop-i386.iso.torrent
+http://cdimage.ubuntu.com/lubuntu/releases/14.04.2/release/lubuntu-14.04.2-desktop-amd64.iso.torrent
+
+ubuntustudio
+http://cdimage.ubuntu.com/ubuntustudio/releases/14.04.2/release/ubuntustudio-14.04.2-dvd-i386.iso.torrent
+http://cdimage.ubuntu.com/ubuntustudio/releases/14.04.2/release/ubuntustudio-14.04.2-dvd-amd64.iso.torrent
 */
 echo ""
 if [ ! -f ~/Downloads/ubuntu-14.04.2-desktop-i386.iso ]; then
