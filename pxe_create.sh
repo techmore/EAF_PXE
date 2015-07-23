@@ -3,17 +3,17 @@
 sudo apt-get -y update; echo ""
 echo "This program assumes dban-2.2.8_i586.iso and ubuntu-14.04.2-desktop-i386.iso are in the downloads folders or it will attempt a download from a hard coded location that may fail."; echo ""
 
-# 7/23/15 DBan has been updated
+# 7/23/15 DBan has been updated  if [ ! -f ~/Downloads/dban-2.2.8_i586.iso ]; then
 # http://sourceforge.net/projects/dban/files/dban/dban-2.3.0/dban-2.3.0_i586.iso
-if [ ! -f ~/Downloads/dban-2.2.8_i586.iso ]; then
-   echo "~/Downloads/dban-2.2.8_i586.iso NOT found, attempting to download."
-   echo "--Downloading dban-2.2.8_i586.iso..."
+if [ ! -f ~/Downloads/dban-2.3.0_i586.iso ]; then
+   echo "~/Downloads/dban-2.3.0_i586.iso NOT found, attempting to download."
+   echo "--Downloading dban-2.3.0_i586.iso..."
    cd ~/Downloads
-   wget http://downloads.sourceforge.net/project/dban/dban/dban-2.2.8/dban-2.2.8_i586.iso
+   wget http://downloads.sourceforge.net/project/dban/dban/dban-2.3.0/dban-2.3.0_i586.iso
    echo "DBAN download complete."
    echo ""
 else
-   echo "dban-2.2.8_i586.iso found."
+   echo "dban-2.3.0_i586.iso found."
 fi
 echo ""
 http://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.4.2-10/clonezilla-live-2.4.2-10-i586.iso
@@ -136,12 +136,12 @@ if [ ! -d /srv/install/ubuntu-14.04.2-desktop-i386 ]; then
    sudo mkdir /srv/install/ubuntu-14.04.2-desktop-i386; fi
 if [ ! -d /mnt/loop ]; then
    sudo mkdir /mnt/loop; fi
-if [ ! -d /var/lib/tftpboot/dban-2.2.8_i586 ]; then
-   sudo mkdir /var/lib/tftpboot/dban-2.2.8_i586; fi
-if [ ! -d /srv/install/dban-2.2.8_i586 ]; then
-   sudo mkdir /srv/install/dban-2.2.8_i586; fi
-sudo mount -o loop -t iso9660 ~/Downloads/dban-2.2.8_i586.iso /mnt/loop
-sudo cp /mnt/loop/dban.bzi /var/lib/tftpboot/dban-2.2.8_i586/dban.bzi
+if [ ! -d /var/lib/tftpboot/dban-2.3.0_i586 ]; then
+   sudo mkdir /var/lib/tftpboot/dban-2.3.0_i586; fi
+if [ ! -d /srv/install/dban-2.3.0_i586 ]; then
+   sudo mkdir /srv/install/dban-2.3.0_i586; fi
+sudo mount -o loop -t iso9660 ~/Downloads/dban-2.3.0_i586.iso /mnt/loop
+sudo cp /mnt/loop/dban.bzi /var/lib/tftpboot/dban-2.3.0_i586/dban.bzi
 sudo umount /mnt/loop
 
 if [ ! -d /var/lib/tftpboot/clonezilla-live-2.4.2-10-i586.iso ]; then
@@ -202,29 +202,29 @@ echo "        Boot to local hard disk" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        ENDTEXT" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "LABEL 1" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        MENU LABEL DBAN Boot and Nuke" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        KERNEL dban-2.2.8_i586/dban.bzi" >> /var/lib/tftpboot/pxelinux.cfg/default
+echo "        KERNEL dban-2.3.0_i586/dban.bzi" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        APPEND nuke="dwipe" silent floppy=0,16,cmos" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        TEXT HELP" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        Warning - This will erase your hard drive" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        ENDTEXT" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "LABEL 2" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        MENU LABEL Inventory Machine - Alpha (not working)" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        KERNEL clonezilla-live-2.3.2-22-i586/vmlinuz" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        APPEND initrd=clonezilla-live-2.3.2-22-i586/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"/var/www/html/TM_Inventory_Scanner.sh\" ocs_live_run=\"\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.1.10/clonezilla-live-2.3.2-22-i586/filesystem.squashfs" >> /var/lib/tftpboot/pxelinux.cfg/default
+echo "        KERNEL clonezilla-live-2.4.2-10-i586.iso/vmlinuz" >> /var/lib/tftpboot/pxelinux.cfg/default
+echo "        APPEND initrd=clonezilla-live-2.4.2-10-i586.iso/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"/var/www/html/TM_Inventory_Scanner.sh\" ocs_live_run=\"\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.1.10/clonezilla-live-2.3.2-22-i586/filesystem.squashfs" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        TEXT HELP" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        Boot the Inventory Machine" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        ENDTEXT" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "LABEL 3" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        MENU LABEL List Images" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        KERNEL clonezilla-live-2.3.2-22-i586/vmlinuz" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        APPEND initrd=clonezilla-live-2.3.2-22-i586/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"mount -t cifs -o user=user,password=password //10.10.1.10/Images /home/partimag\" ocs_live_run=\"ocs-sr -g auto -e1 auto -e2 -batch -icds -r -j2 -k1 -p reboot restoredisk ask_user sda\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.1.10/clonezilla-live-2.3.2-22-i586/filesystem.squashfs" >> /var/lib/tftpboot/pxelinux.cfg/default
+echo "        KERNEL clonezilla-live-2.4.2-10-i586./vmlinuz" >> /var/lib/tftpboot/pxelinux.cfg/default
+echo "        APPEND initrd=cclonezilla-live-2.4.2-10-i586/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"mount -t cifs -o user=user,password=password //10.10.1.10/Images /home/partimag\" ocs_live_run=\"ocs-sr -g auto -e1 auto -e2 -batch -icds -r -j2 -k1 -p reboot restoredisk ask_user sda\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.1.10/clonezilla-live-2.3.2-22-i586/filesystem.squashfs" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        TEXT HELP" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        Boot the List Images" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        ENDTEXT" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "LABEL 4" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        MENU LABEL Create Image" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        KERNEL clonezilla-live-2.3.2-22-i586/vmlinuz" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        APPEND initrd=clonezilla-live-2.3.2-22-i586/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"mount -t cifs -o user=user,password=password //10.10.1.10/Images /home/partimag\" ocs_live_run=\"ocs-sr -q2 -j2 -rm-win-swap-hib -z1 -i 2000 -sc -fsck-src-part-y -p true savedisk ask_user sda\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.1.10/clonezilla-live-2.3.2-22-i586/filesystem.squashfs" >> /var/lib/tftpboot/pxelinux.cfg/default
+echo "        KERNEL clonezilla-live-2.4.2-10-i586/vmlinuz" >> /var/lib/tftpboot/pxelinux.cfg/default
+echo "        APPEND initrd=clonezilla-live-2.4.2-10-i586/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"mount -t cifs -o user=user,password=password //10.10.1.10/Images /home/partimag\" ocs_live_run=\"ocs-sr -q2 -j2 -rm-win-swap-hib -z1 -i 2000 -sc -fsck-src-part-y -p true savedisk ask_user sda\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.1.10/clonezilla-live-2.3.2-22-i586/filesystem.squashfs" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        TEXT HELP" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        Boot the Create Image" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        ENDTEXT" >> /var/lib/tftpboot/pxelinux.cfg/default
