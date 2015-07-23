@@ -28,6 +28,7 @@ else
    echo "clonezilla-live-2.4.2-10-i586.iso found."
 fi
 
+# http://releases.ubuntu.com/14.04.2/ubuntu-14.04.2-desktop-amd64.iso.torrent
 echo ""
 if [ ! -f ~/Downloads/ubuntu-14.04.2-desktop-i386.iso ]; then
    echo "ubuntu-14.04.2-desktop-i386.iso NOT found, attempting to download."
