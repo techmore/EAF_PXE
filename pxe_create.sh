@@ -158,8 +158,9 @@ sudo mount -o loop -t iso9660 ~/Downloads/ubuntu-14.04.2-desktop-i386.iso /mnt/l
 sudo cp /mnt/loop/casper/vmlinuz /var/lib/tftpboot/ubuntu-14.04.2-desktop-i386
 sudo cp /mnt/loop/casper/initrd.lz /var/lib/tftpboot/ubuntu-14.04.2-desktop-i386
 
-if [ ! -d /srv/install/ubuntu-14.04.2-desktop-i386 ]; then
-  sudo mkdir -p /srv/install/ubuntu-14.04.2-desktop-i386; fi
+# if [ ! -d /srv/install/ubuntu-14.04.2-desktop-i386 ]; then
+#  sudo mkdir -p /srv/install/ubuntu-14.04.2-desktop-i386; fi
+sudo mkdir -p /srv/install/ubuntu-14.04.2-desktop-i386
 sudo cp -R /mnt/loop/* /srv/install/ubuntu-14.04.2-desktop-i386
 sudo cp -R /mnt/loop/.disk /srv/install/ubuntu-14.04.2-desktop-i386
 sudo umount /mnt/loop
