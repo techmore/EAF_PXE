@@ -151,7 +151,7 @@ echo "        TEXT HELP" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        Warning - This will erase your hard drive" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        ENDTEXT" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "LABEL 2" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        MENU LABEL Inventory Machine" >> /var/lib/tftpboot/pxelinux.cfg/default
+echo "        MENU LABEL Inventory Machine - Alpha (not working)" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        KERNEL clonezilla-live-2.3.2-22-i586/vmlinuz" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        APPEND initrd=clonezilla-live-2.3.2-22-i586/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"/var/www/html/TM_Inventory_Scanner.sh\" ocs_live_run=\"\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.1.10/clonezilla-live-2.3.2-22-i586/filesystem.squashfs" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        TEXT HELP" >> /var/lib/tftpboot/pxelinux.cfg/default
@@ -172,7 +172,7 @@ echo "        TEXT HELP" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        Boot the Create Image" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        ENDTEXT" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "LABEL 5" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        MENU LABEL Ubuntu-14.04.2-desktop" >> /var/lib/tftpboot/pxelinux.cfg/default
+echo "        MENU LABEL Ubuntu-14.04.2-desktop-i386" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        KERNEL ubuntu-14.04.2-desktop-i386/vmlinuz" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        APPEND boot=casper netboot=nfs nfsroot=10.10.1.10:/srv/install/ubuntu-14.04.2-desktop-i386 initrd=ubuntu-14.04.2-desktop-i386/initrd.lz" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        TEXT HELP" >> /var/lib/tftpboot/pxelinux.cfg/default
