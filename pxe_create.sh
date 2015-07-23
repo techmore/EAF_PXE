@@ -28,8 +28,18 @@ if [ ! -f ~/Downloads/clonezilla-live-2.4.2-10-i586.iso ]; then
 else
    echo "clonezilla-live-2.4.2-10-i586.iso found."
 fi
-
-# http://releases.ubuntu.com/14.04.2/ubuntu-14.04.2-desktop-amd64.iso.torrent
+/*
+Desktop
+http://releases.ubuntu.com/14.04.2/ubuntu-14.04.2-desktop-amd64.iso.torrent
+http://releases.ubuntu.com/14.04.2/ubuntu-14.04.2-desktop-i386.iso.torrent
+Server
+http://releases.ubuntu.com/14.04.2/ubuntu-14.04.2-server-amd64.iso.torrent
+http://releases.ubuntu.com/14.04.2/ubuntu-14.04.2-server-i386.iso.torrent
+Net install 64bit
+http://archive.ubuntu.com/ubuntu/dists/trusty-updates/main/installer-amd64/current/images/netboot/netboot.tar.gz
+Net install 32bit
+http://archive.ubuntu.com/ubuntu/dists/trusty-updates/main/installer-i386/current/images/netboot/netboot.tar.gz
+*/
 echo ""
 if [ ! -f ~/Downloads/ubuntu-14.04.2-desktop-i386.iso ]; then
    echo "ubuntu-14.04.2-desktop-i386.iso NOT found, attempting to download."
