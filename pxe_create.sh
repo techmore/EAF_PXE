@@ -204,7 +204,7 @@ echo "        ENDTEXT" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "LABEL 1" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        MENU LABEL DBAN Boot and Nuke" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        KERNEL dban-2.3.0_i586/dban.bzi" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        APPEND nuke="dwipe" silent floppy=0,16,cmos" >> /var/lib/tftpboot/pxelinux.cfg/default
+echo "        APPEND nuke="dwipe --autonuke" silent vga=785" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        TEXT HELP" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        Warning - This will erase your hard drive" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        ENDTEXT" >> /var/lib/tftpboot/pxelinux.cfg/default
