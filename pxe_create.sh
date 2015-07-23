@@ -14,14 +14,20 @@ else
    echo "dban-2.2.8_i586.iso found."
 fi
 echo ""
-if [ ! -f ~/Downloads/clonezilla-live-2.3.2-22-i586.iso ]; then
-   echo "clonezilla-live-2.3.2-22-i586.iso NOT found, attempting to download."
-   echo "--Downloading Clonezilla-live-2.3.2-22-i586 ..."
+http://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.4.2-10/clonezilla-live-2.4.2-10-i586.iso
+
+# 7/23/15 Clonezilla version updated
+# if [ ! -f ~/Downloads/clonezilla-live-2.3.2-22-i586.iso ]; then
+
+if [ ! -f ~/Downloads/clonezilla-live-2.4.2-10-i586.iso ]; then
+   echo "clonezilla-live-2.4.2-10-i586.iso NOT found, attempting to download."
+   echo "--Downloading clonezilla-live-2.4.2-10-i586.iso ..."
    cd ~/Downloads
-   wget http://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.3.2-22/clonezilla-live-2.3.2-22-i586.iso
+   wget http://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.4.2-10/clonezilla-live-2.4.2-10-i586.iso
 else
-   echo "clonezilla-live-2.3.2-22-i586.iso found."
+   echo "clonezilla-live-2.4.2-10-i586.iso found."
 fi
+
 echo ""
 if [ ! -f ~/Downloads/ubuntu-14.04.2-desktop-i386.iso ]; then
    echo "ubuntu-14.04.2-desktop-i386.iso NOT found, attempting to download."
@@ -81,15 +87,12 @@ sudo mount -o loop -t iso9660 ~/Downloads/dban-2.2.8_i586.iso /mnt/loop
 sudo cp /mnt/loop/dban.bzi /var/lib/tftpboot/dban-2.2.8_i586/dban.bzi
 sudo umount /mnt/loop
 
-if [ ! -d /var/lib/tftpboot/clonezilla-live-2.3.2-22-i586 ]; then
-  sudo mkdir /var/lib/tftpboot/clonezilla-live-2.3.2-22-i586; fi
-sudo mount -o loop -t iso9660 ~/Downloads/clonezilla-live-2.3.2-22-i586.iso /mnt/loop
-sudo cp /mnt/loop/live/vmlinuz /var/lib/tftpboot/clonezilla-live-2.3.2-22-i586
-sudo cp /mnt/loop/live/initrd.img /var/lib/tftpboot/clonezilla-live-2.3.2-22-i586
-sudo cp /mnt/loop/live/filesystem.squashfs /var/lib/tftpboot/clonezilla-live-2.3.2-22-i586
-# sudo mkdir -p "/srv/install/clonezilla-live-2.3.2-22-i586"
-# sudo cp -R "/mnt/loop/* /srv/install/clonezilla-live-2.3.2-22-i586"
-# sudo cp -R "/mnt/loop/.disk /srv/install/clonezilla-live-2.3.2-22-i586"
+if [ ! -d /var/lib/tftpboot/clonezilla-live-2.4.2-10-i586.iso ]; then
+  sudo mkdir /var/lib/tftpboot/clonezilla-live-2.4.2-10-i586; fi
+sudo mount -o loop -t iso9660 ~/Downloads/clonezilla-live-2.4.2-10-i586.iso /mnt/loop
+sudo cp /mnt/loop/live/vmlinuz /var/lib/tftpboot/clonezilla-live-2.4.2-10-i586
+sudo cp /mnt/loop/live/initrd.img /var/lib/tftpboot/clonezilla-live-2.4.2-10-i586
+sudo cp /mnt/loop/live/filesystem.squashfs /var/lib/tftpboot/clonezilla-live-2.4.2-10-i586
 sudo umount /mnt/loop
 
 if [ ! -d /var/lib/tftpboot/ubuntu-14.04.2-desktop-i386 ]; then
