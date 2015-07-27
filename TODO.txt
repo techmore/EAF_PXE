@@ -1,0 +1,4 @@
+
+Give an option for PXE DBAN, ubuntu installer, clonezilla cloner
+                   Ubuntu LTS family install for ubuntu server guide documentation
+                   Option to add windows to the mix
