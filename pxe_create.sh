@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# This program has only been made possible by generous time and code donations from
+# Electronic Access Foundation http://e-access.org/
+# Computer Reach http://www.computerreach.org/
+# National Cristina Foundation https://www.cristina.org/
+# Hill Top Preparatory School http://hilltopprep.org/
+
+# This program will setup a PXE boot server on a fresh Ubuntu 14.04.2 LTS install, It exspects an internet connection
+
 sudo apt-get -y update; echo ""
 echo "This program assumes dban-2.2.8_i586.iso and ubuntu-14.04.2-desktop-i386.iso are in the downloads folders or it will attempt a download from a hard coded location that may fail."; echo ""
 
@@ -85,6 +93,7 @@ ubuntustudio
 http://cdimage.ubuntu.com/ubuntustudio/releases/14.04.2/release/ubuntustudio-14.04.2-dvd-i386.iso.torrent
 http://cdimage.ubuntu.com/ubuntustudio/releases/14.04.2/release/ubuntustudio-14.04.2-dvd-amd64.iso.torrent
 */
+
 echo ""
 if [ ! -f ~/Downloads/ubuntu-14.04.2-desktop-i386.iso ]; then
    echo "ubuntu-14.04.2-desktop-i386.iso NOT found, attempting to download."
