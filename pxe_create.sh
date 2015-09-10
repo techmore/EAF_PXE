@@ -8,6 +8,9 @@
 
 # This program will setup a PXE boot server on a fresh Ubuntu 14.04.2 LTS install, It exspects an internet connection
 
+# Images currently stored in /var/www/html/1.Images
+
+
 sudo apt-get -y update; echo ""
 echo "This program assumes dban-2.3.0_i586.iso and ubuntu-14.04.3-desktop-i386.iso are in the downloads folders or it will attempt a download from a hard coded location that may fail."; echo ""
 
@@ -39,61 +42,20 @@ fi
 
 
 /*
-
+Add These x86 / x64
  Edubuntu 	A complete Linux based operating system targeted for primary and secondary education. It is freely available with community based support. The Edubuntu community is built on the ideas enshrined in the Edubuntu Manifesto: that software, especially for education, should be available free of charge and that software tools should be usable by people in their local language and despite any disabilities.[54]
  Kubuntu 	An official derivative of Ubuntu Linux using KDE instead of the GNOME or Unity interfaces used by default in Ubuntu.[55]
+ Net Install
+ Ubuntu
  Ubuntu GNOME 	An official Ubuntu variant[56] that uses Gnome Shell as its default desktop and GDM as its display manager.[57]
-Ubuntu MATE 	An official derivative of Ubuntu using MATE, a desktop environment forked from the now-defunct GNOME 2 code base, with an emphasis on the desktop metaphor.[58]
+ Ubuntu MATE 	An official derivative of Ubuntu using MATE, a desktop environment forked from the now-defunct GNOME 2 code base, with an emphasis on the desktop metaphor.[58]
  Lubuntu 	Lubuntu is a project that is an official derivative of the Ubuntu operating system that is "lighter, less resource hungry and more energy-efficient", using the LXDE desktop environment.[59][60][61]
  Xubuntu 	An official derivative of Ubuntu using Xfce. Xubuntu is intended for use on less-powerful computers or those who seek a highly efficient desktop environment on faster systems, and uses mostly GTK+ applications.[62]
  Mythbuntu 	Based on Ubuntu and MythTV, providing applications for recording TV and acting as a media center.[63]
-Ubuntu for Android 	Designed for use with Android phones.[64]
-UbuntuKylin 	An official derivative aimed at the Chinese market.
  Ubuntu Server 	An official derivative made for use in servers. Ubuntu Server handles mail, controls printers, acts as a fileserver, can host LAMP and more.[65]
  Ubuntu Studio 	Based on Ubuntu, providing open-source applications for multimedia creation aimed at the audio, video and graphic editors.[66]
-Ubuntu Touch 	Designed for use with touchscreen devices.
-Ubuntu TV 	Designed for use with TVs.[67]
 
-
-Desktop
-http://releases.ubuntu.com/14.04.2/ubuntu-14.04.-desktop-amd64.iso.torrent
-http://releases.ubuntu.com/14.04.2/ubuntu-14.04.-desktop-i386.iso.torrent
-Server
-http://releases.ubuntu.com/14.04.2/ubuntu-14.04.-server-amd64.iso.torrent
-http://releases.ubuntu.com/14.04.2/ubuntu-14.04.-server-i386.iso.torrent
-Net install
-http://archive.ubuntu.com/ubuntu/dists/trusty-updates/main/installer-amd64/current/images/netboot/netboot.tar.gz
-http://archive.ubuntu.com/ubuntu/dists/trusty-updates/main/installer-i386/current/images/netboot/netboot.tar.gz
-
-Edubuntu
-http://cdimage.ubuntu.com/edubuntu/releases/14.04.2/release/edubuntu-14.04.-dvd-amd64.iso.torrent
-http://cdimage.ubuntu.com/edubuntu/releases/14.04.2/release/edubuntu-14.04.-dvd-i386.iso.torrent
-Lubuntu
-http://cdimage.ubuntu.com/lubuntu/releases/14.04.2/release/lubuntu-14.04.-desktop-i386.iso.torrent
-http://cdimage.ubuntu.com/lubuntu/releases/14.04.2/release/lubuntu-14.04.-desktop-amd64.iso.torrent
-Kubuntu
-http://cdimage.ubuntu.com/kubuntu/releases/14.04.2/release/kubuntu-14.04.-desktop-amd64.iso.torrent
-http://cdimage.ubuntu.com/kubuntu/releases/14.04.2/release/kubuntu-14.04.-desktop-i386.iso.torrent
-ubuntu-gnome
-http://cdimage.ubuntu.com/ubuntu-gnome/releases/14.04.2/release/ubuntu-gnome-14.04.2-desktop-amd64.iso.torrent
-http://cdimage.ubuntu.com/ubuntu-gnome/releases/14.04.2/release/ubuntu-gnome-14.04.2-desktop-i386.iso.torrent
-xubuntu
-http://cdimage.ubuntu.com/xubuntu/releases/14.04.2/release/xubuntu-14.04.-desktop-amd64.iso.torrent
-http://cdimage.ubuntu.com/xubuntu/releases/14.04.2/release/xubuntu-14.04.-desktop-i386.iso.torrent
-
-Ubuntu-NEXT
-http://cdimage.ubuntu.com/ubuntu-desktop-next/backup-20150422/vivid-desktop-amd64.iso
-http://cdimage.ubuntu.com/ubuntu-desktop-next/backup-20150422/vivid-desktop-i386.iso
-
-ubuntmyth
-http://cdimage.ubuntu.com/mythbuntu/releases/14.04.2/release/mythbuntu-14.04.2-desktop-amd64.iso.torrent
-http://cdimage.ubuntu.com/mythbuntu/releases/14.04.2/release/mythbuntu-14.04.2-desktop-i386.iso.torrent
-
-ubuntustudio
-http://cdimage.ubuntu.com/ubuntustudio/releases/14.04.2/release/ubuntustudio-14.04.2-dvd-i386.iso.torrent
-http://cdimage.ubuntu.com/ubuntustudio/releases/14.04.2/release/ubuntustudio-14.04.2-dvd-amd64.iso.torrent
 */
-
 echo ""
 if [ ! -f ~/Downloads/ubuntu-14.04.3-desktop-i386.iso ]; then
    echo "ubuntu/ubuntu-14.04.3-desktop-i386.iso NOT found, attempting to download."
@@ -113,7 +75,7 @@ sudo smbpasswd -a user
 
 # Apache directories setup #######################################################
 mkdir /var/www/html/3.Scripts
-sudo cp ~/Downloads/pxe_create.sh /var/www/html/3.Scripts
+sudo cp ~/Downloads/EAF_PXE-master/pxe_create.sh /var/www/html/3.Scripts
 sudo mkdir /var/www/html/1.Images
 sudo mkdir /var/www/html/2.Reports
 sudo rm /var/www/html/index.html
@@ -211,12 +173,13 @@ echo "        TEXT HELP" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        Boot to local hard disk" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        ENDTEXT" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "LABEL 1" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        MENU LABEL DBAN Boot and Nuke" >> /var/lib/tftpboot/pxelinux.cfg/default
+echo "        MENU LABEL DBAN - Hard Drive Sanitation" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        KERNEL dban-2.3.0_i586/dban.bzi" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        APPEND nuke=\"dwipe --autonuke\" silent vga=785" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        TEXT HELP" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        Warning - This will erase your hard drive" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        ENDTEXT" >> /var/lib/tftpboot/pxelinux.cfg/default
+/*
 echo "LABEL 2" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        MENU LABEL Inventory Machine - Alpha (not working)" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        KERNEL clonezilla-live-2.4.2-10-i586.iso/vmlinuz" >> /var/lib/tftpboot/pxelinux.cfg/default
@@ -224,6 +187,7 @@ echo "        APPEND initrd=clonezilla-live-2.4.2-10-i586.iso/initrd.img boot=li
 echo "        TEXT HELP" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        Boot the Inventory Machine" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        ENDTEXT" >> /var/lib/tftpboot/pxelinux.cfg/default
+*/
 echo "LABEL 3" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        MENU LABEL List Images" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        KERNEL clonezilla-live-2.4.2-10-i586/vmlinuz" >> /var/lib/tftpboot/pxelinux.cfg/default
