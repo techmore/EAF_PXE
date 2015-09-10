@@ -9,7 +9,7 @@
 # This program will setup a PXE boot server on a fresh Ubuntu 14.04.2 LTS install, It exspects an internet connection
 
 sudo apt-get -y update; echo ""
-echo "This program assumes dban-2.2.8_i586.iso and ubuntu-14.04.2-desktop-i386.iso are in the downloads folders or it will attempt a download from a hard coded location that may fail."; echo ""
+echo "This program assumes dban-2.3.0_i586.iso and ubuntu-14.04.3-desktop-i386.iso are in the downloads folders or it will attempt a download from a hard coded location that may fail."; echo ""
 
 # 7/23/15 DBan has been updated  if [ ! -f ~/Downloads/dban-2.2.8_i586.iso ]; then
 # http://sourceforge.net/projects/dban/files/dban/dban-2.3.0/dban-2.3.0_i586.iso
@@ -56,30 +56,30 @@ Ubuntu TV 	Designed for use with TVs.[67]
 
 
 Desktop
-http://releases.ubuntu.com/14.04.2/ubuntu-14.04.2-desktop-amd64.iso.torrent
-http://releases.ubuntu.com/14.04.2/ubuntu-14.04.2-desktop-i386.iso.torrent
+http://releases.ubuntu.com/14.04.2/ubuntu-14.04.-desktop-amd64.iso.torrent
+http://releases.ubuntu.com/14.04.2/ubuntu-14.04.-desktop-i386.iso.torrent
 Server
-http://releases.ubuntu.com/14.04.2/ubuntu-14.04.2-server-amd64.iso.torrent
-http://releases.ubuntu.com/14.04.2/ubuntu-14.04.2-server-i386.iso.torrent
+http://releases.ubuntu.com/14.04.2/ubuntu-14.04.-server-amd64.iso.torrent
+http://releases.ubuntu.com/14.04.2/ubuntu-14.04.-server-i386.iso.torrent
 Net install
 http://archive.ubuntu.com/ubuntu/dists/trusty-updates/main/installer-amd64/current/images/netboot/netboot.tar.gz
 http://archive.ubuntu.com/ubuntu/dists/trusty-updates/main/installer-i386/current/images/netboot/netboot.tar.gz
 
 Edubuntu
-http://cdimage.ubuntu.com/edubuntu/releases/14.04.2/release/edubuntu-14.04.2-dvd-amd64.iso.torrent
-http://cdimage.ubuntu.com/edubuntu/releases/14.04.2/release/edubuntu-14.04.2-dvd-i386.iso.torrent
+http://cdimage.ubuntu.com/edubuntu/releases/14.04.2/release/edubuntu-14.04.-dvd-amd64.iso.torrent
+http://cdimage.ubuntu.com/edubuntu/releases/14.04.2/release/edubuntu-14.04.-dvd-i386.iso.torrent
 Lubuntu
-http://cdimage.ubuntu.com/lubuntu/releases/14.04.2/release/lubuntu-14.04.2-desktop-i386.iso.torrent
-http://cdimage.ubuntu.com/lubuntu/releases/14.04.2/release/lubuntu-14.04.2-desktop-amd64.iso.torrent
+http://cdimage.ubuntu.com/lubuntu/releases/14.04.2/release/lubuntu-14.04.-desktop-i386.iso.torrent
+http://cdimage.ubuntu.com/lubuntu/releases/14.04.2/release/lubuntu-14.04.-desktop-amd64.iso.torrent
 Kubuntu
-http://cdimage.ubuntu.com/kubuntu/releases/14.04.2/release/kubuntu-14.04.2-desktop-amd64.iso.torrent
-http://cdimage.ubuntu.com/kubuntu/releases/14.04.2/release/kubuntu-14.04.2-desktop-i386.iso.torrent
+http://cdimage.ubuntu.com/kubuntu/releases/14.04.2/release/kubuntu-14.04.-desktop-amd64.iso.torrent
+http://cdimage.ubuntu.com/kubuntu/releases/14.04.2/release/kubuntu-14.04.-desktop-i386.iso.torrent
 ubuntu-gnome
 http://cdimage.ubuntu.com/ubuntu-gnome/releases/14.04.2/release/ubuntu-gnome-14.04.2-desktop-amd64.iso.torrent
 http://cdimage.ubuntu.com/ubuntu-gnome/releases/14.04.2/release/ubuntu-gnome-14.04.2-desktop-i386.iso.torrent
 xubuntu
-http://cdimage.ubuntu.com/xubuntu/releases/14.04.2/release/xubuntu-14.04.2-desktop-amd64.iso.torrent
-http://cdimage.ubuntu.com/xubuntu/releases/14.04.2/release/xubuntu-14.04.2-desktop-i386.iso.torrent
+http://cdimage.ubuntu.com/xubuntu/releases/14.04.2/release/xubuntu-14.04.-desktop-amd64.iso.torrent
+http://cdimage.ubuntu.com/xubuntu/releases/14.04.2/release/xubuntu-14.04.-desktop-i386.iso.torrent
 
 Ubuntu-NEXT
 http://cdimage.ubuntu.com/ubuntu-desktop-next/backup-20150422/vivid-desktop-amd64.iso
@@ -95,13 +95,13 @@ http://cdimage.ubuntu.com/ubuntustudio/releases/14.04.2/release/ubuntustudio-14.
 */
 
 echo ""
-if [ ! -f ~/Downloads/ubuntu-14.04.2-desktop-i386.iso ]; then
-   echo "ubuntu-14.04.2-desktop-i386.iso NOT found, attempting to download."
+if [ ! -f ~/Downloads/ubuntu-14.04.3-desktop-i386.iso ]; then
+   echo "ubuntu/ubuntu-14.04.3-desktop-i386.iso NOT found, attempting to download."
    echo "--Downloading Ubuntu 14.04 32-bit Desktop LTS..."
    cd ~/Downloads
-   wget http://releases.ubuntu.com/14.04.2/ubuntu-14.04.2-desktop-i386.iso
+   wget http://releases.ubuntu.com/14.04.3/ubuntu-14.04.3-desktop-i386.iso
 else
-   echo "Ubuntu-14.04.2-desktop-i386.iso found."
+   echo "Ubuntu-14.04.3-desktop-i386.iso found."
 fi
 
 sudo mkdir /home/images
@@ -143,8 +143,8 @@ echo "writeable = yes" >> /etc/samba/smb.conf
 echo "guest ok = yes" >> /etc/samba/smb.conf
 sudo service smbd restart
 
-if [ ! -d /srv/install/ubuntu-14.04.2-desktop-i386 ]; then
-   sudo mkdir /srv/install/ubuntu-14.04.2-desktop-i386; fi
+if [ ! -d /srv/install/ubuntu-14.04.-desktop-i386 ]; then
+   sudo mkdir /srv/install/ubuntu-14.04.-desktop-i386; fi
 if [ ! -d /mnt/loop ]; then
    sudo mkdir /mnt/loop; fi
 if [ ! -d /var/lib/tftpboot/dban-2.3.0_i586 ]; then
@@ -163,17 +163,17 @@ sudo cp /mnt/loop/live/initrd.img /var/lib/tftpboot/clonezilla-live-2.4.2-10-i58
 sudo cp /mnt/loop/live/filesystem.squashfs /var/lib/tftpboot/clonezilla-live-2.4.2-10-i586
 sudo umount /mnt/loop
 
-if [ ! -d /var/lib/tftpboot/ubuntu-14.04.2-desktop-i386 ]; then
-  sudo mkdir /var/lib/tftpboot/ubuntu-14.04.2-desktop-i386; fi
-sudo mount -o loop -t iso9660 ~/Downloads/ubuntu-14.04.2-desktop-i386.iso /mnt/loop
-sudo cp /mnt/loop/casper/vmlinuz /var/lib/tftpboot/ubuntu-14.04.2-desktop-i386
-sudo cp /mnt/loop/casper/initrd.lz /var/lib/tftpboot/ubuntu-14.04.2-desktop-i386
+if [ ! -d /var/lib/tftpboot/ubuntu-14.04.3-desktop-i386 ]; then
+  sudo mkdir /var/lib/tftpboot/ubuntu-14.04.3-desktop-i386; fi
+sudo mount -o loop -t iso9660 ~/Downloads/ubuntu-14.04.3-desktop-i386.iso /mnt/loop
+sudo cp /mnt/loop/casper/vmlinuz /var/lib/tftpboot/ubuntu-14.04.3-desktop-i386
+sudo cp /mnt/loop/casper/initrd.lz /var/lib/tftpboot/ubuntu-14.04.3-desktop-i386
 
-# if [ ! -d /srv/install/ubuntu-14.04.2-desktop-i386 ]; then
-#  sudo mkdir -p /srv/install/ubuntu-14.04.2-desktop-i386; fi
-sudo mkdir -p /srv/install/ubuntu-14.04.2-desktop-i386
-sudo cp -R /mnt/loop/* /srv/install/ubuntu-14.04.2-desktop-i386
-sudo cp -R /mnt/loop/.disk /srv/install/ubuntu-14.04.2-desktop-i386
+# if [ ! -d /srv/install/ubuntu-14.04.-desktop-i386 ]; then
+#  sudo mkdir -p /srv/install/ubuntu-14.04.-desktop-i386; fi
+sudo mkdir -p /srv/install/ubuntu-14.04.3-desktop-i386
+sudo cp -R /mnt/loop/* /srv/install/ubuntu-14.04.3-desktop-i386
+sudo cp -R /mnt/loop/.disk /srv/install/ubuntu-14.04.3-desktop-i386
 sudo umount /mnt/loop
 
 ######### Syslinux setup stuff #####################################################
@@ -241,11 +241,11 @@ echo "        TEXT HELP" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        Boot the Create Image" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        ENDTEXT" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "LABEL 5" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        MENU LABEL Ubuntu-14.04.2-desktop-i386" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        KERNEL ubuntu-14.04.2-desktop-i386/vmlinuz" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        APPEND boot=casper netboot=nfs nfsroot=10.10.1.10:/srv/install/ubuntu-14.04.2-desktop-i386 initrd=ubuntu-14.04.2-desktop-i386/initrd.lz" >> /var/lib/tftpboot/pxelinux.cfg/default
+echo "        MENU LABEL Ubuntu-14.04.3-desktop-i386" >> /var/lib/tftpboot/pxelinux.cfg/default
+echo "        KERNEL ubuntu-14.04.3-desktop-i386/vmlinuz" >> /var/lib/tftpboot/pxelinux.cfg/default
+echo "        APPEND boot=casper netboot=nfs nfsroot=10.10.1.10:/srv/install/ubuntu-14.04.3-desktop-i386 initrd=ubuntu-14.04.3-desktop-i386/initrd.lz" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        TEXT HELP" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        Boot the ubuntu-14.04.2-desktop-i386" >> /var/lib/tftpboot/pxelinux.cfg/default
+echo "        Boot the ubuntu-14.04.3-desktop-i386" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        ENDTEXT" >> /var/lib/tftpboot/pxelinux.cfg/default
 
 sudo chmod 777 -R /var/lib/tftpboot
@@ -290,8 +290,8 @@ echo ""
 sudo reboot
 
 # rm ~/Downloads/dban-2.2.8_i586.iso
-# rm ~/Downloads/ubuntu-14.04.2-desktop-i386.iso
-# rm ~/Downloads/edubuntu-14.04.2-dvd-i386.iso
+# rm ~/Downloads/ubuntu-14.04.-desktop-i386.iso
+# rm ~/Downloads/edubuntu-14.04.-dvd-i386.iso
 # rm ~/Downloads/clonezilla-live-2.3.2-22-i586
 # rm ~/Downloads/lubuntu-15.04-desktop-i386
 # rm ~/Downloads/elementaryos-freya-i386.20150411
