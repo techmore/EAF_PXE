@@ -222,14 +222,14 @@ echo "        ENDTEXT" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "LABEL 2" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        MENU LABEL Inventory Machine - Alpha (not working)" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        KERNEL clonezilla-live-2.4.2-10-i586.iso/vmlinuz" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        APPEND initrd=clonezilla-live-2.4.2-10-i586.iso/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"/var/www/html/TM_Inventory_Scanner.sh\" ocs_live_run=\"\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.1.10/clonezilla-live-2.3.2-22-i586/filesystem.squashfs" >> /var/lib/tftpboot/pxelinux.cfg/default
+echo "        APPEND initrd=clonezilla-live-2.4.2-10-i586.iso/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"/var/www/html/TM_Inventory_Scanner.sh\" ocs_live_run=\"\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.1.10/clonezilla-live-2.4.2-10-i586/filesystem.squashfs" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        TEXT HELP" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        Boot the Inventory Machine" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        ENDTEXT" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "LABEL 3" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        MENU LABEL List Images" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        KERNEL clonezilla-live-2.4.2-10-i586/vmlinuz" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        APPEND initrd=clonezilla-live-2.4.2-10-i586/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"mount -t cifs -o user=user,password=password //10.10.1.10/Images /home/partimag\" ocs_live_run=\"ocs-sr -g auto -e1 auto -e2 -batch -icds -r -j2 -k1 -p reboot restoredisk ask_user sda\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.1.10/clonezilla-live-2.3.2-22-i586/filesystem.squashfs" >> /var/lib/tftpboot/pxelinux.cfg/default
+echo "        APPEND initrd=clonezilla-live-2.4.2-10-i586/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"mount -t cifs -o user=user,password=password //10.10.1.10/Images /home/partimag\" ocs_live_run=\"ocs-sr -g auto -e1 auto -e2 -batch -icds -r -j2 -k1 -p reboot restoredisk ask_user sda\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.1.10/clonezilla-live-2.4.2-10-i586/filesystem.squashfs" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        TEXT HELP" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        Boot the List Images" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        ENDTEXT" >> /var/lib/tftpboot/pxelinux.cfg/default
