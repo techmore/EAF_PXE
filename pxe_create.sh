@@ -143,8 +143,8 @@ echo "writeable = yes" >> /etc/samba/smb.conf
 echo "guest ok = yes" >> /etc/samba/smb.conf
 sudo service smbd restart
 
-if [ ! -d /srv/install/ubuntu-14.04.-desktop-i386 ]; then
-   sudo mkdir /srv/install/ubuntu-14.04.-desktop-i386; fi
+if [ ! -d /srv/install/ubuntu-14.04.3-desktop-i386 ]; then
+   sudo mkdir /srv/install/ubuntu-14.04.3-desktop-i386; fi
 if [ ! -d /mnt/loop ]; then
    sudo mkdir /mnt/loop; fi
 if [ ! -d /var/lib/tftpboot/dban-2.3.0_i586 ]; then
@@ -169,8 +169,6 @@ sudo mount -o loop -t iso9660 ~/Downloads/ubuntu-14.04.3-desktop-i386.iso /mnt/l
 sudo cp /mnt/loop/casper/vmlinuz /var/lib/tftpboot/ubuntu-14.04.3-desktop-i386
 sudo cp /mnt/loop/casper/initrd.lz /var/lib/tftpboot/ubuntu-14.04.3-desktop-i386
 
-# if [ ! -d /srv/install/ubuntu-14.04.-desktop-i386 ]; then
-#  sudo mkdir -p /srv/install/ubuntu-14.04.-desktop-i386; fi
 sudo mkdir -p /srv/install/ubuntu-14.04.3-desktop-i386
 sudo cp -R /mnt/loop/* /srv/install/ubuntu-14.04.3-desktop-i386
 sudo cp -R /mnt/loop/.disk /srv/install/ubuntu-14.04.3-desktop-i386
@@ -207,7 +205,7 @@ echo "ONTIMEOUT BootLocal" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "PROMPT 0" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "MENU INCLUDE pxelinux.cfg/pxe.conf" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "NOESCAPE 1" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "LABEL BootLocal" >> /var/lib/tftpboot/pxelinux.cfg/default
+echo "LABEL Boot off internal drive" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        localboot 0" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        TEXT HELP" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        Boot to local hard disk" >> /var/lib/tftpboot/pxelinux.cfg/default
