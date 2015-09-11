@@ -6,12 +6,52 @@
 # National Cristina Foundation https://www.cristina.org/
 # Hill Top Preparatory School http://hilltopprep.org/
 
-# This program will setup a PXE boot server on a fresh Ubuntu 14.04.2 LTS install, It exspects an internet connection
+# This program will setup a PXE boot server on a fresh Ubuntu 14.04.3 LTS install, It exspects an internet connection
 
 # Images currently stored in /var/www/html/1.Images
 
 
 sudo apt-get -y update; echo ""
+
+sudo mkdir /home/images
+sudo chmod 775 -R /home/images
+sudo apt-get install -y tftpd-hpa syslinux nfs-kernel-server samba apache2 cifs-utils openssh-server
+echo "";echo ""
+echo "You must type in password as the password."
+sudo smbpasswd -a user
+
+# Apache directories setup #######################################################
+mkdir /var/www/html/3.Scripts
+sudo cp ~/Downloads/EAF_PXE-master/pxe_create.sh /var/www/html/3.Scripts
+sudo mkdir /var/www/html/1.Images
+sudo mkdir /var/www/html/2.Reports
+sudo rm /var/www/html/index.html
+sudo chmod -R 777 /var/www/html
+sudo chown -R user /var/www/html/1.Images
+sudo chown -R user /var/www/html/2.Reports
+sudo ln -s /var/lib/tftpboot /var/www/html
+sudo cp /etc/samba/smb.conf ~
+echo "[Images]" >> /etc/samba/smb.conf
+echo "path = /var/www/html/1.Images" >> /etc/samba/smb.conf
+echo "available = yes" >> /etc/samba/smb.conf
+echo "valid users = user" >> /etc/samba/smb.conf
+echo "read only = no" >> /etc/samba/smb.conf
+echo "browseable = yes" >> /etc/samba/smb.conf
+echo "public = yes" >> /etc/samba/smb.conf
+echo "writeable = yes" >> /etc/samba/smb.conf
+echo "guest ok = yes" >> /etc/samba/smb.conf
+echo "" >> /etc/samba/smb.conf
+echo "[Reports]" >> /etc/samba/smb.conf
+echo "path = /var/www/html/2.Reports" >> /etc/samba/smb.conf
+echo "available = yes" >> /etc/samba/smb.conf
+echo "valid users = user" >> /etc/samba/smb.conf
+echo "read only = no" >> /etc/samba/smb.conf
+echo "browseable = yes" >> /etc/samba/smb.conf
+echo "public = yes" >> /etc/samba/smb.conf
+echo "writeable = yes" >> /etc/samba/smb.conf
+echo "guest ok = yes" >> /etc/samba/smb.conf
+sudo service smbd restart
+
 echo "This program assumes dban-2.3.0_i586.iso and ubuntu-14.04.3-desktop-i386.iso are in the downloads folders or it will attempt a download from a hard coded location that may fail."; echo ""
 
 # 7/23/15 DBan has been updated  if [ ! -f ~/Downloads/dban-2.2.8_i586.iso ]; then
@@ -65,45 +105,6 @@ if [ ! -f ~/Downloads/ubuntu-14.04.3-desktop-i386.iso ]; then
 else
    echo "Ubuntu-14.04.3-desktop-i386.iso found."
 fi
-
-sudo mkdir /home/images
-sudo chmod 775 -R /home/images
-sudo apt-get install -y tftpd-hpa syslinux nfs-kernel-server samba apache2 cifs-utils openssh-server
-echo "";echo ""
-echo "You must type in password as the password."
-sudo smbpasswd -a user
-
-# Apache directories setup #######################################################
-mkdir /var/www/html/3.Scripts
-sudo cp ~/Downloads/EAF_PXE-master/pxe_create.sh /var/www/html/3.Scripts
-sudo mkdir /var/www/html/1.Images
-sudo mkdir /var/www/html/2.Reports
-sudo rm /var/www/html/index.html
-sudo chmod -R 777 /var/www/html
-sudo chown -R user /var/www/html/1.Images
-sudo chown -R user /var/www/html/2.Reports
-sudo ln -s /var/lib/tftpboot /var/www/html
-sudo cp /etc/samba/smb.conf ~
-echo "[Images]" >> /etc/samba/smb.conf
-echo "path = /var/www/html/1.Images" >> /etc/samba/smb.conf
-echo "available = yes" >> /etc/samba/smb.conf
-echo "valid users = user" >> /etc/samba/smb.conf
-echo "read only = no" >> /etc/samba/smb.conf
-echo "browseable = yes" >> /etc/samba/smb.conf
-echo "public = yes" >> /etc/samba/smb.conf
-echo "writeable = yes" >> /etc/samba/smb.conf
-echo "guest ok = yes" >> /etc/samba/smb.conf
-echo "" >> /etc/samba/smb.conf
-echo "[Reports]" >> /etc/samba/smb.conf
-echo "path = /var/www/html/2.Reports" >> /etc/samba/smb.conf
-echo "available = yes" >> /etc/samba/smb.conf
-echo "valid users = user" >> /etc/samba/smb.conf
-echo "read only = no" >> /etc/samba/smb.conf
-echo "browseable = yes" >> /etc/samba/smb.conf
-echo "public = yes" >> /etc/samba/smb.conf
-echo "writeable = yes" >> /etc/samba/smb.conf
-echo "guest ok = yes" >> /etc/samba/smb.conf
-sudo service smbd restart
 
 if [ ! -d /srv/install/ubuntu-14.04.3-desktop-i386 ]; then
    sudo mkdir /srv/install/ubuntu-14.04.3-desktop-i386; fi
