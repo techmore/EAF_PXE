@@ -30,6 +30,8 @@ sudo chmod -R 777 /var/www/html
 sudo chown -R user /var/www/html/1.Images
 sudo chown -R user /var/www/html/2.Reports
 sudo ln -s /var/lib/tftpboot /var/www/html
+sudo ln -s ~/Downloads /var/www/html
+sudo ln -s ~/Desktop /var/www/html
 sudo cp /etc/samba/smb.conf ~
 echo "[Images]" >> /etc/samba/smb.conf
 echo "path = /var/www/html/1.Images" >> /etc/samba/smb.conf
@@ -67,10 +69,8 @@ else
    echo "dban-2.3.0_i586.iso found."
 fi
 echo ""
-http://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.4.2-10/clonezilla-live-2.4.2-10-i586.iso
 
 # 7/23/15 Clonezilla version updated
-# if [ ! -f ~/Downloads/clonezilla-live-2.3.2-22-i586.iso ]; then
 if [ ! -f ~/Downloads/clonezilla-live-2.4.2-10-i586.iso ]; then
    echo "clonezilla-live-2.4.2-10-i586.iso NOT found, attempting to download."
    echo "--Downloading clonezilla-live-2.4.2-10-i586.iso ..."
