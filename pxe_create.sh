@@ -81,19 +81,20 @@ else
 fi
 
 echo ""
-if [ ! -f ~/Downloads/ubuntu-14.04.3-desktop-i386.iso ]; then
-   echo "ubuntu/ubuntu-14.04.3-desktop-i386.iso NOT found, attempting to download."
-   echo "--Downloading Ubuntu 14.04 32-bit Desktop LTS..."
+if [ ! -f ~/Downloads/elementaryos-stable-0.3.1-i386.20150903.iso ]; then
+   echo "elementaryos-stable-0.3.1-i386.20150903.iso NOT found, attempting to download."
+   echo "--Downloading elementaryos-stable-0.3.1-i386.20150903.iso..."
    cd ~/Downloads
-   wget http://releases.ubuntu.com/14.04.3/ubuntu-14.04.3-desktop-i386.iso
+   wget  https://nyc3.dl.elementary.io/download/MTQ0MjE4OTk5Nw==/elementaryos-stable-0.3.1-i386.20150903.iso
+#   wget http://releases.ubuntu.com/14.04.3/ubuntu-14.04.3-desktop-i386.iso
 else
-   echo "Ubuntu-14.04.3-desktop-i386.iso found."
+   echo "elementaryos-stable-0.3.1-i386.20150903.iso found."
 fi
 
 # https://nyc3.dl.elementary.io/download/MTQ0MjE4OTk5Nw==/elementaryos-stable-0.3.1-i386.20150903.iso
 # https://nyc3.dl.elementary.io/download/MTQ0MjE4OTk5Nw==/elementaryos-stable-0.3.1-amd64.20150903.iso
-if [ ! -d /srv/install/ubuntu-14.04.3-desktop-i386 ]; then
-   sudo mkdir /srv/install/ubuntu-14.04.3-desktop-i386; fi
+if [ ! -d /srv/install/elementaryos-stable-0.3.1-i386 ]; then
+   sudo mkdir /srv/install/elementaryos-stable-0.3.1-i386; fi
 if [ ! -d /mnt/loop ]; then
    sudo mkdir /mnt/loop; fi
 if [ ! -d /var/lib/tftpboot/dban-2.3.0_i586 ]; then
@@ -112,15 +113,15 @@ sudo cp /mnt/loop/live/initrd.img /var/lib/tftpboot/clonezilla-live-2.4.2-10-i58
 sudo cp /mnt/loop/live/filesystem.squashfs /var/lib/tftpboot/clonezilla-live-2.4.2-10-i586
 sudo umount /mnt/loop
 
-if [ ! -d /var/lib/tftpboot/ubuntu-14.04.3-desktop-i386 ]; then
-  sudo mkdir /var/lib/tftpboot/ubuntu-14.04.3-desktop-i386; fi
-sudo mount -o loop -t iso9660 ~/Downloads/ubuntu-14.04.3-desktop-i386.iso /mnt/loop
-sudo cp /mnt/loop/casper/vmlinuz /var/lib/tftpboot/ubuntu-14.04.3-desktop-i386
-sudo cp /mnt/loop/casper/initrd.lz /var/lib/tftpboot/ubuntu-14.04.3-desktop-i386
+if [ ! -d /var/lib/tftpboot/elementaryos-stable-0.3.1-i386 ]; then
+  sudo mkdir /var/lib/tftpboot/elementaryos-stable-0.3.1-i386; fi
+sudo mount -o loop -t iso9660 ~/Downloads/elementaryos-stable-0.3.1-i386.20150903.iso /mnt/loop
+sudo cp /mnt/loop/casper/vmlinuz /var/lib/tftpboot/elementaryos-stable-0.3.1-i386
+sudo cp /mnt/loop/casper/initrd.lz /var/lib/tftpboot/elementaryos-stable-0.3.1-i386
 
-sudo mkdir -p /srv/install/ubuntu-14.04.3-desktop-i386
-sudo cp -R /mnt/loop/* /srv/install/ubuntu-14.04.3-desktop-i386
-sudo cp -R /mnt/loop/.disk /srv/install/ubuntu-14.04.3-desktop-i386
+sudo mkdir -p /srv/install/elementaryos-stable-0.3.1-i386
+sudo cp -R /mnt/loop/* /srv/install/elementaryos-stable-0.3.1-i386
+sudo cp -R /mnt/loop/.disk /srv/install/elementaryos-stable-0.3.1-i386
 sudo umount /mnt/loop
 
 ######### Syslinux setup stuff #####################################################
