@@ -90,6 +90,8 @@ else
    echo "Ubuntu-14.04.3-desktop-i386.iso found."
 fi
 
+# https://nyc3.dl.elementary.io/download/MTQ0MjE4OTk5Nw==/elementaryos-stable-0.3.1-i386.20150903.iso
+# https://nyc3.dl.elementary.io/download/MTQ0MjE4OTk5Nw==/elementaryos-stable-0.3.1-amd64.20150903.iso
 if [ ! -d /srv/install/ubuntu-14.04.3-desktop-i386 ]; then
    sudo mkdir /srv/install/ubuntu-14.04.3-desktop-i386; fi
 if [ ! -d /mnt/loop ]; then
