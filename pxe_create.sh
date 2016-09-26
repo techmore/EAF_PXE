@@ -10,14 +10,15 @@
 
 # Images currently stored in /var/www/html/1.Images
 
-
-sudo apt-get -y update; echo ""
+sudo su
+sudo apt -y update; echo ""
 
 sudo mkdir /home/images
 sudo chmod 775 -R /home/images
 sudo apt-get install -y tftpd-hpa syslinux nfs-kernel-server samba apache2 cifs-utils openssh-server
-echo "";echo ""
-echo "You must type in password as the password."
+echo "";echo ""; echo"****************************************************"
+echo "** You must type in password as the password!! **"
+echo"****************************************************"
 sudo smbpasswd -a user
 
 # Apache directories setup #######################################################
@@ -71,14 +72,20 @@ fi
 echo ""
 
 # 7/23/15 Clonezilla version updated
-if [ ! -f ~/Downloads/clonezilla-live-2.4.2-10-i586.iso ]; then
-   echo "clonezilla-live-2.4.2-10-i586.iso NOT found, attempting to download."
-   echo "--Downloading clonezilla-live-2.4.2-10-i586.iso ..."
+if [ ! -f ~/Downloads/clonezilla-live-2.4.7-8-amd64.iso ]; then
+   echo "clonezilla-live-2.4.7-8-amd64.iso NOT found, attempting to download."
+   echo "--Downloading clonezilla-live-2.4.7-8-amd64.iso ..."
    cd ~/Downloads
-   wget http://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.4.2-10/clonezilla-live-2.4.2-10-i586.iso
+#   wget http://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.4.2-10/clonezilla-live-2.4.2-10-i586.iso
+# 7/23/16 Clonezilla update
+   wget https://osdn.jp/frs/redir.php?m=gigenet&f=%2Fclonezilla%2F66042%2Fclonezilla-live-2.4.7-8-amd64.iso
+
 else
    echo "clonezilla-live-2.4.2-10-i586.iso found."
 fi
+
+
+
 
 echo ""
 if [ ! -f ~/Downloads/elementaryos-stable-0.3.1-i386.20150903.iso ]; then
@@ -86,7 +93,10 @@ if [ ! -f ~/Downloads/elementaryos-stable-0.3.1-i386.20150903.iso ]; then
    echo "--Downloading elementaryos-stable-0.3.1-i386.20150903.iso..."
    cd ~/Downloads
    wget  https://nyc3.dl.elementary.io/download/MTQ0MjE4OTk5Nw==/elementaryos-stable-0.3.1-i386.20150903.iso
+#   https://nyc3.dl.elementary.io/download/MTQ3NDg1NjE4MA==/elementaryos-0.4-stable-amd64.20160921.iso
+
 #   wget http://releases.ubuntu.com/14.04.3/ubuntu-14.04.3-desktop-i386.iso
+# http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-desktop-amd64.iso?_ga=1.268588721.1951895762.1469196745
 else
    echo "elementaryos-stable-0.3.1-i386.20150903.iso found."
 fi
