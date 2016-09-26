@@ -6,11 +6,10 @@
 # National Cristina Foundation https://www.cristina.org/
 # Hill Top Preparatory School http://hilltopprep.org/
 
-# This program will setup a PXE boot server on a fresh Ubuntu 14.04.3 LTS install, It exspects an internet connection
+# This program will setup a PXE boot server on a fresh Ubuntu 16.04.1 LTS install, It exspects an internet connection
 
 # Images currently stored in /var/www/html/1.Images
 
-sudo su
 sudo apt -y update; echo ""
 
 sudo mkdir /home/images
