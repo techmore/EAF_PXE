@@ -55,7 +55,7 @@ echo "writeable = yes" >> /etc/samba/smb.conf
 echo "guest ok = yes" >> /etc/samba/smb.conf
 sudo service smbd restart
 
-echo "This program assumes dban-2.3.0_i586.iso and ubuntu-14.04.3-desktop-i386.iso are in the downloads folders or it will attempt a download from a hard coded location that may fail."; echo ""
+echo "This program assumes dban-2.3.0_i586.iso, clonezilla-live-2.4.2-10-i586.iso and ubuntu-16.04.1-desktop-amd64.iso are in the downloads folders or it will attempt a download from a hard coded location that may fail."; echo ""
 
 # 7/23/15 DBan has been updated  if [ ! -f ~/Downloads/dban-2.2.8_i586.iso ]; then
 # http://sourceforge.net/projects/dban/files/dban/dban-2.3.0/dban-2.3.0_i586.iso
@@ -79,32 +79,31 @@ if [ ! -f ~/Downloads/clonezilla-live-2.4.7-8-amd64.iso ]; then
 #   wget http://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.4.2-10/clonezilla-live-2.4.2-10-i586.iso
 # 7/23/16 Clonezilla update
    wget https://osdn.jp/frs/redir.php?m=gigenet&f=%2Fclonezilla%2F66042%2Fclonezilla-live-2.4.7-8-amd64.iso
-
 else
-   echo "clonezilla-live-2.4.2-10-i586.iso found."
+   echo "clonezilla-live-2.4.7-8-amd64.iso found."
 fi
 
 
 
 
 echo ""
-if [ ! -f ~/Downloads/elementaryos-stable-0.3.1-i386.20150903.iso ]; then
-   echo "elementaryos-stable-0.3.1-i386.20150903.iso NOT found, attempting to download."
-   echo "--Downloading elementaryos-stable-0.3.1-i386.20150903.iso..."
+if [ ! -f ~/Downloads/ubuntu-16.04.1-desktop-amd64.iso ]; then
+   echo "ubuntu-16.04.1-desktop-amd64.iso NOT found, attempting to download."
+   echo "--Downloading ubuntu-16.04.1-desktop-amd64.iso..."
    cd ~/Downloads
-   wget  https://nyc3.dl.elementary.io/download/MTQ0MjE4OTk5Nw==/elementaryos-stable-0.3.1-i386.20150903.iso
-#   https://nyc3.dl.elementary.io/download/MTQ3NDg1NjE4MA==/elementaryos-0.4-stable-amd64.20160921.iso
+#  wget  https://nyc3.dl.elementary.io/download/MTQ0MjE4OTk5Nw==/elementaryos-stable-0.3.1-i386.20150903.iso
+#  https://nyc3.dl.elementary.io/download/MTQ3NDg1NjE4MA==/elementaryos-0.4-stable-amd64.20160921.iso
 
 #   wget http://releases.ubuntu.com/14.04.3/ubuntu-14.04.3-desktop-i386.iso
-# http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-desktop-amd64.iso?_ga=1.268588721.1951895762.1469196745
+   wget http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-desktop-amd64.iso?_ga=1.268588721.1951895762.1469196745
 else
-   echo "elementaryos-stable-0.3.1-i386.20150903.iso found."
+   echo "ubuntu-16.04.1-desktop-amd64.iso found."
 fi
 
 # https://nyc3.dl.elementary.io/download/MTQ0MjE4OTk5Nw==/elementaryos-stable-0.3.1-i386.20150903.iso
 # https://nyc3.dl.elementary.io/download/MTQ0MjE4OTk5Nw==/elementaryos-stable-0.3.1-amd64.20150903.iso
-if [ ! -d /srv/install/elementaryos-stable-0.3.1-i386 ]; then
-   sudo mkdir /srv/install/elementaryos-stable-0.3.1-i386; fi
+if [ ! -d /srv/install/ubuntu-16.04.1-desktop-amd64.iso ]; then
+   sudo mkdir /srv/install/ubuntu-16.04.1-desktop-amd64; fi
 if [ ! -d /mnt/loop ]; then
    sudo mkdir /mnt/loop; fi
 if [ ! -d /var/lib/tftpboot/dban-2.3.0_i586 ]; then
@@ -115,23 +114,23 @@ sudo mount -o loop -t iso9660 ~/Downloads/dban-2.3.0_i586.iso /mnt/loop
 sudo cp /mnt/loop/dban.bzi /var/lib/tftpboot/dban-2.3.0_i586/dban.bzi
 sudo umount /mnt/loop
 
-if [ ! -d /var/lib/tftpboot/clonezilla-live-2.4.2-10-i586.iso ]; then
-  sudo mkdir /var/lib/tftpboot/clonezilla-live-2.4.2-10-i586; fi
-sudo mount -o loop -t iso9660 ~/Downloads/clonezilla-live-2.4.2-10-i586.iso /mnt/loop
-sudo cp /mnt/loop/live/vmlinuz /var/lib/tftpboot/clonezilla-live-2.4.2-10-i586
-sudo cp /mnt/loop/live/initrd.img /var/lib/tftpboot/clonezilla-live-2.4.2-10-i586
-sudo cp /mnt/loop/live/filesystem.squashfs /var/lib/tftpboot/clonezilla-live-2.4.2-10-i586
+if [ ! -d /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64.iso ]; then
+  sudo mkdir /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64; fi
+sudo mount -o loop -t iso9660 ~/Downloads/cclonezilla-live-2.4.7-8-amd64.iso /mnt/loop
+sudo cp /mnt/loop/live/vmlinuz /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64
+sudo cp /mnt/loop/live/initrd.img /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64
+sudo cp /mnt/loop/live/filesystem.squashfs /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64
 sudo umount /mnt/loop
 
-if [ ! -d /var/lib/tftpboot/elementaryos-stable-0.3.1-i386 ]; then
-  sudo mkdir /var/lib/tftpboot/elementaryos-stable-0.3.1-i386; fi
-sudo mount -o loop -t iso9660 ~/Downloads/elementaryos-stable-0.3.1-i386.20150903.iso /mnt/loop
-sudo cp /mnt/loop/casper/vmlinuz /var/lib/tftpboot/elementaryos-stable-0.3.1-i386
-sudo cp /mnt/loop/casper/initrd.lz /var/lib/tftpboot/elementaryos-stable-0.3.1-i386
+if [ ! -d /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64 ]; then
+  sudo mkdir /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64; fi
+sudo mount -o loop -t iso9660 ~/Downloads/ubuntu-16.04.1-desktop-amd64.iso /mnt/loop
+sudo cp /mnt/loop/casper/vmlinuz /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64
+sudo cp /mnt/loop/casper/initrd.lz /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64
 
-sudo mkdir -p /srv/install/elementaryos-stable-0.3.1-i386
-sudo cp -R /mnt/loop/* /srv/install/elementaryos-stable-0.3.1-i386
-sudo cp -R /mnt/loop/.disk /srv/install/elementaryos-stable-0.3.1-i386
+sudo mkdir -p /srv/install/ubuntu-16.04.1-desktop-amd64
+sudo cp -R /mnt/loop/* /srv/install/ubuntu-16.04.1-desktop-amd64
+sudo cp -R /mnt/loop/.disk /srv/install/ubuntu-16.04.1-desktop-amd64
 sudo umount /mnt/loop
 
 ######### Syslinux setup stuff #####################################################
@@ -188,24 +187,24 @@ echo "        ENDTEXT" >> /var/lib/tftpboot/pxelinux.cfg/default
 */
 echo "LABEL 3" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        MENU LABEL List Images" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        KERNEL clonezilla-live-2.4.2-10-i586/vmlinuz" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        APPEND initrd=clonezilla-live-2.4.2-10-i586/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"mount -t cifs -o user=user,password=password //10.10.1.10/Images /home/partimag\" ocs_live_run=\"ocs-sr -g auto -e1 auto -e2 -batch -icds -r -j2 -k1 -p reboot restoredisk ask_user sda\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.1.10/clonezilla-live-2.4.2-10-i586/filesystem.squashfs" >> /var/lib/tftpboot/pxelinux.cfg/default
+echo "        KERNEL clonezilla-live-2.4.7-8-amd64/vmlinuz" >> /var/lib/tftpboot/pxelinux.cfg/default
+echo "        APPEND initrd=clonezilla-live-2.4.7-8-amd64/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"mount -t cifs -o user=user,password=password //10.10.1.10/Images /home/partimag\" ocs_live_run=\"ocs-sr -g auto -e1 auto -e2 -batch -icds -r -j2 -k1 -p reboot restoredisk ask_user sda\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.1.10/clonezilla-live-2.4.7-8-amd64/filesystem.squashfs" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        TEXT HELP" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        Boot the List Images" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        ENDTEXT" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "LABEL 4" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        MENU LABEL Create Image" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        KERNEL clonezilla-live-2.4.2-10-i586/vmlinuz" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        APPEND initrd=clonezilla-live-2.4.2-10-i586/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"mount -t cifs -o user=user,password=password //10.10.1.10/Images /home/partimag\" ocs_live_run=\"ocs-sr -q2 -j2 -rm-win-swap-hib -z1 -i 2000 -sc -fsck-src-part-y -p true savedisk ask_user sda\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.1.10/clonezilla-live-2.3.2-22-i586/filesystem.squashfs" >> /var/lib/tftpboot/pxelinux.cfg/default
+echo "        APPEND initrd=clonezilla-live-2.4.2-10-i586/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"mount -t cifs -o user=user,password=password //10.10.1.10/Images /home/partimag\" ocs_live_run=\"ocs-sr -q2 -j2 -rm-win-swap-hib -z1 -i 2000 -sc -fsck-src-part-y -p true savedisk ask_user sda\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.1.10/clonezilla-live-2.4.7-8-amd64/filesystem.squashfs" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        TEXT HELP" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        Boot the Create Image" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        ENDTEXT" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "LABEL 5" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        MENU LABEL Ubuntu-14.04.3-desktop-i386" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        KERNEL ubuntu-14.04.3-desktop-i386/vmlinuz" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        APPEND boot=casper netboot=nfs nfsroot=10.10.1.10:/srv/install/ubuntu-14.04.3-desktop-i386 initrd=ubuntu-14.04.3-desktop-i386/initrd.lz" >> /var/lib/tftpboot/pxelinux.cfg/default
+echo "        MENU LABEL Ubuntu-16.04.1-desktop-amd64" >> /var/lib/tftpboot/pxelinux.cfg/default
+echo "        KERNEL ubuntu-16.04.1-desktop-amd64/vmlinuz" >> /var/lib/tftpboot/pxelinux.cfg/default
+echo "        APPEND boot=casper netboot=nfs nfsroot=10.10.1.10:/srv/install/ubuntu-16.04.1-desktop-amd64 initrd=ubuntu-16.04.1-desktop-amd64/initrd.lz" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        TEXT HELP" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        Boot the ubuntu-14.04.3-desktop-i386" >> /var/lib/tftpboot/pxelinux.cfg/default
+echo "        Boot the ubuntu-16.04.1-desktop-amd64" >> /var/lib/tftpboot/pxelinux.cfg/default
 echo "        ENDTEXT" >> /var/lib/tftpboot/pxelinux.cfg/default
 
 sudo chmod 777 -R /var/lib/tftpboot
