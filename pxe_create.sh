@@ -15,9 +15,9 @@ sudo apt -y update; echo ""
 sudo mkdir /home/images
 sudo chmod 775 -R /home/images
 sudo apt-get install -y tftpd-hpa syslinux nfs-kernel-server samba apache2 cifs-utils openssh-server
-echo "";echo ""; echo"****************************************************"
+echo "";echo ""; echo "****************************************************"
 echo "** You must type in password as the password!! **"
-echo"****************************************************"
+echo "****************************************************"
 sudo smbpasswd -a user
 
 # Apache directories setup #######################################################
