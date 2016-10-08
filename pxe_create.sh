@@ -10,21 +10,35 @@
 
 # Images currently stored in /var/www/html/1.Images
 
+# Check if running as root
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root"
+  exit
+fi
+
+# We want the most up to date packages to avoid conflict
 sudo apt -y update; echo ""
 
-sudo mkdir /home/images
-sudo chmod 775 -R /home/images
+# sudo mkdir /home/images
+# sudo chmod 775 -R /home/images
+# Install required rependancies
 sudo apt-get install -y tftpd-hpa syslinux nfs-kernel-server samba apache2 cifs-utils openssh-server
 echo "";echo ""; echo "****************************************************"
 echo "** You must type in password as the password!! **"
 echo "****************************************************"
-sudo smbpasswd -a user
+
+# This works for a USER named "user"
+# sudo smbpasswd -a user
+
+#This should work for any currently logged in user running the script
+sudo smbpasswd -a $USER
 
 # Apache directories setup #######################################################
 mkdir /var/www/html/3.Scripts
 sudo cp ~/Downloads/EAF_PXE-master/pxe_create.sh /var/www/html/3.Scripts
 sudo mkdir /var/www/html/1.Images
 sudo mkdir /var/www/html/2.Reports
+sudo mkdir /var/www/html/4.ISOs
 sudo rm /var/www/html/index.html
 sudo chmod -R 777 /var/www/html
 sudo chown -R user /var/www/html/1.Images
@@ -58,7 +72,7 @@ echo "This program assumes dban-2.3.0_i586.iso, clonezilla-live-2.4.2-10-i586.is
 
 # 7/23/15 DBan has been updated  if [ ! -f ~/Downloads/dban-2.2.8_i586.iso ]; then
 # http://sourceforge.net/projects/dban/files/dban/dban-2.3.0/dban-2.3.0_i586.iso
-if [ ! -f ~/Downloads/dban-2.3.0_i586.iso ]; then
+if [ ! -f /home/`echo $USER`/Downloads/dban-2.3.0_i586.iso ]; then
    echo "~/Downloads/dban-2.3.0_i586.iso NOT found, attempting to download."
    echo "--Downloading dban-2.3.0_i586.iso..."
    cd ~/Downloads
@@ -71,7 +85,7 @@ fi
 echo ""
 
 # 7/23/15 Clonezilla version updated
-if [ ! -f ~/Downloads/clonezilla-live-2.4.7-8-amd64.iso ]; then
+if [ ! -f /home/`echo $USER`/Downloads/clonezilla-live-2.4.7-8-amd64.iso ]; then
    echo "clonezilla-live-2.4.7-8-amd64.iso NOT found, attempting to download."
    echo "--Downloading clonezilla-live-2.4.7-8-amd64.iso ..."
    cd ~/Downloads
@@ -82,11 +96,8 @@ else
    echo "clonezilla-live-2.4.7-8-amd64.iso found."
 fi
 
-
-
-
 echo ""
-if [ ! -f ~/Downloads/ubuntu-16.04.1-desktop-amd64.iso ]; then
+if [ ! -f /home/`echo $USER`/Downloads/ubuntu-16.04.1-desktop-amd64.iso ]; then
    echo "ubuntu-16.04.1-desktop-amd64.iso NOT found, attempting to download."
    echo "--Downloading ubuntu-16.04.1-desktop-amd64.iso..."
    cd ~/Downloads
@@ -94,36 +105,36 @@ if [ ! -f ~/Downloads/ubuntu-16.04.1-desktop-amd64.iso ]; then
 #  https://nyc3.dl.elementary.io/download/MTQ3NDg1NjE4MA==/elementaryos-0.4-stable-amd64.20160921.iso
 
 #   wget http://releases.ubuntu.com/14.04.3/ubuntu-14.04.3-desktop-i386.iso
-   wget http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-desktop-amd64.iso?_ga=1.268588721.1951895762.1469196745
+   wget http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-desktop-amd64.iso
 else
    echo "ubuntu-16.04.1-desktop-amd64.iso found."
 fi
 
 # https://nyc3.dl.elementary.io/download/MTQ0MjE4OTk5Nw==/elementaryos-stable-0.3.1-i386.20150903.iso
 # https://nyc3.dl.elementary.io/download/MTQ0MjE4OTk5Nw==/elementaryos-stable-0.3.1-amd64.20150903.iso
-if [ ! -d /srv/install/ubuntu-16.04.1-desktop-amd64.iso ]; then
-   sudo mkdir /srv/install/ubuntu-16.04.1-desktop-amd64; fi
-if [ ! -d /mnt/loop ]; then
-   sudo mkdir /mnt/loop; fi
-if [ ! -d /var/lib/tftpboot/dban-2.3.0_i586 ]; then
-   sudo mkdir /var/lib/tftpboot/dban-2.3.0_i586; fi
-if [ ! -d /srv/install/dban-2.3.0_i586 ]; then
-   sudo mkdir /srv/install/dban-2.3.0_i586; fi
-sudo mount -o loop -t iso9660 ~/Downloads/dban-2.3.0_i586.iso /mnt/loop
+# if [ ! -d /srv/install/ubuntu-16.04.1-desktop-amd64.iso ]; then
+   sudo mkdir /srv/install/ubuntu-16.04.1-desktop-amd64 #; fi
+# if [ ! -d /mnt/loop ]; then
+   sudo mkdir /mnt/loop #; fi
+#if [ ! -d /var/lib/tftpboot/dban-2.3.0_i586 ]; then
+   sudo mkdir /var/lib/tftpboot/dban-2.3.0_i586 #; fi
+#if [ ! -d /srv/install/dban-2.3.0_i586 ]; then
+   sudo mkdir /srv/install/dban-2.3.0_i586 #; fi
+sudo mount -o loop -t iso9660 /home/`echo $USER`/Downloads/dban-2.3.0_i586.iso /mnt/loop
 sudo cp /mnt/loop/dban.bzi /var/lib/tftpboot/dban-2.3.0_i586/dban.bzi
 sudo umount /mnt/loop
 
-if [ ! -d /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64.iso ]; then
-  sudo mkdir /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64; fi
-sudo mount -o loop -t iso9660 ~/Downloads/cclonezilla-live-2.4.7-8-amd64.iso /mnt/loop
+#if [ ! -d /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64.iso ]; then
+  sudo mkdir /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64 #; fi
+sudo mount -o loop -t iso9660 /home/`echo $USER`/Downloads/cclonezilla-live-2.4.7-8-amd64.iso /mnt/loop
 sudo cp /mnt/loop/live/vmlinuz /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64
 sudo cp /mnt/loop/live/initrd.img /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64
 sudo cp /mnt/loop/live/filesystem.squashfs /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64
 sudo umount /mnt/loop
 
-if [ ! -d /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64 ]; then
-  sudo mkdir /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64; fi
-sudo mount -o loop -t iso9660 ~/Downloads/ubuntu-16.04.1-desktop-amd64.iso /mnt/loop
+#if [ ! -d /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64 ]; then
+  sudo mkdir /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64 #; fi
+sudo mount -o loop -t iso9660 /home/`echo $USER`/Downloads/ubuntu-16.04.1-desktop-amd64.iso /mnt/loop
 sudo cp /mnt/loop/casper/vmlinuz /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64
 sudo cp /mnt/loop/casper/initrd.lz /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64
 
@@ -134,7 +145,7 @@ sudo umount /mnt/loop
 
 ######### Syslinux setup stuff #####################################################
 # wget https://help.ubuntu.com/community/PXEInstallMultiDistro?action=AttachFile&do=view&target=logo.png
-sudo cp ~/Downloads/logo.png /var/lib/tftpboot/pxelinux.cfg
+sudo cp /home/`echo $USER`/Downloads/logo.png /var/lib/tftpboot/pxelinux.cfg
 sudo cp /usr/lib/syslinux/pxelinux.0 /var/lib/tftpboot
 sudo cp /usr/lib/syslinux/vesamenu.c32 /var/lib/tftpboot
 sudo mkdir /var/lib/tftpboot/pxelinux.cfg
