@@ -265,9 +265,9 @@ service tftpd-hpa restart
 service nfs-kernel-server
 service samaba restart
 
-echo "#!/bin/bash" >> ~/Desktop/restart_pxe.sh
-echo "sudo ifconfig eth0 10.10.1.10 netmask 255.255.255.0 && sudo service isc-dhcp-server restart && sudo service tftpd-hpa restart ; sudo pkill dhclient" >> ~/Desktop/restart_pxe.sh
-sudo chmod 775 ~/Desktop/restart_pxe.sh
+echo "#!/bin/bash" >> /home/user/Desktop/restart_pxe.sh
+echo "sudo ifconfig eth0 10.10.1.10 netmask 255.255.255.0 && sudo service isc-dhcp-server restart && sudo service tftpd-hpa restart ; sudo pkill dhclient" >> /home/user/Desktop/restart_pxe.sh
+sudo chmod 775 /home/user/Desktop/restart_pxe.sh
 
 echo "You should now be able to PXE boot other computers directly from this computers network port, or through a switch. If you have having issues with some services, a restart_pxe.sh file was created to make settings easier."
 echo ""
