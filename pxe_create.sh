@@ -133,7 +133,7 @@ umount /mnt/loop
 
 #if [ ! -d /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64.iso ]; then
   mkdir /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64 #; fi
-mount -o loop -t iso9660 /home/user/Downloads/cclonezilla-live-2.4.7-8-amd64.iso /mnt/loop
+mount -o loop -t iso9660 /home/user/Downloads/clonezilla-live-2.4.7-8-amd64.iso /mnt/loop
 cp /mnt/loop/live/vmlinuz /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64
 cp /mnt/loop/live/initrd.img /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64
 cp /mnt/loop/live/filesystem.squashfs /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64
