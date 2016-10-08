@@ -177,24 +177,25 @@ menu color border               30;44      #ffffffff #00000000 std
 EOF_pxe.conf
 
 # /var/lib/tftpboot/pxelinux.cfg/default ##################################################
-echo "DEFAULT vesamenu.c32" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "TIMEOUT 600" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "ONTIMEOUT BootLocal" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "PROMPT 0" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "MENU INCLUDE pxelinux.cfg/pxe.conf" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "NOESCAPE 1" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "LABEL Boot off internal drive" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        localboot 0" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        TEXT HELP" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        Boot to local hard disk" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        ENDTEXT" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "LABEL 1" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        MENU LABEL DBAN - Hard Drive Sanitation" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        KERNEL dban-2.3.0_i586/dban.bzi" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        APPEND nuke=\"dwipe --autonuke\" silent vga=785" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        TEXT HELP" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        Warning - This will erase your hard drive" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        ENDTEXT" >> /var/lib/tftpboot/pxelinux.cfg/default
+cat <<EOF_default >> /var/lib/tftpboot/pxelinux.cfg/default
+DEFAULT vesamenu.c32
+TIMEOUT 600
+ONTIMEOUT BootLocal
+PROMPT 0/pxelinux.cfg/default
+MENU INCLUDE pxelinux.cfg/pxe.conf
+NOESCAPE 1
+LABEL Boot off internal drive
+      localboot 0
+      TEXT HELP
+      Boot to local hard disk
+      ENDTEXT
+LABEL 1
+      MENU LABEL DBAN - Hard Drive Sanitation
+      KERNEL dban-2.3.0_i586/dban.bzi
+      APPEND nuke=\"dwipe --autonuke\" silent vga=785
+      TEXT HELP
+      Warning - This will erase your hard drive
+      ENDTEXT
 /*
 # echo "LABEL 2" >> /var/lib/tftpboot/pxelinux.cfg/default
 # echo "        MENU LABEL Inventory Machine - Alpha (not working)" >> /var/lib/tftpboot/pxelinux.cfg/default
@@ -204,60 +205,65 @@ echo "        ENDTEXT" >> /var/lib/tftpboot/pxelinux.cfg/default
 # echo "        Boot the Inventory Machine" >> /var/lib/tftpboot/pxelinux.cfg/default
 # echo "        ENDTEXT" >> /var/lib/tftpboot/pxelinux.cfg/default
 */
-echo "LABEL 3" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        MENU LABEL List Images" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        KERNEL clonezilla-live-2.4.7-8-amd64/vmlinuz" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        APPEND initrd=clonezilla-live-2.4.7-8-amd64/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"mount -t cifs -o user=user,password=password //10.10.1.10/Images /home/partimag\" ocs_live_run=\"ocs-sr -g auto -e1 auto -e2 -batch -icds -r -j2 -k1 -p reboot restoredisk ask_user sda\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.1.10/clonezilla-live-2.4.7-8-amd64/filesystem.squashfs" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        TEXT HELP" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        Boot the List Images" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        ENDTEXT" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "LABEL 4" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        MENU LABEL Create Image" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        KERNEL clonezilla-live-2.4.2-10-i586/vmlinuz" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        APPEND initrd=clonezilla-live-2.4.2-10-i586/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"mount -t cifs -o user=user,password=password //10.10.1.10/Images /home/partimag\" ocs_live_run=\"ocs-sr -q2 -j2 -rm-win-swap-hib -z1 -i 2000 -sc -fsck-src-part-y -p true savedisk ask_user sda\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.1.10/clonezilla-live-2.4.7-8-amd64/filesystem.squashfs" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        TEXT HELP" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        Boot the Create Image" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        ENDTEXT" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "LABEL 5" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        MENU LABEL Ubuntu-16.04.1-desktop-amd64" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        KERNEL ubuntu-16.04.1-desktop-amd64/vmlinuz" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        APPEND boot=casper netboot=nfs nfsroot=10.10.1.10:/srv/install/ubuntu-16.04.1-desktop-amd64 initrd=ubuntu-16.04.1-desktop-amd64/initrd.lz" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        TEXT HELP" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        Boot the ubuntu-16.04.1-desktop-amd64" >> /var/lib/tftpboot/pxelinux.cfg/default
-echo "        ENDTEXT" >> /var/lib/tftpboot/pxelinux.cfg/default
+LABEL 3
+       MENU LABEL List Images
+       KERNEL clonezilla-live-2.4.7-8-amd64/vmlinuz
+       APPEND initrd=clonezilla-live-2.4.7-8-amd64/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"mount -t cifs -o user=user,password=password //10.10.1.10/Images /home/partimag\" ocs_live_run=\"ocs-sr -g auto -e1 auto -e2 -batch -icds -r -j2 -k1 -p reboot restoredisk ask_user sda\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.1.10/clonezilla-live-2.4.7-8-amd64/filesystem.squashfs
+       TEXT HELP
+       Boot the List Images
+       ENDTEXT
+LABEL 4
+       MENU LABEL Create Image
+       KERNEL clonezilla-live-2.4.2-10-i586/vmlinuz
+       APPEND initrd=clonezilla-live-2.4.2-10-i586/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"mount -t cifs -o user=user,password=password //10.10.1.10/Images /home/partimag\" ocs_live_run=\"ocs-sr -q2 -j2 -rm-win-swap-hib -z1 -i 2000 -sc -fsck-src-part-y -p true savedisk ask_user sda\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.1.10/clonezilla-live-2.4.7-8-amd64/filesystem.squashfs
+       TEXT HELP
+       Boot the Create Image
+       ENDTEXT
+LABEL 5
+       MENU LABEL Ubuntu-16.04.1-desktop-amd64
+       KERNEL ubuntu-16.04.1-desktop-amd64/vmlinuz
+       APPEND boot=casper netboot=nfs nfsroot=10.10.1.10:/srv/install/ubuntu-16.04.1-desktop-amd64 initrd=ubuntu-16.04.1-desktop-amd64/initrd.lz
+       TEXT HELP
+       Boot the ubuntu-16.04.1-desktop-amd64
+       ENDTEXT
+EOF_default
 
-sudo chmod 777 -R /var/lib/tftpboot
+chmod 777 -R /var/lib/tftpboot
 echo ""
 echo "DHCP will now be installed, this machine should be network isolated."
 echo ""
 
-sudo apt-get install -y isc-dhcp-server
+apt install -y isc-dhcp-server
 # /etc/network/interfaces
-echo "auto lo" > /etc/network/interfaces
-echo "iface lo inet loopback" >> /etc/network/interfaces
-echo "auto eth0" >> /etc/network/interfaces
-echo "iface eth0 inet static" >> /etc/network/interfaces
-echo "address 10.10.1.10" >> /etc/network/interfaces
-echo "netmask 255.255.255.0" >> /etc/network/interfaces
-echo "gateway 10.10.1.10 " >> /etc/network/interfaces
+cat <<EOF_interfaces >> /etc/network/interfaces
+auto lo
+iface lo inet loopback
+auto eth0
+iface eth0 inet static
+address 10.10.1.10
+netmask 255.255.255.0
+gateway 10.10.1.10
+EAF_interfaces
 # /etc/dhcp/dhcpd.conf
-echo "subnet 10.10.1.0 netmask 255.255.255.0 {" >> /etc/dhcp/dhcpd.conf
-echo "        range 10.10.1.100 10.10.1.200;" >> /etc/dhcp/dhcpd.conf
-echo "        filename \"pxelinux.0\";" >> /etc/dhcp/dhcpd.conf
-echo "        next-server 10.10.1.10;" >> /etc/dhcp/dhcpd.conf
-echo "        option subnet-mask 255.255.255.0;" >> /etc/dhcp/dhcpd.conf
-echo "        option broadcast-address 10.10.1.255;}" >> /etc/dhcp/dhcpd.conf
+cat <<EOF_dhcpd.conf >> /etc/dhcp/dhcpd.conf
+subnet 10.10.1.0 netmask 255.255.255.0 {
+       range 10.10.1.100 10.10.1.200;
+       filename \"pxelinux.0\";
+       next-server 10.10.1.10;
+       option subnet-mask 255.255.255.0;
+       option broadcast-address 10.10.1.255;}
+EOF_dhcp.conf
 
-sudo ifconfig wlan0 down
-sudo ifconfig eth0 10.10.1.10 netmask 255.255.255.0
-sudo ifconfig eth0 down
-sudo ifconfig eth0 up
-sudo pkill dhclient
-sudo dhclient -r
-sudo service isc-dhcp-server restart
-sudo service tftpd-hpa restart
-sudo service nfs-kernel-server
-sudo service samaba restart
+ifconfig wlan0 down
+ifconfig eth0 10.10.1.10 netmask 255.255.255.0
+ifconfig eth0 down
+ifconfig eth0 up
+pkill dhclient
+dhclient -r
+service isc-dhcp-server restart
+service tftpd-hpa restart
+service nfs-kernel-server
+service samaba restart
 
 echo "#!/bin/bash" >> ~/Desktop/restart_pxe.sh
 echo "sudo ifconfig eth0 10.10.1.10 netmask 255.255.255.0 && sudo service isc-dhcp-server restart && sudo service tftpd-hpa restart ; sudo pkill dhclient" >> ~/Desktop/restart_pxe.sh
