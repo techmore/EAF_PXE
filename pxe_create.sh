@@ -28,14 +28,15 @@ echo "** You must type in password as the password!! **"
 echo "****************************************************"
 
 # This works for a USER named "user"
-# sudo smbpasswd -a user
+sudo smbpasswd -a user
 
-#This should work for any currently logged in user running the script
-sudo smbpasswd -a $USER
+# This should work for any currently logged in user running the script
+# sudo smbpasswd -a $USER
 
 # Apache directories setup #######################################################
 mkdir /var/www/html/3.Scripts
-sudo cp ~/Downloads/EAF_PXE-master/pxe_create.sh /var/www/html/3.Scripts
+# This path needs to be updated
+sudo cp /home/user/Downloads/EAF_PXE-master/pxe_create.sh /var/www/html/3.Scripts
 sudo mkdir /var/www/html/1.Images
 sudo mkdir /var/www/html/2.Reports
 sudo mkdir /var/www/html/4.ISOs
@@ -44,9 +45,13 @@ sudo chmod -R 777 /var/www/html
 sudo chown -R user /var/www/html/1.Images
 sudo chown -R user /var/www/html/2.Reports
 sudo ln -s /var/lib/tftpboot /var/www/html
-sudo ln -s ~/Downloads /var/www/html
-sudo ln -s ~/Desktop /var/www/html
+# This path needs to be update
+sudo ln -s /home/user/Downloads /var/www/html
+sudo ln -s /home/user/Desktop /var/www/html
+
 sudo cp /etc/samba/smb.conf ~
+
+cat <<EOF >> /etc/samba/smb.conf
 echo "[Images]" >> /etc/samba/smb.conf
 echo "path = /var/www/html/1.Images" >> /etc/samba/smb.conf
 echo "available = yes" >> /etc/samba/smb.conf
@@ -66,6 +71,29 @@ echo "browseable = yes" >> /etc/samba/smb.conf
 echo "public = yes" >> /etc/samba/smb.conf
 echo "writeable = yes" >> /etc/samba/smb.conf
 echo "guest ok = yes" >> /etc/samba/smb.conf
+
+
+#echo "[Images]" >> /etc/samba/smb.conf
+#echo "path = /var/www/html/1.Images" >> /etc/samba/smb.conf
+#echo "available = yes" >> /etc/samba/smb.conf
+#echo "valid users = user" >> /etc/samba/smb.conf
+#echo "read only = no" >> /etc/samba/smb.conf
+#echo "browseable = yes" >> /etc/samba/smb.conf
+#echo "public = yes" >> /etc/samba/smb.conf
+#echo "writeable = yes" >> /etc/samba/smb.conf
+#echo "guest ok = yes" >> /etc/samba/smb.conf
+#echo "" >> /etc/samba/smb.conf
+#echo "[Reports]" >> /etc/samba/smb.conf
+#echo "path = /var/www/html/2.Reports" >> /etc/samba/smb.conf
+#echo "available = yes" >> /etc/samba/smb.conf
+#echo "valid users = user" >> /etc/samba/smb.conf
+#echo "read only = no" >> /etc/samba/smb.conf
+#echo "browseable = yes" >> /etc/samba/smb.conf
+#echo "public = yes" >> /etc/samba/smb.conf
+#echo "writeable = yes" >> /etc/samba/smb.conf
+#echo "guest ok = yes" >> /etc/samba/smb.conf
+
+
 sudo service smbd restart
 
 echo "This program assumes dban-2.3.0_i586.iso, clonezilla-live-2.4.2-10-i586.iso and ubuntu-16.04.1-desktop-amd64.iso are in the downloads folders or it will attempt a download from a hard coded location that may fail."; echo ""
