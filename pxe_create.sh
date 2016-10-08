@@ -49,7 +49,7 @@ ln -s /var/lib/tftpboot /var/www/html
 ln -s /home/user/Downloads /var/www/html
 ln -s /home/user/Desktop /var/www/html
 
-cp /etc/samba/smb.conf /etc/samba/smb.conf/bak
+cp /etc/samba/smb.conf /etc/samba/smb.conf.bak
 
 cat <<EOF >> /etc/samba/smb.conf
 [Images]
@@ -71,7 +71,7 @@ browseable = yes
 public = yes
 writeable = yes
 guest ok = yes
-
+EOF
 
 #echo "[Images]" >> /etc/samba/smb.conf
 #echo "path = /var/www/html/1.Images" >> /etc/samba/smb.conf
