@@ -252,7 +252,7 @@ subnet 10.10.1.0 netmask 255.255.255.0 {
        next-server 10.10.1.10;
        option subnet-mask 255.255.255.0;
        option broadcast-address 10.10.1.255;}
-EOF_dhcp.conf
+EOF_dhcpd.conf
 
 ifconfig wlan0 down
 ifconfig `ls /sys/class/net | grep -v lo` 10.10.1.10 netmask 255.255.255.0
