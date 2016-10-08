@@ -22,13 +22,13 @@ sudo apt -y update; echo ""
 # sudo mkdir /home/images
 # sudo chmod 775 -R /home/images
 # Install required rependancies
-sudo apt-get install -y tftpd-hpa syslinux nfs-kernel-server samba apache2 cifs-utils openssh-server
+apt install -y tftpd-hpa syslinux nfs-kernel-server samba apache2 cifs-utils openssh-server
 echo "";echo ""; echo "****************************************************"
 echo "** You must type in password as the password!! **"
 echo "****************************************************"
 
 # This works for a USER named "user"
-sudo smbpasswd -a user
+smbpasswd -a user
 
 # This should work for any currently logged in user running the script
 # sudo smbpasswd -a $USER
@@ -36,20 +36,20 @@ sudo smbpasswd -a user
 # Apache directories setup #######################################################
 mkdir /var/www/html/3.Scripts
 # This path needs to be updated
-sudo cp /home/user/Downloads/EAF_PXE-master/pxe_create.sh /var/www/html/3.Scripts
-sudo mkdir /var/www/html/1.Images
-sudo mkdir /var/www/html/2.Reports
-sudo mkdir /var/www/html/4.ISOs
-sudo rm /var/www/html/index.html
-sudo chmod -R 777 /var/www/html
-sudo chown -R user /var/www/html/1.Images
-sudo chown -R user /var/www/html/2.Reports
-sudo ln -s /var/lib/tftpboot /var/www/html
+cp /home/user/Downloads/EAF_PXE-master/pxe_create.sh /var/www/html/3.Scripts
+mkdir /var/www/html/1.Images
+mkdir /var/www/html/2.Reports
+mkdir /var/www/html/4.ISOs
+rm /var/www/html/index.html
+chmod -R 777 /var/www/html
+chown -R user /var/www/html/1.Images
+chown -R user /var/www/html/2.Reports
+ln -s /var/lib/tftpboot /var/www/html
 # This path needs to be update
-sudo ln -s /home/user/Downloads /var/www/html
-sudo ln -s /home/user/Desktop /var/www/html
+ln -s /home/user/Downloads /var/www/html
+ln -s /home/user/Desktop /var/www/html
 
-sudo cp /etc/samba/smb.conf ~
+cp /etc/samba/smb.conf /etc/samba/smb.conf/bak
 
 cat <<EOF >> /etc/samba/smb.conf
 [Images]
