@@ -127,13 +127,13 @@ fi
    mkdir /var/lib/tftpboot/dban-2.3.0_i586 #; fi
 #if [ ! -d /srv/install/dban-2.3.0_i586 ]; then
    mkdir /srv/install/dban-2.3.0_i586 #; fi
-mount -o loop -t iso9660 /home/`echo $USER`/Downloads/dban-2.3.0_i586.iso /mnt/loop
+mount -o loop -t iso9660 /home/user/Downloads/dban-2.3.0_i586.iso /mnt/loop
 cp /mnt/loop/dban.bzi /var/lib/tftpboot/dban-2.3.0_i586/dban.bzi
 umount /mnt/loop
 
 #if [ ! -d /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64.iso ]; then
   mkdir /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64 #; fi
-mount -o loop -t iso9660 /home/`echo $USER`/Downloads/cclonezilla-live-2.4.7-8-amd64.iso /mnt/loop
+mount -o loop -t iso9660 /home/user/Downloads/cclonezilla-live-2.4.7-8-amd64.iso /mnt/loop
 cp /mnt/loop/live/vmlinuz /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64
 cp /mnt/loop/live/initrd.img /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64
 cp /mnt/loop/live/filesystem.squashfs /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64
@@ -141,7 +141,7 @@ umount /mnt/loop
 
 #if [ ! -d /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64 ]; then
   mkdir /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64 #; fi
-mount -o loop -t iso9660 /home/`echo $USER`/Downloads/ubuntu-16.04.1-desktop-amd64.iso /mnt/loop
+mount -o loop -t iso9660 /home/user/Downloads/ubuntu-16.04.1-desktop-amd64.iso /mnt/loop
 cp /mnt/loop/casper/vmlinuz /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64
 cp /mnt/loop/casper/initrd.lz /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64
 
@@ -152,7 +152,7 @@ umount /mnt/loop
 
 ######### Syslinux setup stuff #####################################################
 # wget https://help.ubuntu.com/community/PXEInstallMultiDistro?action=AttachFile&do=view&target=logo.png
-cp /home/user/Downloads/logo.png /var/lib/tftpboot/pxelinux.cfg
+cp /home/user/Downloads/EAF_PXE-masterlogo.png /var/lib/tftpboot/pxelinux.cfg
 cp /usr/lib/syslinux/pxelinux.0 /var/lib/tftpboot
 cp /usr/lib/syslinux/vesamenu.c32 /var/lib/tftpboot
 mkdir /var/lib/tftpboot/pxelinux.cfg
@@ -181,7 +181,7 @@ cat <<EOF_default >> /var/lib/tftpboot/pxelinux.cfg/default
 DEFAULT vesamenu.c32
 TIMEOUT 600
 ONTIMEOUT BootLocal
-PROMPT 0/pxelinux.cfg/default
+PROMPT 0
 MENU INCLUDE pxelinux.cfg/pxe.conf
 NOESCAPE 1
 LABEL Boot off internal drive
@@ -229,9 +229,9 @@ LABEL 5
 EOF_default
 
 chmod 777 -R /var/lib/tftpboot
-echo ""
-echo "DHCP will now be installed, this machine should be network isolated."
-echo ""
+echo "****************************************************************************"
+echo "*** DHCP will now be installed, this machine should be network isolated. ***"
+echo "****************************************************************************"
 
 apt install -y isc-dhcp-server
 # /etc/network/interfaces
