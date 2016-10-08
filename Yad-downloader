@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# How to invoke
+#./yad-downloader.sh http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-desktop-amd64.iso http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-server-amd64.iso http://archive.ubuntu.com/ubuntu/dists/xenial-updates/main/installer-amd64/current/images/netboot/netboot.tar.gz http://cdimage.ubuntu.com/edubuntu/releases/14.04.5/release/edubuntu-14.04.5-dvd-i386.iso http://cdimage.ubuntu.com/lubuntu/xenial/daily/current/xenial-alternate-amd64.iso http://cdimage.ubuntu.com/mythbuntu/xenial/daily-live/current/xenial-desktop-amd64.iso http://cdimage.ubuntu.com/ubuntustudio/xenial/dvd/current/xenial-dvd-amd64.iso
+
+
+
 # NAME:         yad_wget
 # VERSION:      0.2
 # AUTHOR:       (c) 2014 Glutanimate
