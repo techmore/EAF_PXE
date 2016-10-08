@@ -255,9 +255,9 @@ subnet 10.10.1.0 netmask 255.255.255.0 {
 EOF_dhcp.conf
 
 ifconfig wlan0 down
-ifconfig eth0 10.10.1.10 netmask 255.255.255.0
-ifconfig eth0 down
-ifconfig eth0 up
+ifconfig `ls /sys/class/net | grep -v lo` 10.10.1.10 netmask 255.255.255.0
+ifconfig `ls /sys/class/net | grep -v lo` down
+ifconfig `ls /sys/class/net | grep -v lo` up
 pkill dhclient
 dhclient -r
 service isc-dhcp-server restart
@@ -271,7 +271,9 @@ sudo chmod 775 ~/Desktop/restart_pxe.sh
 
 echo "You should now be able to PXE boot other computers directly from this computers network port, or through a switch. If you have having issues with some services, a restart_pxe.sh file was created to make settings easier."
 echo ""
-sudo reboot
+
+# sudo reboot
+./home/user/Desktop/restart_pxe.sh
 
 # rm ~/Downloads/dban-2.2.8_i586.iso
 # rm ~/Downloads/ubuntu-14.04.-desktop-i386.iso
