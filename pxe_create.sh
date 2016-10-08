@@ -52,25 +52,25 @@ sudo ln -s /home/user/Desktop /var/www/html
 sudo cp /etc/samba/smb.conf ~
 
 cat <<EOF >> /etc/samba/smb.conf
-echo "[Images]" >> /etc/samba/smb.conf
-echo "path = /var/www/html/1.Images" >> /etc/samba/smb.conf
-echo "available = yes" >> /etc/samba/smb.conf
-echo "valid users = user" >> /etc/samba/smb.conf
-echo "read only = no" >> /etc/samba/smb.conf
-echo "browseable = yes" >> /etc/samba/smb.conf
-echo "public = yes" >> /etc/samba/smb.conf
-echo "writeable = yes" >> /etc/samba/smb.conf
-echo "guest ok = yes" >> /etc/samba/smb.conf
-echo "" >> /etc/samba/smb.conf
-echo "[Reports]" >> /etc/samba/smb.conf
-echo "path = /var/www/html/2.Reports" >> /etc/samba/smb.conf
-echo "available = yes" >> /etc/samba/smb.conf
-echo "valid users = user" >> /etc/samba/smb.conf
-echo "read only = no" >> /etc/samba/smb.conf
-echo "browseable = yes" >> /etc/samba/smb.conf
-echo "public = yes" >> /etc/samba/smb.conf
-echo "writeable = yes" >> /etc/samba/smb.conf
-echo "guest ok = yes" >> /etc/samba/smb.conf
+[Images]
+path = /var/www/html/1.Images
+available = yes
+valid users = user
+read only = no
+browseable = yes
+public = yes
+writeable = yes
+guest ok = yes
+
+[Reports]
+path = /var/www/html/2.Reports
+available = yes
+valid users = user
+read only = no
+browseable = yes
+public = yes
+writeable = yes
+guest ok = yes
 
 
 #echo "[Images]" >> /etc/samba/smb.conf
@@ -100,7 +100,7 @@ echo "This program assumes dban-2.3.0_i586.iso, clonezilla-live-2.4.2-10-i586.is
 
 # 7/23/15 DBan has been updated  if [ ! -f ~/Downloads/dban-2.2.8_i586.iso ]; then
 # http://sourceforge.net/projects/dban/files/dban/dban-2.3.0/dban-2.3.0_i586.iso
-if [ ! -f /home/`echo $USER`/Downloads/dban-2.3.0_i586.iso ]; then
+if [ ! -f /home/user/Downloads/dban-2.3.0_i586.iso ]; then
    echo "~/Downloads/dban-2.3.0_i586.iso NOT found, attempting to download."
    echo "--Downloading dban-2.3.0_i586.iso..."
    cd ~/Downloads
@@ -113,7 +113,7 @@ fi
 echo ""
 
 # 7/23/15 Clonezilla version updated
-if [ ! -f /home/`echo $USER`/Downloads/clonezilla-live-2.4.7-8-amd64.iso ]; then
+if [ ! -f /home/user/Downloads/clonezilla-live-2.4.7-8-amd64.iso ]; then
    echo "clonezilla-live-2.4.7-8-amd64.iso NOT found, attempting to download."
    echo "--Downloading clonezilla-live-2.4.7-8-amd64.iso ..."
    cd ~/Downloads
@@ -125,7 +125,7 @@ else
 fi
 
 echo ""
-if [ ! -f /home/`echo $USER`/Downloads/ubuntu-16.04.1-desktop-amd64.iso ]; then
+if [ ! -f /home/user/Downloads/ubuntu-16.04.1-desktop-amd64.iso ]; then
    echo "ubuntu-16.04.1-desktop-amd64.iso NOT found, attempting to download."
    echo "--Downloading ubuntu-16.04.1-desktop-amd64.iso..."
    cd ~/Downloads
@@ -173,7 +173,7 @@ sudo umount /mnt/loop
 
 ######### Syslinux setup stuff #####################################################
 # wget https://help.ubuntu.com/community/PXEInstallMultiDistro?action=AttachFile&do=view&target=logo.png
-sudo cp /home/`echo $USER`/Downloads/logo.png /var/lib/tftpboot/pxelinux.cfg
+sudo cp /home/user/Downloads/logo.png /var/lib/tftpboot/pxelinux.cfg
 sudo cp /usr/lib/syslinux/pxelinux.0 /var/lib/tftpboot
 sudo cp /usr/lib/syslinux/vesamenu.c32 /var/lib/tftpboot
 sudo mkdir /var/lib/tftpboot/pxelinux.cfg
