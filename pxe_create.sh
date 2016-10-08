@@ -243,7 +243,7 @@ iface eth0 inet static
 address 10.10.1.10
 netmask 255.255.255.0
 gateway 10.10.1.10
-EAF_interfaces
+EOF_interfaces
 # /etc/dhcp/dhcpd.conf
 cat <<EOF_dhcpd.conf >> /etc/dhcp/dhcpd.conf
 subnet 10.10.1.0 netmask 255.255.255.0 {
