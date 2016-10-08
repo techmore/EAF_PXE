@@ -120,13 +120,13 @@ fi
 # https://nyc3.dl.elementary.io/download/MTQ0MjE4OTk5Nw==/elementaryos-stable-0.3.1-i386.20150903.iso
 # https://nyc3.dl.elementary.io/download/MTQ0MjE4OTk5Nw==/elementaryos-stable-0.3.1-amd64.20150903.iso
 # if [ ! -d /srv/install/ubuntu-16.04.1-desktop-amd64.iso ]; then
-   mkdir /srv/install/ubuntu-16.04.1-desktop-amd64 #; fi
+   mkdir -p /srv/install/ubuntu-16.04.1-desktop-amd64 #; fi
 # if [ ! -d /mnt/loop ]; then
-   mkdir /mnt/loop #; fi
+   mkdir -p /mnt/loop #; fi
 #if [ ! -d /var/lib/tftpboot/dban-2.3.0_i586 ]; then
-   mkdir /var/lib/tftpboot/dban-2.3.0_i586 #; fi
+   mkdir -p /var/lib/tftpboot/dban-2.3.0_i586 #; fi
 #if [ ! -d /srv/install/dban-2.3.0_i586 ]; then
-   mkdir /srv/install/dban-2.3.0_i586 #; fi
+   mkdir -p /srv/install/dban-2.3.0_i586 #; fi
 mount -o loop -t iso9660 /home/user/Downloads/dban-2.3.0_i586.iso /mnt/loop
 cp /mnt/loop/dban.bzi /var/lib/tftpboot/dban-2.3.0_i586/dban.bzi
 umount /mnt/loop
