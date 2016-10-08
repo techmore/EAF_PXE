@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This program has only been made possible by generous time and code donations from
+# This program has only been made possible by
 # Electronic Access Foundation http://e-access.org/
 # Computer Reach http://www.computerreach.org/
 # National Cristina Foundation https://www.cristina.org/
@@ -17,7 +17,7 @@ if [ "$EUID" -ne 0 ]
 fi
 
 # We want the most up to date packages to avoid conflict
-sudo apt -y update; echo ""
+apt -y update; echo ""
 
 # sudo mkdir /home/images
 # sudo chmod 775 -R /home/images
@@ -73,27 +73,6 @@ writeable = yes
 guest ok = yes
 EOF
 
-#echo "[Images]" >> /etc/samba/smb.conf
-#echo "path = /var/www/html/1.Images" >> /etc/samba/smb.conf
-#echo "available = yes" >> /etc/samba/smb.conf
-#echo "valid users = user" >> /etc/samba/smb.conf
-#echo "read only = no" >> /etc/samba/smb.conf
-#echo "browseable = yes" >> /etc/samba/smb.conf
-#echo "public = yes" >> /etc/samba/smb.conf
-#echo "writeable = yes" >> /etc/samba/smb.conf
-#echo "guest ok = yes" >> /etc/samba/smb.conf
-#echo "" >> /etc/samba/smb.conf
-#echo "[Reports]" >> /etc/samba/smb.conf
-#echo "path = /var/www/html/2.Reports" >> /etc/samba/smb.conf
-#echo "available = yes" >> /etc/samba/smb.conf
-#echo "valid users = user" >> /etc/samba/smb.conf
-#echo "read only = no" >> /etc/samba/smb.conf
-#echo "browseable = yes" >> /etc/samba/smb.conf
-#echo "public = yes" >> /etc/samba/smb.conf
-#echo "writeable = yes" >> /etc/samba/smb.conf
-#echo "guest ok = yes" >> /etc/samba/smb.conf
-
-
 sudo service smbd restart
 
 echo "This program assumes dban-2.3.0_i586.iso, clonezilla-live-2.4.2-10-i586.iso and ubuntu-16.04.1-desktop-amd64.iso are in the downloads folders or it will attempt a download from a hard coded location that may fail."; echo ""
@@ -141,59 +120,61 @@ fi
 # https://nyc3.dl.elementary.io/download/MTQ0MjE4OTk5Nw==/elementaryos-stable-0.3.1-i386.20150903.iso
 # https://nyc3.dl.elementary.io/download/MTQ0MjE4OTk5Nw==/elementaryos-stable-0.3.1-amd64.20150903.iso
 # if [ ! -d /srv/install/ubuntu-16.04.1-desktop-amd64.iso ]; then
-   sudo mkdir /srv/install/ubuntu-16.04.1-desktop-amd64 #; fi
+   mkdir /srv/install/ubuntu-16.04.1-desktop-amd64 #; fi
 # if [ ! -d /mnt/loop ]; then
-   sudo mkdir /mnt/loop #; fi
+   mkdir /mnt/loop #; fi
 #if [ ! -d /var/lib/tftpboot/dban-2.3.0_i586 ]; then
-   sudo mkdir /var/lib/tftpboot/dban-2.3.0_i586 #; fi
+   mkdir /var/lib/tftpboot/dban-2.3.0_i586 #; fi
 #if [ ! -d /srv/install/dban-2.3.0_i586 ]; then
-   sudo mkdir /srv/install/dban-2.3.0_i586 #; fi
-sudo mount -o loop -t iso9660 /home/`echo $USER`/Downloads/dban-2.3.0_i586.iso /mnt/loop
-sudo cp /mnt/loop/dban.bzi /var/lib/tftpboot/dban-2.3.0_i586/dban.bzi
-sudo umount /mnt/loop
+   mkdir /srv/install/dban-2.3.0_i586 #; fi
+mount -o loop -t iso9660 /home/`echo $USER`/Downloads/dban-2.3.0_i586.iso /mnt/loop
+cp /mnt/loop/dban.bzi /var/lib/tftpboot/dban-2.3.0_i586/dban.bzi
+umount /mnt/loop
 
 #if [ ! -d /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64.iso ]; then
-  sudo mkdir /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64 #; fi
-sudo mount -o loop -t iso9660 /home/`echo $USER`/Downloads/cclonezilla-live-2.4.7-8-amd64.iso /mnt/loop
-sudo cp /mnt/loop/live/vmlinuz /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64
-sudo cp /mnt/loop/live/initrd.img /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64
-sudo cp /mnt/loop/live/filesystem.squashfs /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64
-sudo umount /mnt/loop
+  mkdir /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64 #; fi
+mount -o loop -t iso9660 /home/`echo $USER`/Downloads/cclonezilla-live-2.4.7-8-amd64.iso /mnt/loop
+cp /mnt/loop/live/vmlinuz /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64
+cp /mnt/loop/live/initrd.img /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64
+cp /mnt/loop/live/filesystem.squashfs /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64
+umount /mnt/loop
 
 #if [ ! -d /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64 ]; then
-  sudo mkdir /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64 #; fi
-sudo mount -o loop -t iso9660 /home/`echo $USER`/Downloads/ubuntu-16.04.1-desktop-amd64.iso /mnt/loop
-sudo cp /mnt/loop/casper/vmlinuz /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64
-sudo cp /mnt/loop/casper/initrd.lz /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64
+  mkdir /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64 #; fi
+mount -o loop -t iso9660 /home/`echo $USER`/Downloads/ubuntu-16.04.1-desktop-amd64.iso /mnt/loop
+cp /mnt/loop/casper/vmlinuz /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64
+cp /mnt/loop/casper/initrd.lz /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64
 
-sudo mkdir -p /srv/install/ubuntu-16.04.1-desktop-amd64
-sudo cp -R /mnt/loop/* /srv/install/ubuntu-16.04.1-desktop-amd64
-sudo cp -R /mnt/loop/.disk /srv/install/ubuntu-16.04.1-desktop-amd64
-sudo umount /mnt/loop
+mkdir -p /srv/install/ubuntu-16.04.1-desktop-amd64
+cp -R /mnt/loop/* /srv/install/ubuntu-16.04.1-desktop-amd64
+cp -R /mnt/loop/.disk /srv/install/ubuntu-16.04.1-desktop-amd64
+umount /mnt/loop
 
 ######### Syslinux setup stuff #####################################################
 # wget https://help.ubuntu.com/community/PXEInstallMultiDistro?action=AttachFile&do=view&target=logo.png
-sudo cp /home/user/Downloads/logo.png /var/lib/tftpboot/pxelinux.cfg
-sudo cp /usr/lib/syslinux/pxelinux.0 /var/lib/tftpboot
-sudo cp /usr/lib/syslinux/vesamenu.c32 /var/lib/tftpboot
-sudo mkdir /var/lib/tftpboot/pxelinux.cfg
-sudo touch /var/lib/tftpboot/pxelinux.cfg/pxe.conf
-sudo touch /var/lib/tftpboot/pxelinux.cfg/default
-sudo mkdir /srv/install
-sudo echo "/srv/install         10.10.1.0/24(rw,async,no_root_squash,no_subtree_check) " > /etc/exports
-sudo exportfs -a
+cp /home/user/Downloads/logo.png /var/lib/tftpboot/pxelinux.cfg
+cp /usr/lib/syslinux/pxelinux.0 /var/lib/tftpboot
+cp /usr/lib/syslinux/vesamenu.c32 /var/lib/tftpboot
+mkdir /var/lib/tftpboot/pxelinux.cfg
+touch /var/lib/tftpboot/pxelinux.cfg/pxe.conf
+touch /var/lib/tftpboot/pxelinux.cfg/default
+mkdir -p /srv/install
+echo "/srv/install         10.10.1.0/24(rw,async,no_root_squash,no_subtree_check) " > /etc/exports
+exportfs -a
 
 # /var/lib/tftpboot/pxelinux.cfg/pxe.conf ############################################
-echo "MENU TITLE  PXE Server" >> /var/lib/tftpboot/pxelinux.cfg/pxe.conf
-echo "MENU BACKGROUND pxelinux.cfg/logo.png" >> /var/lib/tftpboot/pxelinux.cfg/pxe.conf
-echo "NOESCAPE 1" >> /var/lib/tftpboot/pxelinux.cfg/pxe.conf
-echo "ALLOWOPTIONS 1" >> /var/lib/tftpboot/pxelinux.cfg/pxe.conf
-echo "PROMPT 0" >> /var/lib/tftpboot/pxelinux.cfg/pxe.conf
-echo "menu width 80" >> /var/lib/tftpboot/pxelinux.cfg/pxe.conf
-echo "menu rows 14" >> /var/lib/tftpboot/pxelinux.cfg/pxe.conf
-echo "MENU TABMSGROW 24" >> /var/lib/tftpboot/pxelinux.cfg/pxe.conf
-echo "MENU MARGIN 10" >> /var/lib/tftpboot/pxelinux.cfg/pxe.conf
-echo "menu color border               30;44      #ffffffff #00000000 std" >> /var/lib/tftpboot/pxelinux.cfg/pxe.conf
+cat <<EOF_pxe.conf >> /var/lib/tftpboot/pxelinux.cfg/pxe.conf
+MENU TITLE  PXE Server
+MENU BACKGROUND pxelinux.cfg/logo.png
+NOESCAPE 1
+ALLOWOPTIONS 1
+PROMPT 0
+menu width 80
+menu rows 14
+MENU TABMSGROW 24
+MENU MARGIN 10
+menu color border               30;44      #ffffffff #00000000 std
+EOF_pxe.conf
 
 # /var/lib/tftpboot/pxelinux.cfg/default ##################################################
 echo "DEFAULT vesamenu.c32" >> /var/lib/tftpboot/pxelinux.cfg/default
