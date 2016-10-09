@@ -1,28 +1,32 @@
 #!/bin/bash
 
-# This program has only been made possible by
-# Electronic Access Foundation http://e-access.org/
-# Computer Reach http://www.computerreach.org/
-# National Cristina Foundation https://www.cristina.org/
-# Hill Top Preparatory School http://hilltopprep.org/
-
-# This program will setup a PXE boot server on a fresh Ubuntu 16.04.1 LTS install, It exspects an internet connection
-
-# Images currently stored in /var/www/html/1.Images
-
 # Check if running as root
 if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
   exit
 fi
 
-# We want the most up to date packages to avoid conflict
-apt -y update; echo ""
+cat << EOF_introduction
+Welcome to EAF-PXE for Ubuntu 16.04 LTS.
+This program has only been made possible by :
+   Electronic Access Foundation http://e-access.org/
+   Computer Reach http://www.computerreach.org/
+   National Cristina Foundation https://www.cristina.org/
+   Hill Top Preparatory School http://hilltopprep.org/
 
-# sudo mkdir /home/images
-# sudo chmod 775 -R /home/images
-# Install required rependancies
-apt install -y tftpd-hpa syslinux nfs-kernel-server samba apache2 cifs-utils openssh-server
+This REQUIRES an internet connection to install and configure : 
+tftpd-hpa syslinux nfs-kernel-server samba apache2 cifs-utils openssh-server
+
+We will attempt to locate these files in /home/users/Downloads : 
+   dban-2.3.0_i586.iso
+   clonezilla-live-2.4.2-10-i586.iso
+   ubuntu-16.04.1-desktop-amd64.iso
+
+EOF_introduction
+
+
+# We want the most up to date packages to avoid conflict. Install required rependancies
+apt -y update; apt install -y tftpd-hpa syslinux nfs-kernel-server samba apache2 cifs-utils openssh-server
 echo "";echo ""; echo "****************************************************"
 echo "** You must type in password as the password!! **"
 echo "****************************************************"
@@ -34,13 +38,11 @@ smbpasswd -a user
 # sudo smbpasswd -a $USER
 
 # Apache directories setup #######################################################
-mkdir /var/www/html/3.Scripts
+mkdir -p /var/www/html/1.Images mkdir /var/www/html/2.Reports /var/www/html/3.Scripts /var/www/html/4.ISOs
+
 # This path needs to be updated
 cp /home/user/Downloads/EAF_PXE-master/pxe_create.sh /var/www/html/3.Scripts
-mkdir /var/www/html/1.Images
-mkdir /var/www/html/2.Reports
-mkdir /var/www/html/4.ISOs
-rm /var/www/html/index.html
+mv /var/www/html/index.html /var/www/html/index.html.bak
 chmod -R 777 /var/www/html
 chown -R user /var/www/html/1.Images
 chown -R user /var/www/html/2.Reports
@@ -48,7 +50,6 @@ ln -s /var/lib/tftpboot /var/www/html
 # This path needs to be update
 ln -s /home/user/Downloads /var/www/html
 ln -s /home/user/Desktop /var/www/html
-
 cp /etc/samba/smb.conf /etc/samba/smb.conf.bak
 
 cat <<EOF >> /etc/samba/smb.conf
@@ -75,14 +76,12 @@ EOF
 
 sudo service smbd restart
 
-echo "This program assumes dban-2.3.0_i586.iso, clonezilla-live-2.4.2-10-i586.iso and ubuntu-16.04.1-desktop-amd64.iso are in the downloads folders or it will attempt a download from a hard coded location that may fail."; echo ""
-
 # 7/23/15 DBan has been updated  if [ ! -f ~/Downloads/dban-2.2.8_i586.iso ]; then
 # http://sourceforge.net/projects/dban/files/dban/dban-2.3.0/dban-2.3.0_i586.iso
 if [ ! -f /home/user/Downloads/dban-2.3.0_i586.iso ]; then
    echo "~/Downloads/dban-2.3.0_i586.iso NOT found, attempting to download."
    echo "--Downloading dban-2.3.0_i586.iso..."
-   cd ~/Downloads
+   cd /var/www/html/4.ISOs
    wget http://downloads.sourceforge.net/project/dban/dban/dban-2.3.0/dban-2.3.0_i586.iso
    echo "DBAN download complete."
    echo ""
@@ -95,7 +94,7 @@ echo ""
 if [ ! -f /home/user/Downloads/clonezilla-live-2.4.7-8-amd64.iso ]; then
    echo "clonezilla-live-2.4.7-8-amd64.iso NOT found, attempting to download."
    echo "--Downloading clonezilla-live-2.4.7-8-amd64.iso ..."
-   cd ~/Downloads
+   cd /var/www/html/4.ISOs
 #   wget http://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.4.2-10/clonezilla-live-2.4.2-10-i586.iso
 # 7/23/16 Clonezilla update
    wget https://osdn.jp/frs/redir.php?m=gigenet&f=%2Fclonezilla%2F66042%2Fclonezilla-live-2.4.7-8-amd64.iso
@@ -107,7 +106,7 @@ echo ""
 if [ ! -f /home/user/Downloads/ubuntu-16.04.1-desktop-amd64.iso ]; then
    echo "ubuntu-16.04.1-desktop-amd64.iso NOT found, attempting to download."
    echo "--Downloading ubuntu-16.04.1-desktop-amd64.iso..."
-   cd ~/Downloads
+   cd /var/www/html/4.ISOs
 #  wget  https://nyc3.dl.elementary.io/download/MTQ0MjE4OTk5Nw==/elementaryos-stable-0.3.1-i386.20150903.iso
 #  https://nyc3.dl.elementary.io/download/MTQ3NDg1NjE4MA==/elementaryos-0.4-stable-amd64.20160921.iso
 
@@ -119,33 +118,27 @@ fi
 
 # https://nyc3.dl.elementary.io/download/MTQ0MjE4OTk5Nw==/elementaryos-stable-0.3.1-i386.20150903.iso
 # https://nyc3.dl.elementary.io/download/MTQ0MjE4OTk5Nw==/elementaryos-stable-0.3.1-amd64.20150903.iso
-# if [ ! -d /srv/install/ubuntu-16.04.1-desktop-amd64.iso ]; then
-   mkdir -p /srv/install/ubuntu-16.04.1-desktop-amd64 #; fi
-# if [ ! -d /mnt/loop ]; then
-   mkdir -p /mnt/loop #; fi
-#if [ ! -d /var/lib/tftpboot/dban-2.3.0_i586 ]; then
-   mkdir -p /var/lib/tftpboot/dban-2.3.0_i586 #; fi
-#if [ ! -d /srv/install/dban-2.3.0_i586 ]; then
-   mkdir -p /srv/install/dban-2.3.0_i586 #; fi
+# Sperated to be readable
+
+   mkdir -p /mnt/loop /srv/install
+   mkdir -p /srv/install/ubuntu-16.04.1-desktop-amd64
+   mkdir -p /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64
+   mkdir -p /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64 
+   mkdir -p /var/lib/tftpboot/dban-2.3.0_i586 /srv/install/dban-2.3.0_i586 
+
 mount -o loop -t iso9660 /home/user/Downloads/dban-2.3.0_i586.iso /mnt/loop
 cp /mnt/loop/dban.bzi /var/lib/tftpboot/dban-2.3.0_i586/dban.bzi
 umount /mnt/loop
 
-#if [ ! -d /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64.iso ]; then
-  mkdir /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64 #; fi
 mount -o loop -t iso9660 /home/user/Downloads/clonezilla-live-2.4.7-8-amd64.iso /mnt/loop
 cp /mnt/loop/live/vmlinuz /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64
 cp /mnt/loop/live/initrd.img /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64
 cp /mnt/loop/live/filesystem.squashfs /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64
 umount /mnt/loop
 
-#if [ ! -d /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64 ]; then
-  mkdir /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64 #; fi
 mount -o loop -t iso9660 /home/user/Downloads/ubuntu-16.04.1-desktop-amd64.iso /mnt/loop
 cp /mnt/loop/casper/vmlinuz /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64
 cp /mnt/loop/casper/initrd.lz /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64
-
-mkdir -p /srv/install/ubuntu-16.04.1-desktop-amd64
 cp -R /mnt/loop/* /srv/install/ubuntu-16.04.1-desktop-amd64
 cp -R /mnt/loop/.disk /srv/install/ubuntu-16.04.1-desktop-amd64
 umount /mnt/loop
@@ -160,7 +153,6 @@ cp /usr/lib/syslinux/modules/bios/vesamenu.c32 /var/lib/tftpboot
 mkdir /var/lib/tftpboot/pxelinux.cfg
 touch /var/lib/tftpboot/pxelinux.cfg/pxe.conf
 touch /var/lib/tftpboot/pxelinux.cfg/default
-mkdir -p /srv/install
 echo "/srv/install         10.10.1.0/24(rw,async,no_root_squash,no_subtree_check) " > /etc/exports
 exportfs -a
 
@@ -246,6 +238,7 @@ address 10.10.1.10
 netmask 255.255.255.0
 gateway 10.10.1.10
 EOF_interfaces
+
 # /etc/dhcp/dhcpd.conf
 cat <<EOF_dhcpd.conf >> /etc/dhcp/dhcpd.conf
 subnet 10.10.1.0 netmask 255.255.255.0 {
@@ -275,7 +268,7 @@ echo "You should now be able to PXE boot other computers directly from this comp
 echo ""
 
 # sudo reboot
-./home/user/Desktop/restart_pxe.sh
+sh /home/user/Desktop/restart_pxe.sh
 
 # rm ~/Downloads/dban-2.2.8_i586.iso
 # rm ~/Downloads/ubuntu-14.04.-desktop-i386.iso
