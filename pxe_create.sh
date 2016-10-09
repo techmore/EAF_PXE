@@ -227,21 +227,21 @@ cat <<EOF_default >> /var/lib/tftpboot/pxelinux.cfg/default
   LABEL 3
         MENU LABEL List Images
         KERNEL clonezilla-live-2.4.7-8-amd64/vmlinuz
-        APPEND initrd=clonezilla-live-2.4.7-8-amd64/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"mount -t cifs -o user=user,password=password //10.10.1.10/Images /home/partimag\" ocs_live_run=\"ocs-sr -g auto -e1 auto -e2 -batch -icds -r -j2 -k1 -p reboot restoredisk ask_user sda\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.1.10/clonezilla-live-2.4.7-8-amd64/filesystem.squashfs
+        APPEND initrd=clonezilla-live-2.4.7-8-amd64/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"mount -t cifs -o user=user,password=password //10.10.10.10/Images /home/partimag\" ocs_live_run=\"ocs-sr -g auto -e1 auto -e2 -batch -icds -r -j2 -k1 -p reboot restoredisk ask_user sda\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.10.10/clonezilla-live-2.4.7-8-amd64/filesystem.squashfs
         TEXT HELP
         Boot the List Images
         ENDTEXT
   LABEL 4
         MENU LABEL Create Image
-        KERNEL clonezilla-live-2.4.2-10-i586/vmlinuz
-        APPEND initrd=clonezilla-live-2.4.2-10-i586/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"mount -t cifs -o user=user,password=password //10.10.1.10/Images /home/partimag\" ocs_live_run=\"ocs-sr -q2 -j2 -rm-win-swap-hib -z1 -i 2000 -sc -fsck-src-part-y -p true savedisk ask_user sda\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.1.10/clonezilla-live-2.4.7-8-amd64/filesystem.squashfs
+        KERNEL clonezilla-live-2.4.7-8-amd64/vmlinuz
+        APPEND initrd=clonezilla-live-2.4.7-8-amd64/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"mount -t cifs -o user=user,password=password //10.10.10.10/Images /home/partimag\" ocs_live_run=\"ocs-sr -q2 -j2 -rm-win-swap-hib -z1 -i 2000 -sc -fsck-src-part-y -p true savedisk ask_user sda\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.10.10/clonezilla-live-2.4.7-8-amd64/filesystem.squashfs
         TEXT HELP
         Boot the Create Image
         ENDTEXT
   LABEL 5
         MENU LABEL Ubuntu-16.04.1-desktop-amd64
-        KERNEL ubuntu-16.04.1-desktop-amd64/vmlinuz
-        APPEND boot=casper netboot=nfs nfsroot=10.10.1.10:/srv/install/ubuntu-16.04.1-desktop-amd64 initrd=ubuntu-16.04.1-desktop-amd64/initrd.lz
+        KERNEL ubuntu-16.04.1-desktop-amd64/vmlinuz.efi
+        APPEND boot=casper netboot=nfs nfsroot=10.10.10.10:/srv/install/ubuntu-16.04.1-desktop-amd64 initrd=ubuntu-16.04.1-desktop-amd64/initrd.lz
         TEXT HELP
         Boot the ubuntu-16.04.1-desktop-amd64
         ENDTEXT
