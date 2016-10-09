@@ -281,7 +281,7 @@ dhclient -r
 service isc-dhcp-server restart
 service tftpd-hpa restart
 service nfs-kernel-server
-service samaba restart
+service samba restart
 
 echo "#!/bin/bash" >> /home/user/Desktop/restart_pxe.sh
 echo "sudo ifconfig `ls /sys/class/net | grep -v lo` 10.10.10.10 netmask 255.255.255.0 && sudo service isc-dhcp-server restart && sudo service tftpd-hpa restart ; sudo pkill dhclient" >> /home/user/Desktop/restart_pxe.sh
