@@ -30,6 +30,7 @@ sleep 2
 # We want the most up to date packages to avoid conflict. Install required rependancies
 # syslinux
 apt -y update; apt install -y tftpd-hpa nfs-kernel-server samba apache2 cifs-utils openssh-server
+apt -y clean
 echo "";echo ""; 
 echo "****************************************************"
 echo "** You must type in password as the password!! **"
@@ -123,8 +124,8 @@ service smbd restart
 
 echo ""
 if [ ! -f /home/user/Downloads/netboot.tar.gz ]; then
-   echo "ubuntu-16.04.1-desktop-amd64.iso NOT found, attempting to download."
-   echo "--Downloading ubuntu-16.04.1-desktop-amd64.iso..."
+   echo "netboot.tar.gz NOT found, attempting to download."
+   echo "--Downloading netboot.tar.gz..."
    cd /var/www/html/4.ISOs
    wget http://archive.ubuntu.com/ubuntu/dists/xenial-updates/main/installer-amd64/current/images/netboot/netboot.tar.gz
 else
@@ -289,6 +290,7 @@ echo "#!/bin/bash" >> /home/user/Desktop/restart_pxe.sh
 echo "sudo ifconfig `ls /sys/class/net | grep -v lo` 10.10.10.10 netmask 255.255.255.0 && sudo service isc-dhcp-server restart && sudo service tftpd-hpa restart ; sudo pkill dhclient" >> /home/user/Desktop/restart_pxe.sh
 sudo chmod 775 /home/user/Desktop/restart_pxe.sh
 
+echo "";echo ""; echo "Installation complete!" 
 echo "You should now be able to PXE boot other computers directly from this computers network port, or through a switch. If you have having issues with some services, a restart_pxe.sh file was created to make settings easier."
 echo ""
 
