@@ -252,15 +252,15 @@ echo "**************************************************************************
 
 apt install -y isc-dhcp-server
 # /etc/network/interfaces
-cat <<EOF_interfaces >> /etc/network/interfaces
-auto lo
-iface lo inet loopback
-auto `echo /sys/class/net | grep -v lo`
-iface `echo /sys/class/net | grep -v lo` inet static
-address 10.10.10.10
-netmask 255.255.255.0
-gateway 10.10.10.10
-EOF_interfaces
+# auto lo
+# iface lo inet loopback
+#cat <<EOF_interfaces >> /etc/network/interfaces
+echo "auto `echo /sys/class/net | grep -v lo`" >> /etc/network/interfaces
+echo "iface `echo /sys/class/net | grep -v lo` inet static" >> /etc/network/interfaces
+echo "address 10.10.10.10" >> /etc/network/interfaces
+echo "netmask 255.255.255.0" >> /etc/network/interfaces
+echo "gateway 10.10.10.10" >> /etc/network/interfaces
+#EOF_interfaces
 
 # /etc/dhcp/dhcpd.conf
 cat <<EOF_dhcpd.conf >> /etc/dhcp/dhcpd.conf
