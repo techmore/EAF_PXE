@@ -7,6 +7,7 @@ if [ "$EUID" -ne 0 ]
 fi
 
 cat << EOF_introduction
+
 Welcome to EAF-PXE for Ubuntu 16.04 LTS.
 This program has only been made possible by :
    Electronic Access Foundation http://e-access.org/
@@ -24,6 +25,7 @@ We will attempt to locate these files in /home/users/Downloads :
 
 EOF_introduction
 
+sleep 2
 
 # We want the most up to date packages to avoid conflict. Install required rependancies
 apt -y update; apt install -y tftpd-hpa syslinux nfs-kernel-server samba apache2 cifs-utils openssh-server
