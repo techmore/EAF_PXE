@@ -266,7 +266,7 @@ EOF_interfaces
 cat <<EOF_dhcpd.conf >> /etc/dhcp/dhcpd.conf
 subnet 10.10.10.0 netmask 255.255.255.0 {
        range 10.10.10.100 10.10.10.200;
-       filename \"pxelinux.0\";
+       filename "pxelinux.0";
        next-server 10.10.10.10;
        option subnet-mask 255.255.255.0;
        option broadcast-address 10.10.10.255;}
