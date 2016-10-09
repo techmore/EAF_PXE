@@ -27,10 +27,10 @@ We will attempt to locate these files in /home/users/Downloads :
 EOF_introduction
 
 sleep 2
-
 # We want the most up to date packages to avoid conflict. Install required rependancies
 apt -y update; apt install -y tftpd-hpa syslinux nfs-kernel-server samba apache2 cifs-utils openssh-server
-echo "";echo ""; echo "****************************************************"
+echo "";echo ""; 
+echo "****************************************************"
 echo "** You must type in password as the password!! **"
 echo "****************************************************"
 
@@ -78,7 +78,7 @@ guest ok = yes
 EOF
 
 sudo service smbd restart
-
+/*
 # 7/23/15 DBan has been updated  if [ ! -f ~/Downloads/dban-2.2.8_i586.iso ]; then
 # http://sourceforge.net/projects/dban/files/dban/dban-2.3.0/dban-2.3.0_i586.iso
 if [ ! -f /home/user/Downloads/dban-2.3.0_i586.iso ]; then
@@ -121,16 +121,13 @@ else
    echo "ubuntu-16.04.1-desktop-amd64.iso found."
    cp /home/user/Downloads/ubuntu-16.04.1-desktop-amd64.iso /var/www/html/4.ISOs
 fi
+*/
 
 echo ""
 if [ ! -f /home/user/Downloads/netboot.tar.gz ]; then
    echo "ubuntu-16.04.1-desktop-amd64.iso NOT found, attempting to download."
    echo "--Downloading ubuntu-16.04.1-desktop-amd64.iso..."
    cd /var/www/html/4.ISOs
-#  wget  https://nyc3.dl.elementary.io/download/MTQ0MjE4OTk5Nw==/elementaryos-stable-0.3.1-i386.20150903.iso
-#  https://nyc3.dl.elementary.io/download/MTQ3NDg1NjE4MA==/elementaryos-0.4-stable-amd64.20160921.iso
-
-#   wget http://releases.ubuntu.com/14.04.3/ubuntu-14.04.3-desktop-i386.iso
    wget http://archive.ubuntu.com/ubuntu/dists/xenial-updates/main/installer-amd64/current/images/netboot/netboot.tar.gz
 else
    echo "netboot.tar.gz found."
@@ -148,6 +145,8 @@ fi
    mkdir -p /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64
    mkdir -p /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64 
    mkdir -p /var/lib/tftpboot/dban-2.3.0_i586 /srv/install/dban-2.3.0_i586 
+
+tar -xvzf netboot.tar.gz -C /var/lib/tftpboot/
 
 mount -o loop -t iso9660 /var/www/html/4.ISOs/dban-2.3.0_i586.iso /mnt/loop
 cp /mnt/loop/dban.bzi /var/lib/tftpboot/dban-2.3.0_i586/dban.bzi
