@@ -16,7 +16,7 @@ This program has only been made possible by :
    Hill Top Preparatory School http://hilltopprep.org/
 
 This REQUIRES an internet connection to install and configure : 
-tftpd-hpa syslinux nfs-kernel-server samba apache2 cifs-utils openssh-server
+tftpd-hpa nfs-kernel-server samba apache2 cifs-utils openssh-server isc-dhcp-server
 
 We will attempt to locate these files in /home/users/Downloads : 
    netboot.tar.gz
@@ -28,7 +28,8 @@ EOF_introduction
 
 sleep 2
 # We want the most up to date packages to avoid conflict. Install required rependancies
-apt -y update; apt install -y tftpd-hpa syslinux nfs-kernel-server samba apache2 cifs-utils openssh-server
+# syslinux
+apt -y update; apt install -y tftpd-hpa nfs-kernel-server samba apache2 cifs-utils openssh-server
 echo "";echo ""; 
 echo "****************************************************"
 echo "** You must type in password as the password!! **"
@@ -50,9 +51,6 @@ chmod -R 777 /var/www/html
 chown -R user /var/www/html/1.Images
 chown -R user /var/www/html/2.Reports
 ln -s /var/lib/tftpboot /var/www/html
-# This path needs to be update
-# ln -s /home/user/Downloads /var/www/html
-# ln -s /home/user/Desktop /var/www/html
 cp /etc/samba/smb.conf /etc/samba/smb.conf.bak
 
 cat <<EOF >> /etc/samba/smb.conf
@@ -134,7 +132,22 @@ else
    cp /home/user/Downloads/netboot.tar.gz /var/www/html/4.ISOs
    cd /var/www/html/4.ISOs
 fi
-tar -xvzf netboot.tar.gz -C /var/lib/tftpboot/
+tar -xvzf netboot.tar.gz -C .
+######### Syslinux setup stuff #####################################################
+cp /var/www/html/4.ISOs/netboot/ubuntu-installer/amd64/pxelinux.0 /var/lib/tftpboot
+cp /var/www/html/4.ISOs/netboot/ubuntu-installer/amd64/boot-screens/vesamenu.c32 /var/lib/tftpboot
+
+ mkdir -p /var/lib/tftpboot/pxelinux.cfg
+ cp /home/user/Downloads/EAF_PXE-master/logo.png /var/lib/tftpboot/pxelinux.cfg
+ touch /var/lib/tftpboot/pxelinux.cfg/pxe.conf
+ touch /var/lib/tftpboot/pxelinux.cfg/default
+
+# wget https://help.ubuntu.com/community/PXEInstallMultiDistro?action=AttachFile&do=view&target=logo.png
+# cp /usr/lib/syslinux/pxelinux.0 /var/lib/tftpboot
+# cp /usr/lib/syslinux/vesamenu.c32 /var/lib/tftpboot
+# cp /usr/lib/syslinux/modules/bios/pxelinux.0 /var/lib/tftpboot
+# cp /usr/lib/syslinux/modules/bios/vesamenu.c32 /var/lib/tftpboot
+
 chown -R nobody:nogroup /var/lib/tftpboot
 
 # https://nyc3.dl.elementary.io/download/MTQ0MjE4OTk5Nw==/elementaryos-stable-0.3.1-i386.20150903.iso
@@ -164,55 +177,43 @@ chown -R nobody:nogroup /var/lib/tftpboot
 # cp -R /mnt/loop/.disk /srv/install/ubuntu-16.04.1-desktop-amd64
 # umount /mnt/loop
 
-######### Syslinux setup stuff #####################################################
-# mkdir -p /var/lib/tftpboot/pxelinux.cfg
-# wget https://help.ubuntu.com/community/PXEInstallMultiDistro?action=AttachFile&do=view&target=logo.png
-# cp /home/user/Downloads/EAF_PXE-master/logo.png /var/lib/tftpboot/pxelinux.cfg
-# cp /usr/lib/syslinux/pxelinux.0 /var/lib/tftpboot
-# cp /usr/lib/syslinux/vesamenu.c32 /var/lib/tftpboot
-# cp /usr/lib/syslinux/modules/bios/pxelinux.0 /var/lib/tftpboot
-# cp /usr/lib/syslinux/modules/bios/vesamenu.c32 /var/lib/tftpboot
-# touch /var/lib/tftpboot/pxelinux.cfg/pxe.conf
-# touch /var/lib/tftpboot/pxelinux.cfg/default
-
-
 echo "/srv/install         10.10.10.0/24(rw,async,no_root_squash,no_subtree_check) " > /etc/exports
 exportfs -a
 
 # /var/lib/tftpboot/pxelinux.cfg/pxe.conf ############################################
-# cat <<EOF_pxe.conf >> /var/lib/tftpboot/pxelinux.cfg/pxe.conf
-# MENU TITLE  PXE Server
-# MENU BACKGROUND pxelinux.cfg/logo.png
-# NOESCAPE 1
-# ALLOWOPTIONS 1
-# PROMPT 0
-# menu width 80
-# menu rows 14
-# MENU TABMSGROW 24
-# MENU MARGIN 10
-# menu color border               30;44      #ffffffff #00000000 std
-# EOF_pxe.conf
+cat <<EOF_pxe.conf >> /var/lib/tftpboot/pxelinux.cfg/pxe.conf
+  MENU TITLE  PXE Server
+  MENU BACKGROUND pxelinux.cfg/logo.png
+  NOESCAPE 1
+  ALLOWOPTIONS 1
+  PROMPT 0
+  menu width 80
+  menu rows 14
+  MENU TABMSGROW 24
+  MENU MARGIN 10
+  menu color border               30;44      #ffffffff #00000000 std
+EOF_pxe.conf
 
 # /var/lib/tftpboot/pxelinux.cfg/default ##################################################
-# cat <<EOF_default >> /var/lib/tftpboot/pxelinux.cfg/default
-# DEFAULT vesamenu.c32
-# TIMEOUT 600
-# ONTIMEOUT BootLocal
-# PROMPT 0
-# MENU INCLUDE pxelinux.cfg/pxe.conf
-# NOESCAPE 1
-# LABEL Boot off internal drive
-#      localboot 0
-#      TEXT HELP
-#      Boot to local hard disk
-#      ENDTEXT
-# LABEL 1
-#      MENU LABEL DBAN - Hard Drive Sanitation
-#      KERNEL dban-2.3.0_i586/dban.bzi
-#      APPEND nuke=\"dwipe --autonuke\" silent vga=785
-#      TEXT HELP
-#      Warning - This will erase your hard drive
-#      ENDTEXT
+cat <<EOF_default >> /var/lib/tftpboot/pxelinux.cfg/default
+  DEFAULT vesamenu.c32
+  TIMEOUT 600
+  ONTIMEOUT BootLocal
+  PROMPT 0
+  MENU INCLUDE pxelinux.cfg/pxe.conf
+  NOESCAPE 1
+  LABEL Boot off internal drive
+       localboot 0
+       TEXT HELP
+       Boot to local hard disk
+       ENDTEXT
+  LABEL 1
+       MENU LABEL DBAN - Hard Drive Sanitation
+       KERNEL dban-2.3.0_i586/dban.bzi
+       APPEND nuke=\"dwipe --autonuke\" silent vga=785
+       TEXT HELP
+       Warning - This will erase your hard drive
+       ENDTEXT
 
 # echo "LABEL 2" >> /var/lib/tftpboot/pxelinux.cfg/default
 # echo "        MENU LABEL Inventory Machine - Alpha (not working)" >> /var/lib/tftpboot/pxelinux.cfg/default
@@ -222,28 +223,28 @@ exportfs -a
 # echo "        Boot the Inventory Machine" >> /var/lib/tftpboot/pxelinux.cfg/default
 # echo "        ENDTEXT" >> /var/lib/tftpboot/pxelinux.cfg/default
 
-# LABEL 3
-#       MENU LABEL List Images
-#       KERNEL clonezilla-live-2.4.7-8-amd64/vmlinuz
-#       APPEND initrd=clonezilla-live-2.4.7-8-amd64/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"mount -t cifs -o user=user,password=password //10.10.1.10/Images /home/partimag\" ocs_live_run=\"ocs-sr -g auto -e1 auto -e2 -batch -icds -r -j2 -k1 -p reboot restoredisk ask_user sda\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.1.10/clonezilla-live-2.4.7-8-amd64/filesystem.squashfs
-#       TEXT HELP
-#       Boot the List Images
-#       ENDTEXT
-# LABEL 4
-#       MENU LABEL Create Image
-#       KERNEL clonezilla-live-2.4.2-10-i586/vmlinuz
-#       APPEND initrd=clonezilla-live-2.4.2-10-i586/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"mount -t cifs -o user=user,password=password //10.10.1.10/Images /home/partimag\" ocs_live_run=\"ocs-sr -q2 -j2 -rm-win-swap-hib -z1 -i 2000 -sc -fsck-src-part-y -p true savedisk ask_user sda\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.1.10/clonezilla-live-2.4.7-8-amd64/filesystem.squashfs
-#       TEXT HELP
-#       Boot the Create Image
-#       ENDTEXT
-# LABEL 5
-#       MENU LABEL Ubuntu-16.04.1-desktop-amd64
-#       KERNEL ubuntu-16.04.1-desktop-amd64/vmlinuz
-#       APPEND boot=casper netboot=nfs nfsroot=10.10.1.10:/srv/install/ubuntu-16.04.1-desktop-amd64 initrd=ubuntu-16.04.1-desktop-amd64/initrd.lz
-#       TEXT HELP
-#       Boot the ubuntu-16.04.1-desktop-amd64
-#       ENDTEXT
-# EOF_default
+  LABEL 3
+        MENU LABEL List Images
+        KERNEL clonezilla-live-2.4.7-8-amd64/vmlinuz
+        APPEND initrd=clonezilla-live-2.4.7-8-amd64/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"mount -t cifs -o user=user,password=password //10.10.1.10/Images /home/partimag\" ocs_live_run=\"ocs-sr -g auto -e1 auto -e2 -batch -icds -r -j2 -k1 -p reboot restoredisk ask_user sda\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.1.10/clonezilla-live-2.4.7-8-amd64/filesystem.squashfs
+        TEXT HELP
+        Boot the List Images
+        ENDTEXT
+  LABEL 4
+        MENU LABEL Create Image
+        KERNEL clonezilla-live-2.4.2-10-i586/vmlinuz
+        APPEND initrd=clonezilla-live-2.4.2-10-i586/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"mount -t cifs -o user=user,password=password //10.10.1.10/Images /home/partimag\" ocs_live_run=\"ocs-sr -q2 -j2 -rm-win-swap-hib -z1 -i 2000 -sc -fsck-src-part-y -p true savedisk ask_user sda\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.1.10/clonezilla-live-2.4.7-8-amd64/filesystem.squashfs
+        TEXT HELP
+        Boot the Create Image
+        ENDTEXT
+  LABEL 5
+        MENU LABEL Ubuntu-16.04.1-desktop-amd64
+        KERNEL ubuntu-16.04.1-desktop-amd64/vmlinuz
+        APPEND boot=casper netboot=nfs nfsroot=10.10.1.10:/srv/install/ubuntu-16.04.1-desktop-amd64 initrd=ubuntu-16.04.1-desktop-amd64/initrd.lz
+        TEXT HELP
+        Boot the ubuntu-16.04.1-desktop-amd64
+        ENDTEXT
+EOF_default
 
 chmod 777 -R /var/lib/tftpboot
 echo "****************************************************************************"
