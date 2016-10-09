@@ -178,7 +178,7 @@ chown -R nobody:nogroup /var/lib/tftpboot
 
 echo "/srv/install         10.10.10.0/24(rw,async,no_root_squash,no_subtree_check) " > /etc/exports
 exportfs -a
-/*
+
 # /var/lib/tftpboot/pxelinux.cfg/pxe.conf ############################################
 # cat <<EOF_pxe.conf >> /var/lib/tftpboot/pxelinux.cfg/pxe.conf
 # MENU TITLE  PXE Server
