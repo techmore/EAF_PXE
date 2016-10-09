@@ -132,6 +132,7 @@ else
    cp /home/user/Downloads/netboot.tar.gz /var/www/html/4.ISOs
    cd /var/www/html/4.ISOs
 fi
+mkdir -p /var/www/html/4.ISOs/netboot
 tar -xvzf netboot.tar.gz -C /var/www/html/4.ISOs/netboot
 ######### Syslinux setup stuff #####################################################
 cp /var/www/html/4.ISOs/netboot/ubuntu-installer/amd64/pxelinux.0 /var/lib/tftpboot
