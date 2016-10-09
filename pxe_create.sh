@@ -132,21 +132,20 @@ if [ ! -f /home/user/Downloads/netboot.tar.gz ]; then
 else
    echo "netboot.tar.gz found."
    cp /home/user/Downloads/netboot.tar.gz /var/www/html/4.ISOs
+   cd /var/www/html/4.ISOs
 fi
-
-
+tar -xvzf netboot.tar.gz -C /var/lib/tftpboot/
+chown -R nobody:nogroup /var/lib/tftpboot
 
 # https://nyc3.dl.elementary.io/download/MTQ0MjE4OTk5Nw==/elementaryos-stable-0.3.1-i386.20150903.iso
 # https://nyc3.dl.elementary.io/download/MTQ0MjE4OTk5Nw==/elementaryos-stable-0.3.1-amd64.20150903.iso
 # Sperated to be readable
-
+/*
    mkdir -p /mnt/loop /srv/install
    mkdir -p /srv/install/ubuntu-16.04.1-desktop-amd64
    mkdir -p /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64
    mkdir -p /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64 
    mkdir -p /var/lib/tftpboot/dban-2.3.0_i586 /srv/install/dban-2.3.0_i586 
-
-tar -xvzf netboot.tar.gz -C /var/lib/tftpboot/
 
 mount -o loop -t iso9660 /var/www/html/4.ISOs/dban-2.3.0_i586.iso /mnt/loop
 cp /mnt/loop/dban.bzi /var/lib/tftpboot/dban-2.3.0_i586/dban.bzi
@@ -175,9 +174,11 @@ cp /usr/lib/syslinux/modules/bios/pxelinux.0 /var/lib/tftpboot
 cp /usr/lib/syslinux/modules/bios/vesamenu.c32 /var/lib/tftpboot
 touch /var/lib/tftpboot/pxelinux.cfg/pxe.conf
 touch /var/lib/tftpboot/pxelinux.cfg/default
-echo "/srv/install         10.10.1.0/24(rw,async,no_root_squash,no_subtree_check) " > /etc/exports
-exportfs -a
+*/
 
+echo "/srv/install         10.10.10.0/24(rw,async,no_root_squash,no_subtree_check) " > /etc/exports
+exportfs -a
+/*
 # /var/lib/tftpboot/pxelinux.cfg/pxe.conf ############################################
 cat <<EOF_pxe.conf >> /var/lib/tftpboot/pxelinux.cfg/pxe.conf
 MENU TITLE  PXE Server
@@ -243,6 +244,7 @@ LABEL 5
        Boot the ubuntu-16.04.1-desktop-amd64
        ENDTEXT
 EOF_default
+*/
 
 chmod 777 -R /var/lib/tftpboot
 echo "****************************************************************************"
