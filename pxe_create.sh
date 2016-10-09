@@ -19,12 +19,12 @@ This REQUIRES an internet connection to install and configure :
 tftpd-hpa syslinux nfs-kernel-server samba apache2 cifs-utils openssh-server
 
 We will attempt to locate these files in /home/users/Downloads : 
-#   dban-2.3.0_i586.iso
-#   clonezilla-live-2.4.2-10-i586.iso
-#   ubuntu-16.04.1-desktop-amd64.iso
    netboot.tar.gz
 
 EOF_introduction
+#   dban-2.3.0_i586.iso
+#   clonezilla-live-2.4.2-10-i586.iso
+#   ubuntu-16.04.1-desktop-amd64.iso
 
 sleep 2
 # We want the most up to date packages to avoid conflict. Install required rependancies
