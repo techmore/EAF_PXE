@@ -118,6 +118,22 @@ else
    echo "ubuntu-16.04.1-desktop-amd64.iso found."
 fi
 
+echo ""
+if [ ! -f /home/user/Downloads/netboot.tar.gz ]; then
+   echo "ubuntu-16.04.1-desktop-amd64.iso NOT found, attempting to download."
+   echo "--Downloading ubuntu-16.04.1-desktop-amd64.iso..."
+   cd /var/www/html/4.ISOs
+#  wget  https://nyc3.dl.elementary.io/download/MTQ0MjE4OTk5Nw==/elementaryos-stable-0.3.1-i386.20150903.iso
+#  https://nyc3.dl.elementary.io/download/MTQ3NDg1NjE4MA==/elementaryos-0.4-stable-amd64.20160921.iso
+
+#   wget http://releases.ubuntu.com/14.04.3/ubuntu-14.04.3-desktop-i386.iso
+   wget http://archive.ubuntu.com/ubuntu/dists/xenial-updates/main/installer-amd64/current/images/netboot/netboot.tar.gz
+else
+   echo "netboot.tar.gz found."
+fi
+
+
+
 # https://nyc3.dl.elementary.io/download/MTQ0MjE4OTk5Nw==/elementaryos-stable-0.3.1-i386.20150903.iso
 # https://nyc3.dl.elementary.io/download/MTQ0MjE4OTk5Nw==/elementaryos-stable-0.3.1-amd64.20150903.iso
 # Sperated to be readable
