@@ -152,7 +152,7 @@ umount /mnt/loop
 
 ######### Syslinux setup stuff #####################################################
 # wget https://help.ubuntu.com/community/PXEInstallMultiDistro?action=AttachFile&do=view&target=logo.png
-cp /home/user/Downloads/EAF_PXE-masterlogo.png /var/lib/tftpboot/pxelinux.cfg
+cp /home/user/Downloads/EAF_PXE-master/logo.png /var/lib/tftpboot/pxelinux.cfg
 cp /usr/lib/syslinux/pxelinux.0 /var/lib/tftpboot
 cp /usr/lib/syslinux/vesamenu.c32 /var/lib/tftpboot
 mkdir /var/lib/tftpboot/pxelinux.cfg
