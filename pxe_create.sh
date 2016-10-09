@@ -19,9 +19,9 @@ This REQUIRES an internet connection to install and configure :
 tftpd-hpa syslinux nfs-kernel-server samba apache2 cifs-utils openssh-server
 
 We will attempt to locate these files in /home/users/Downloads : 
-   dban-2.3.0_i586.iso
-   clonezilla-live-2.4.2-10-i586.iso
-   ubuntu-16.04.1-desktop-amd64.iso
+#   dban-2.3.0_i586.iso
+#   clonezilla-live-2.4.2-10-i586.iso
+#   ubuntu-16.04.1-desktop-amd64.iso
    netboot.tar.gz
 
 EOF_introduction
@@ -51,8 +51,8 @@ chown -R user /var/www/html/1.Images
 chown -R user /var/www/html/2.Reports
 ln -s /var/lib/tftpboot /var/www/html
 # This path needs to be update
-ln -s /home/user/Downloads /var/www/html
-ln -s /home/user/Desktop /var/www/html
+# ln -s /home/user/Downloads /var/www/html
+# ln -s /home/user/Desktop /var/www/html
 cp /etc/samba/smb.conf /etc/samba/smb.conf.bak
 
 cat <<EOF >> /etc/samba/smb.conf
@@ -77,7 +77,7 @@ writeable = yes
 guest ok = yes
 EOF
 
-sudo service smbd restart
+service smbd restart
 
 # 7/23/15 DBan has been updated  if [ ! -f ~/Downloads/dban-2.2.8_i586.iso ]; then
 # http://sourceforge.net/projects/dban/files/dban/dban-2.3.0/dban-2.3.0_i586.iso
@@ -281,7 +281,7 @@ dhclient -r
 service isc-dhcp-server restart
 service tftpd-hpa restart
 service nfs-kernel-server
-service samba restart
+service smbd restart
 
 echo "#!/bin/bash" >> /home/user/Desktop/restart_pxe.sh
 echo "sudo ifconfig `ls /sys/class/net | grep -v lo` 10.10.10.10 netmask 255.255.255.0 && sudo service isc-dhcp-server restart && sudo service tftpd-hpa restart ; sudo pkill dhclient" >> /home/user/Desktop/restart_pxe.sh
@@ -292,3 +292,5 @@ echo ""
 
 # sudo reboot
 sh /home/user/Desktop/restart_pxe.sh
+
+ifconfig `ls /sys/class/net | grep -v lo` 10.10.10.10 netmask 255.255.255.0
