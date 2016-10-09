@@ -128,31 +128,31 @@ fi
    mkdir -p /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64 
    mkdir -p /var/lib/tftpboot/dban-2.3.0_i586 /srv/install/dban-2.3.0_i586 
 
-mount -o loop -t iso9660 /home/user/Downloads/dban-2.3.0_i586.iso /mnt/loop
+mount -o loop -t iso9660 /var/www/html/4.ISOs/dban-2.3.0_i586.iso /mnt/loop
 cp /mnt/loop/dban.bzi /var/lib/tftpboot/dban-2.3.0_i586/dban.bzi
 umount /mnt/loop
 
-mount -o loop -t iso9660 /home/user/Downloads/clonezilla-live-2.4.7-8-amd64.iso /mnt/loop
+mount -o loop -t iso9660 /var/www/html/4.ISOs/clonezilla-live-2.4.7-8-amd64.iso /mnt/loop
 cp /mnt/loop/live/vmlinuz /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64
 cp /mnt/loop/live/initrd.img /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64
 cp /mnt/loop/live/filesystem.squashfs /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64
 umount /mnt/loop
 
-mount -o loop -t iso9660 /home/user/Downloads/ubuntu-16.04.1-desktop-amd64.iso /mnt/loop
-cp /mnt/loop/casper/vmlinuz /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64
+mount -o loop -t iso9660 /var/www/html/4.ISOs/ubuntu-16.04.1-desktop-amd64.iso /mnt/loop
+cp /mnt/loop/casper/vmlinuz.efi /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64
 cp /mnt/loop/casper/initrd.lz /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64
 cp -R /mnt/loop/* /srv/install/ubuntu-16.04.1-desktop-amd64
 cp -R /mnt/loop/.disk /srv/install/ubuntu-16.04.1-desktop-amd64
 umount /mnt/loop
 
 ######### Syslinux setup stuff #####################################################
+mkdir -p /var/lib/tftpboot/pxelinux.cfg
 # wget https://help.ubuntu.com/community/PXEInstallMultiDistro?action=AttachFile&do=view&target=logo.png
 cp /home/user/Downloads/EAF_PXE-master/logo.png /var/lib/tftpboot/pxelinux.cfg
 # cp /usr/lib/syslinux/pxelinux.0 /var/lib/tftpboot
 # cp /usr/lib/syslinux/vesamenu.c32 /var/lib/tftpboot
 cp /usr/lib/syslinux/modules/bios/pxelinux.0 /var/lib/tftpboot
 cp /usr/lib/syslinux/modules/bios/vesamenu.c32 /var/lib/tftpboot
-mkdir /var/lib/tftpboot/pxelinux.cfg
 touch /var/lib/tftpboot/pxelinux.cfg/pxe.conf
 touch /var/lib/tftpboot/pxelinux.cfg/default
 echo "/srv/install         10.10.1.0/24(rw,async,no_root_squash,no_subtree_check) " > /etc/exports
@@ -236,23 +236,23 @@ auto lo
 iface lo inet loopback
 auto `echo /sys/class/net | grep -v lo`
 iface `echo /sys/class/net | grep -v lo` inet static
-address 10.10.1.10
+address 10.10.10.10
 netmask 255.255.255.0
-gateway 10.10.1.10
+gateway 10.10.10.10
 EOF_interfaces
 
 # /etc/dhcp/dhcpd.conf
 cat <<EOF_dhcpd.conf >> /etc/dhcp/dhcpd.conf
-subnet 10.10.1.0 netmask 255.255.255.0 {
-       range 10.10.1.100 10.10.1.200;
+subnet 10.10.10.0 netmask 255.255.255.0 {
+       range 10.10.10.100 10.10.10.200;
        filename \"pxelinux.0\";
-       next-server 10.10.1.10;
+       next-server 10.10.10.10;
        option subnet-mask 255.255.255.0;
-       option broadcast-address 10.10.1.255;}
+       option broadcast-address 10.10.10.255;}
 EOF_dhcpd.conf
 
-ifconfig wlan0 down
-ifconfig `ls /sys/class/net | grep -v lo` 10.10.1.10 netmask 255.255.255.0
+ifconfig wlan0 down 2&>/dev/null
+ifconfig `ls /sys/class/net | grep -v lo` 10.10.10.10 netmask 255.255.255.0
 ifconfig `ls /sys/class/net | grep -v lo` down
 ifconfig `ls /sys/class/net | grep -v lo` up
 pkill dhclient
@@ -263,7 +263,7 @@ service nfs-kernel-server
 service samaba restart
 
 echo "#!/bin/bash" >> /home/user/Desktop/restart_pxe.sh
-echo "sudo ifconfig `ls /sys/class/net | grep -v lo` 10.10.1.10 netmask 255.255.255.0 && sudo service isc-dhcp-server restart && sudo service tftpd-hpa restart ; sudo pkill dhclient" >> /home/user/Desktop/restart_pxe.sh
+echo "sudo ifconfig `ls /sys/class/net | grep -v lo` 10.10.10.10 netmask 255.255.255.0 && sudo service isc-dhcp-server restart && sudo service tftpd-hpa restart ; sudo pkill dhclient" >> /home/user/Desktop/restart_pxe.sh
 sudo chmod 775 /home/user/Desktop/restart_pxe.sh
 
 echo "You should now be able to PXE boot other computers directly from this computers network port, or through a switch. If you have having issues with some services, a restart_pxe.sh file was created to make settings easier."
@@ -271,10 +271,3 @@ echo ""
 
 # sudo reboot
 sh /home/user/Desktop/restart_pxe.sh
-
-# rm ~/Downloads/dban-2.2.8_i586.iso
-# rm ~/Downloads/ubuntu-14.04.-desktop-i386.iso
-# rm ~/Downloads/edubuntu-14.04.-dvd-i386.iso
-# rm ~/Downloads/clonezilla-live-2.3.2-22-i586
-# rm ~/Downloads/lubuntu-15.04-desktop-i386
-# rm ~/Downloads/elementaryos-freya-i386.20150411
