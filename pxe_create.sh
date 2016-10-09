@@ -90,6 +90,7 @@ if [ ! -f /home/user/Downloads/dban-2.3.0_i586.iso ]; then
    echo ""
 else
    echo "dban-2.3.0_i586.iso found."
+   mv /home/user/Downloads/dban-2.3.0_i586.iso /var/www/html/4.ISOs 
 fi
 echo ""
 
@@ -103,6 +104,7 @@ if [ ! -f /home/user/Downloads/clonezilla-live-2.4.7-8-amd64.iso ]; then
    wget https://osdn.jp/frs/redir.php?m=gigenet&f=%2Fclonezilla%2F66042%2Fclonezilla-live-2.4.7-8-amd64.iso
 else
    echo "clonezilla-live-2.4.7-8-amd64.iso found."
+   mv /home/user/Downloads/clonezilla-live-2.4.7-8-amd64.iso /var/www/html/4.ISOs
 fi
 
 echo ""
@@ -117,6 +119,7 @@ if [ ! -f /home/user/Downloads/ubuntu-16.04.1-desktop-amd64.iso ]; then
    wget http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-desktop-amd64.iso
 else
    echo "ubuntu-16.04.1-desktop-amd64.iso found."
+   cp /home/user/Downloads/ubuntu-16.04.1-desktop-amd64.iso /var/www/html/4.ISOs
 fi
 
 echo ""
@@ -131,6 +134,7 @@ if [ ! -f /home/user/Downloads/netboot.tar.gz ]; then
    wget http://archive.ubuntu.com/ubuntu/dists/xenial-updates/main/installer-amd64/current/images/netboot/netboot.tar.gz
 else
    echo "netboot.tar.gz found."
+   cp /home/user/Downloads/netboot.tar.gz /var/www/html/4.ISOs
 fi
 
 
