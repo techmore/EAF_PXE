@@ -1,5 +1,17 @@
 #!/bin/bash
 
+
+# cat <<EOF >> /etc/samba/smb.conf
+# [Images]
+# path = /var/www/html/1.Images
+# available = yes
+# valid users = user
+# read only = no
+# browseable = yes
+# public = yes
+# writeable = yes
+# guest ok = yes
+
 [install]
 comment = Windows 7 Image
 path = /windows
