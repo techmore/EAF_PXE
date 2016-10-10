@@ -263,13 +263,15 @@ apt install -y isc-dhcp-server
 # /etc/network/interfaces
 # auto lo
 # iface lo inet loopback
-#cat <<EOF_interfaces >> /etc/network/interfaces
-echo "auto `echo /sys/class/net | grep -v lo`" >> /etc/network/interfaces
-echo "iface `echo /sys/class/net | grep -v lo` inet static" >> /etc/network/interfaces
-echo "address 10.10.10.10" >> /etc/network/interfaces
-echo "netmask 255.255.255.0" >> /etc/network/interfaces
-echo "gateway 10.10.10.10" >> /etc/network/interfaces
-#EOF_interfaces
+ethernet=`ls /sys/class/net | grep -v lo`
+
+cat <<EOF_interfaces >> /etc/network/interfaces
+  auto $ethernet
+  iface $ethernet inet static
+  address 10.10.10.10
+  netmask 255.255.255.0
+  gateway 10.10.10.10
+EOF_interfaces
 
 # /etc/dhcp/dhcpd.conf
 cat <<EOF_dhcpd.conf >> /etc/dhcp/dhcpd.conf
@@ -288,13 +290,14 @@ ifconfig `ls /sys/class/net | grep -v lo` up
 pkill dhclient
 dhclient -r
 service isc-dhcp-server restart
+sleep 2
 service tftpd-hpa restart
-service nfs-kernel-server
+service nfs-kernel-server restart
 service smbd restart
 
 echo "#!/bin/bash" >> /home/user/Desktop/restart_pxe.sh
-echo "sudo ifconfig `ls /sys/class/net | grep -v lo` 10.10.10.10 netmask 255.255.255.0 && sudo service isc-dhcp-server restart && sudo service tftpd-hpa restart ; sudo pkill dhclient" >> /home/user/Desktop/restart_pxe.sh
-sudo chmod 775 /home/user/Desktop/restart_pxe.sh
+echo "sudo ifconfig `ls /sys/class/net | grep -v lo` 10.10.10.10 netmask 255.255.255.0; sudo service isc-dhcp-server restart; sleep 2; sudo service tftpd-hpa restart; sudo pkill dhclient" >> /home/user/Desktop/restart_pxe.sh
+chmod 775 /home/user/Desktop/restart_pxe.sh
 
 echo "";echo ""; echo "Installation complete!" 
 echo "You should now be able to PXE boot other computers directly from this computers network port, or through a switch. If you have having issues with some services, a restart_pxe.sh file was created to make settings easier."
