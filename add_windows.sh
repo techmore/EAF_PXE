@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root"
+  exit
+fi
 
 echo "This program expects Windows_7_x64.iso, WinPE_x64.iso in $HOME/Downloads folder."
 
