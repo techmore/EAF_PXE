@@ -1,13 +1,15 @@
-# Download windows 7 AIK
-# http://www.microsoft.com/en-us/download/details.aspx?id=5753
+echo Download windows 7 AIK
+echo http://www.microsoft.com/en-us/download/details.aspx?id=5753
 
-# Daemon Tools Lite Free Edition can be used to mount the iso
+echo Daemon Tools Lite Free Edition can be used to mount the iso
 
-# After Windows AIK software is installed on your system go to Windows Start -> All Programs -> Microsoft Windows AIK -> right click on Deployment Tools Command Prompt and select Run as Administrator and a new Windows Shell console should open on your screen.
+timeout 5
 
-# copype amd64 C:\winPE_amd64
-# copy "C:\Program Files\Windows AIK\Tools\PETools\amd64\winpe.wim" C:\winpe_amd64\ISO\Sources\Boot.wim
-# copy "C:\Program Files\Windows AIK\Tools\amd64\Imagex.exe" C:\winpe_amd64\ISO\
-# oscdimg -n -bC:\winpe_amd64\etfsboot.com C:\winpe_amd64\ISO C:\winpe_amd64\winpe_amd64.iso
+echo After Windows AIK software is installed on your system go to Windows Start -> All Programs -> Microsoft Windows AIK -> right click on Deployment Tools Command Prompt and select Run as Administrator and a new Windows Shell console should open on your screen.
 
-# After WinPE x64 ISO file is completely transferred to "10.10.10.10:/home/$USER/Downloads go back to PXE Server console and move this image from root’s /windows directory to TFTP windows directory path to complete the entire installation process.
+echo copype amd64 C:\winPE_amd64
+echo copy "C:\Program Files\Windows AIK\Tools\PETools\amd64\winpe.wim" C:\winpe_amd64\ISO\Sources\Boot.wim
+echo copy "C:\Program Files\Windows AIK\Tools\amd64\Imagex.exe" C:\winpe_amd64\ISO\
+echo oscdimg -n -bC:\winpe_amd64\etfsboot.com C:\winpe_amd64\ISO C:\winpe_amd64\winpe_amd64.iso
+
+echo After WinPE x64 ISO file is completely transferred to "10.10.10.10:/home/$USER/Downloads go back to PXE Server console and move this image from root’s /windows directory to TFTP windows directory path to complete the entire installation process.
