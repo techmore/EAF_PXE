@@ -84,6 +84,7 @@ exportfs -a
 
 # 7/23/15 DBan has been updated  if [ ! -f ~/Downloads/dban-2.2.8_i586.iso ]; then
 # http://sourceforge.net/projects/dban/files/dban/dban-2.3.0/dban-2.3.0_i586.iso
+sleep 1
 
 if [ ! -f /home/user/Downloads/dban-2.3.0_i586.iso ]; then
   echo "~/Downloads/dban-2.3.0_i586.iso NOT found, attempting to download."
