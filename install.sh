@@ -47,8 +47,10 @@ mkdir -p /var/www/html/1.Images /var/www/html/2.Reports /var/www/html/3.Scripts 
 
 # This path needs to be updated
 cp /home/user/Downloads/EAF_PXE-master/install.sh /var/www/html/3.Scripts
-cp /home/user/Downloads/EAF_PXE-master/add_windows.sh /var/www/html/3.Scripts
-cp /home/user/Downloads/EAF_PXE-master/add_Ubuntu_Family.sh /var/www/html/3.Scripts
+mv /home/user/Downloads/EAF_PXE-master/add_windows.sh /var/www/html/3.Scripts
+mv /home/user/Downloads/EAF_PXE-master/add_Ubuntu_Family.sh /var/www/html/3.Scripts
+wget https://github.com/techmore/Sanitation_Report/archive/master.zip
+mv /home/user/Download/EAF_PXE-master/master.zip /var/www/html/3.Scripts/Sanitation_Report-master.zip
 
 mv /var/www/html/index.html /var/www/html/3.Scripts/index.html.bak
 chmod -R 777 /var/www/html
