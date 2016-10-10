@@ -317,6 +317,8 @@ apt install -y isc-dhcp-server
 # /etc/network/interfaces
 # auto lo
 # iface lo inet loopback
+# auto $ethernet
+
 ethernet=`ls /sys/class/net | grep -v lo`
 
 cat <<EOF_interfaces >> /etc/network/interfaces
