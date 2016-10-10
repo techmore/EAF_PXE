@@ -43,7 +43,7 @@ smbpasswd -a user
 # sudo smbpasswd -a $USER
 
 # Apache directories setup #######################################################
-mkdir -p /var/www/html/1.Images mkdir /var/www/html/2.Reports /var/www/html/3.Scripts /var/www/html/4.ISOs
+mkdir -p /var/www/html/1.Images /var/www/html/2.Reports /var/www/html/3.Scripts /var/www/html/4.ISOs
 
 # This path needs to be updated
 cp /home/user/Downloads/EAF_PXE-master/pxe_create.sh /var/www/html/3.Scripts
