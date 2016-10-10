@@ -31,6 +31,7 @@ EOF
 # Windows 7 64-bit DVD Image, but this time copy DVD mounted content to /windows/x64/ shared path.
 cp $HOME/Downloads/WinPE_x64.iso /var/www/html/4.ISOs/WinPE_x64.iso
 mv $HOME/Downloads/WinPE_x64.iso /var/lib/tftpboot/windows/
+chmod 777 -R /var/lib/tftpboot/windows
 
 mount -o loop $HOME/Downloads/Windows_7_x64.iso /mnt
 cp -rf  /mnt/*  /srv/windows/x64/
@@ -42,7 +43,7 @@ cat << EOF_pxelinux.cfg >> /var/lib/tftpboot/pxelinux.cfg/default
   label 9
   menu label Windows 7 x32/x64
   KERNEL memdisk
-  INITRD /var/www/html/4.ISOs/WinPE_x64.iso
+  INITRD windows/WinPE_x64.iso
   APPEND iso raw
 EOF_pxelinux.cfg
 
