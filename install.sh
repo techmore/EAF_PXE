@@ -47,7 +47,7 @@ mkdir -p /var/www/html/1.Images /var/www/html/2.Reports /var/www/html/3.Scripts 
 
 # This path needs to be updated
 cp /home/user/Downloads/EAF_PXE-master/install.sh /var/www/html/3.Scripts
-mv /var/www/html/index.html /var/www/html/index.html.bak
+mv /var/www/html/index.html /var/www/html/3.Scripts/index.html.bak
 chmod -R 777 /var/www/html
 chown -R user /var/www/html/1.Images
 chown -R user /var/www/html/2.Reports
@@ -152,6 +152,7 @@ cp /var/www/html/4.ISOs/netboot/ubuntu-installer/amd64/boot-screens/libcom32.c32
 cp /var/www/html/4.ISOs/netboot/ubuntu-installer/amd64/boot-screens/libutil.c32 /var/lib/tftpboot
  mkdir -p /var/lib/tftpboot/pxelinux.cfg
  cp /home/user/Downloads/EAF_PXE-master/logo.png /var/lib/tftpboot/pxelinux.cfg
+ cp /home/user/Downloads/EAF_PXE-master/EAF-PXE_logo.png /var/lib/tftpboot/pxelinux.cfg
  touch /var/lib/tftpboot/pxelinux.cfg/pxe.conf
  touch /var/lib/tftpboot/pxelinux.cfg/default
 
