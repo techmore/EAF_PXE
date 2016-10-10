@@ -105,7 +105,7 @@ if [ ! -f /home/user/Downloads/clonezilla-live-2.4.7-8-amd64.iso ]; then
    cd /var/www/html/4.ISOs
 #   wget http://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.4.2-10/clonezilla-live-2.4.2-10-i586.iso
 #  7/23/16 Clonezilla update
-   wget https://osdn.jp/frs/redir.php?m=gigenet&f=%2Fclonezilla%2F66042%2Fclonezilla-live-2.4.7-8-amd64.iso
+   wget http://osdn.jp/frs/redir.php?m=gigenet&f=%2Fclonezilla%2F66042%2Fclonezilla-live-2.4.7-8-amd64.iso
 else
    echo "clonezilla-live-2.4.7-8-amd64.iso found."
    mv /home/user/Downloads/clonezilla-live-2.4.7-8-amd64.iso /var/www/html/4.ISOs
