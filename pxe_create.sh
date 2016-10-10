@@ -141,7 +141,9 @@ tar -xvzf netboot.tar.gz -C /var/www/html/4.ISOs/netboot
 ######### Syslinux setup stuff #####################################################
 cp /var/www/html/4.ISOs/netboot/ubuntu-installer/amd64/pxelinux.0 /var/lib/tftpboot
 cp /var/www/html/4.ISOs/netboot/ubuntu-installer/amd64/boot-screens/vesamenu.c32 /var/lib/tftpboot
-
+cp /var/www/html/4.ISOs/netboot/ubuntu-installer/amd64/boot-screens/ldlinux.c32 /var/lib/tftpboot
+cp /var/www/html/4.ISOs/netboot/ubuntu-installer/amd64/boot-screens/libcom32.c32 /var/lib/tftpboot
+cp /var/www/html/4.ISOs/netboot/ubuntu-installer/amd64/boot-screens/libutil.c32 /var/lib/tftpboot
  mkdir -p /var/lib/tftpboot/pxelinux.cfg
  cp /home/user/Downloads/EAF_PXE-master/logo.png /var/lib/tftpboot/pxelinux.cfg
  touch /var/lib/tftpboot/pxelinux.cfg/pxe.conf
