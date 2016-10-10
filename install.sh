@@ -46,7 +46,7 @@ smbpasswd -a user
 mkdir -p /var/www/html/1.Images /var/www/html/2.Reports /var/www/html/3.Scripts /var/www/html/4.ISOs
 
 # This path needs to be updated
-cp /home/user/Downloads/EAF_PXE-master/pxe_create.sh /var/www/html/3.Scripts
+cp /home/user/Downloads/EAF_PXE-master/install.sh /var/www/html/3.Scripts
 mv /var/www/html/index.html /var/www/html/index.html.bak
 chmod -R 777 /var/www/html
 chown -R user /var/www/html/1.Images
