@@ -21,7 +21,7 @@ cat <<EOF >> /etc/samba/smb.conf
 EOF
 
 # Windows 7 64-bit DVD Image, but this time copy DVD mounted content to /windows/x64/ shared path.
-# cp $HOME/Downloads/WinPE_x64.iso /var/www/html/4.ISOs/WinPE_x64.iso
+cp $HOME/Downloads/WinPE_x64.iso /var/www/html/4.ISOs/WinPE_x64.iso
 mv /windows/WinPE_x64.iso  /var/lib/tftpboot/windows/
 
 mount -o loop $HOME/Downloads/Windows_7_x64.iso /mnt
