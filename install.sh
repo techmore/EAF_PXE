@@ -322,7 +322,6 @@ apt install -y isc-dhcp-server
 ethernet=`ls /sys/class/net | grep -v lo`
 
 cat <<EOF_interfaces >> /etc/network/interfaces
-  auto $ethernet
   iface $ethernet inet static
   address 10.10.10.10
   netmask 255.255.255.0
