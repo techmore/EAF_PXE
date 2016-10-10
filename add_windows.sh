@@ -11,7 +11,7 @@ echo "This program expects Windows_7_x64.iso, WinPE_x64.iso in $HOME/Downloads f
 # http://download.virtualbox.org/virtualbox/5.1.6/virtualbox-5.1_5.1.6-110634~Ubuntu~xenial_amd64.deb
 # dpkg -i virtualbox-5.1_5.1.6-110634~Ubuntu~xenial_amd64.deb
 
-mkdir -p /srv/windows
+mkdir -p /srv/windows/x64 /var/lib/tftpboot/windows
 cat <<EOF >> /etc/samba/smb.conf
   [Windows_install]
   comment = Windows 7 Image
@@ -30,18 +30,17 @@ EOF
 
 # Windows 7 64-bit DVD Image, but this time copy DVD mounted content to /windows/x64/ shared path.
 cp $HOME/Downloads/WinPE_x64.iso /var/www/html/4.ISOs/WinPE_x64.iso
-mv /windows/WinPE_x64.iso  /var/lib/tftpboot/windows/
+mv $HOME/Downloads/WinPE_x64.iso /var/lib/tftpboot/windows/
 
 mount -o loop $HOME/Downloads/Windows_7_x64.iso /mnt
 cp -rf  /mnt/*  /srv/windows/x64/
 umount  /mnt
 chmod -R 0755 /srv/windows
-chown -R nobody:nobody /windows
-mkdir -p /var/lib/tftpboot/windows
+chown -R nobody:nogroup /windows
 
 cat << EOF_pxelinux.cfg >> /var/lib/tftpboot/pxelinux.cfg/default
   label 9
-  menu label ^9) Install Windows 7 x32/x64
+  menu label Windows 7 x32/x64
   KERNEL memdisk
   INITRD /var/www/html/4.ISOs/WinPE_x64.iso
   APPEND iso raw
