@@ -360,7 +360,9 @@ sleep 2
 sudo service tftpd-hpa restart
 sleep 2
 sudo pkill dhclient
-sudo ifconfig `ls /sys/class/net | grep -v lo` 10.10.10.10 netmask 255.255.255.0" >> /home/user/Desktop/restart_pxe.sh
+sudo ifconfig `ls /sys/class/net | grep -v lo` 10.10.10.10 netmask 255.255.255.0
+sudo ifdown `ls /sys/class/net | grep -v lo` 
+sudo ifup `ls /sys/class/net | grep -v lo`" >> /home/user/Desktop/restart_pxe.sh
 
 chmod 775 /home/user/Desktop/restart_pxe.sh
 
@@ -372,3 +374,5 @@ echo ""
 sh /home/user/Desktop/restart_pxe.sh
 
 ifconfig `ls /sys/class/net | grep -v lo` 10.10.10.10 netmask 255.255.255.0
+ifdown `ls /sys/class/net | grep -v lo` 
+ifup `ls /sys/class/net | grep -v lo`
