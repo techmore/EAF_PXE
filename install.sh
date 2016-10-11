@@ -347,7 +347,7 @@ ifconfig `ls /sys/class/net | grep -v lo` 10.10.10.10 netmask 255.255.255.0
 ifconfig `ls /sys/class/net | grep -v lo` down
 ifconfig `ls /sys/class/net | grep -v lo` up
 pkill dhclient
-dhclient -r
+# dhclient -r
 service isc-dhcp-server restart
 sleep 2
 service tftpd-hpa restart
@@ -359,7 +359,8 @@ echo "sudo ifconfig `ls /sys/class/net | grep -v lo` 10.10.10.10 netmask 255.255
 sudo service isc-dhcp-server restart
 sleep 2
 sudo service tftpd-hpa restart
-sudo pkill dhclient `ls /sys/class/net | grep -v lo`" >> /home/user/Desktop/restart_pxe.sh
+sleep 2
+sudo pkill dhclient" >> /home/user/Desktop/restart_pxe.sh
 
 chmod 775 /home/user/Desktop/restart_pxe.sh
 
