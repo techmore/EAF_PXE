@@ -20,6 +20,9 @@ tftpd-hpa nfs-kernel-server samba apache2 cifs-utils openssh-server isc-dhcp-ser
 
 We will attempt to locate these files in /home/users/Downloads : 
    netboot.tar.gz
+   dban-2.3.0_i586.iso
+   clonezilla-live-2.4.2-10-i586.iso
+   ubuntu-16.04.1-desktop-amd64.iso
 
 EOF_introduction
 #   dban-2.3.0_i586.iso
