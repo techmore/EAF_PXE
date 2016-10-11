@@ -355,12 +355,12 @@ service nfs-kernel-server restart
 service smbd restart
 
 echo "#!/bin/bash" >> /home/user/Desktop/restart_pxe.sh
-echo "sudo ifconfig `ls /sys/class/net | grep -v lo` 10.10.10.10 netmask 255.255.255.0
-sudo service isc-dhcp-server restart
+echo "sudo service isc-dhcp-server restart
 sleep 2
 sudo service tftpd-hpa restart
 sleep 2
-sudo pkill dhclient" >> /home/user/Desktop/restart_pxe.sh
+sudo pkill dhclient
+sudo ifconfig `ls /sys/class/net | grep -v lo` 10.10.10.10 netmask 255.255.255.0" >> /home/user/Desktop/restart_pxe.sh
 
 chmod 775 /home/user/Desktop/restart_pxe.sh
 
