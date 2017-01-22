@@ -126,14 +126,16 @@ else
 fi
 
 echo ""
-http://mirrors.evowise.com/linuxmint/stable/18.1/linuxmint-18.1-cinnamon-64bit.iso
-if [ ! -f /home/user/Downloads/linuxmint-18.1-cinnamon-64bit.iso ]; then
-   echo "linuxmint-18.1-cinnamon-64bit.iso NOT found, attempting to download."
+
+# http://mirrors.evowise.com/linuxmint/stable/18.1/linuxmint-18.1-cinnamon-64bit.iso
+# http://mirrors.evowise.com/linuxmint/stable/18.1/linuxmint-18.1-mate-64bit.iso
+if [ ! -f /home/user/Downloads/linuxmint-18.1-mate-64bit.iso ]; then
+   echo "linuxmint-18.1-mate-64bit.iso NOT found, attempting to download."
    echo "--Downloading linuxmint-18.1-cinnamon-64bit.iso..."
    cd /var/www/html/4.ISOs
-   wget http://mirrors.evowise.com/linuxmint/stable/18.1/linuxmint-18.1-cinnamon-64bit.iso
+   wget http://mirrors.evowise.com/linuxmint/stable/18.1/linuxmint-18.1-mate-64bit.iso
 else
-   echo "linuxmint-18.1-cinnamon-64bit.iso found."
+   echo "linuxmint-18.1-mate-64bit.iso found"
    cp /home/user/Downloads/linuxmint-18.1-cinnamon-64bit.iso /var/www/html/4.ISOs
 fi
 
@@ -191,11 +193,11 @@ chown -R nobody:nogroup /var/lib/tftpboot
  cp /mnt/loop/live/filesystem.squashfs /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64
  umount /mnt/loop
 
- mount -o loop -t iso9660 /var/www/html/4.ISOs/linuxmint-18.1-cinnamon-64bit.iso /mnt/loop
- cp /mnt/loop/casper/vmlinuz /var/lib/tftpboot/linuxmint-18.1-cinnamon-64bit
- cp /mnt/loop/casper/initrd.lz /var/lib/tftpboot/linuxmint-18.1-cinnamon-64bit
- cp -R /mnt/loop/* /srv/install/linuxmint-18.1-cinnamon-64bit
- cp -R /mnt/loop/.disk /srv/install/linuxmint-18.1-cinnamon-64bit
+ mount -o loop -t iso9660 /var/www/html/4.ISOs/linuxmint-18.1-mate-64bit.iso /mnt/loop
+ cp /mnt/loop/casper/vmlinuz /var/lib/tftpboot/linuxmint-18.1-mate-64bit
+ cp /mnt/loop/casper/initrd.lz /var/lib/tftpboot/linuxmint-18.1-mate-64bit
+ cp -R /mnt/loop/* /srv/install/linuxmint-18.1-mate-64bit
+ cp -R /mnt/loop/.disk /srv/install/linuxmint-18.1-mate-64bit
  umount /mnt/loop
 
 # /var/lib/tftpboot/pxelinux.cfg/pxe.conf ############################################
@@ -256,13 +258,13 @@ cat <<EOF_default >> /var/lib/tftpboot/pxelinux.cfg/default
         Boot the Create Image
         ENDTEXT
   LABEL 5
-        MENU LABEL linuxmint-18.1-cinnamon-64bit
-        KERNEL linuxmint-18.1-cinnamon-64bit/vmlinuz
-        APPEND boot=casper netboot=nfs nfsroot=10.10.10.10:/srv/install/linuxmint-18.1-cinnamon-64bit initrd=linuxmint-18.1-cinnamon-64bit/initrd.lz
+        MENU LABEL linuxmint-18.1-mate-64bit
+        KERNEL linuxmint-18.1-mate-64bit/vmlinuz
+        APPEND boot=casper netboot=nfs nfsroot=10.10.10.10:/srv/install/linuxmint-18.1-mate-64bit initrd=linuxmint-18.1-mate-64bit/initrd.lz
         # Preseed from website
 # append auto=true priority=critical vga=788 initrd=ubuntu-installer/amd64/initrd.gz preseed/url=tftp://10.10.10.10/preseed/ubuntu-16.04-preseed.cfg preseed/interactive=false
         TEXT HELP
-        Boot the linuxmint-18.1-cinnamon-64bit
+        Boot the linuxmint-18.1-mate-64bit
         ENDTEXT
 EOF_default
 
@@ -373,4 +375,9 @@ sh /home/user/Desktop/restart_pxe.sh
 
 ifconfig `ls /sys/class/net | grep -v lo` 10.10.10.10 netmask 255.255.255.0
 ifdown `ls /sys/class/net | grep -v lo` 
-ifup `ls /sys/class/net | grep -v lo`
+ifup `ls /sys/class/net | grep -v lo` 
+
+cd ../../Desktop
+pwd
+ls
+
