@@ -373,11 +373,9 @@ echo ""
 # sudo reboot
 sh /home/user/Desktop/restart_pxe.sh
 
-ifconfig `ls /sys/class/net | grep -v lo` 10.10.10.10 netmask 255.255.255.0
-ifdown `ls /sys/class/net | grep -v lo` 
-ifup `ls /sys/class/net | grep -v lo` 
+ifconfig | grep addr
+#ifconfig `ls /sys/class/net | grep -v lo` 10.10.10.10 netmask 255.255.255.0
+#ifdown `ls /sys/class/net | grep -v lo` 
+#ifup `ls /sys/class/net | grep -v lo` 
 
-cd ../../Desktop
-pwd
-ls
 
