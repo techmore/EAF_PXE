@@ -136,7 +136,7 @@ if [ ! -f /home/user/Downloads/linuxmint-18.1-mate-64bit.iso ]; then
    wget http://mirrors.evowise.com/linuxmint/stable/18.1/linuxmint-18.1-mate-64bit.iso
 else
    echo "linuxmint-18.1-mate-64bit.iso found"
-   cp /home/user/Downloads/linuxmint-18.1-cinnamon-64bit.iso /var/www/html/4.ISOs
+   cp /home/user/Downloads/linuxmint-18.1-mate-64bit.iso /var/www/html/4.ISOs
 fi
 
 echo ""
@@ -178,8 +178,8 @@ chown -R nobody:nogroup /var/lib/tftpboot
 # https://nyc3.dl.elementary.io/download/MTQ0MjE4OTk5Nw==/elementaryos-stable-0.3.1-amd64.20150903.iso
 # Sperated to be readable
 
-   mkdir -p /srv/install/linuxmint-18.1-cinnamon-64bit
-   mkdir -p /var/lib/tftpboot/linuxmint-18.1-cinnamon-64bit
+   mkdir -p /srv/install/linuxmint-18.1-mate-64bit
+   mkdir -p /var/lib/tftpboot/linuxmint-18.1-mate-64bit
    mkdir -p /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64 
    mkdir -p /var/lib/tftpboot/dban-2.3.0_i586 /srv/install/dban-2.3.0_i586 
 
