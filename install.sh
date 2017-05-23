@@ -14,6 +14,7 @@ This program has only been made possible by :
    Computer Reach http://www.computerreach.org/
    National Cristina Foundation https://www.cristina.org/
    Hill Top Preparatory School http://hilltopprep.org/
+   Solebury School https://www.solebury.org/
 
 This REQUIRES an internet connection to install and configure : 
 tftpd-hpa nfs-kernel-server samba apache2 cifs-utils openssh-server isc-dhcp-server
@@ -21,7 +22,6 @@ tftpd-hpa nfs-kernel-server samba apache2 cifs-utils openssh-server isc-dhcp-ser
 We will attempt to locate these files in /home/users/Downloads : 
    netboot.tar.gz
    dban-2.3.0_i586.iso
-#   clonezilla-live-2.4.2-10-i586.iso
    clonezilla-live-2.5.0-25-amd64.iso
    ubuntu-16.04.2-desktop-amd64.iso
 
@@ -129,17 +129,17 @@ else
 fi
 
 echo ""
-if [ ! -f /home/user/Downloads/ubuntu-16.04.1-desktop-amd64.iso ]; then
+if [ ! -f /home/user/Downloads/ubuntu-16.04.2-desktop-amd64.iso ]; then
    echo "ubuntu-16.04.1-desktop-amd64.iso NOT found, attempting to download."
    echo "--Downloading ubuntu-16.04.1-desktop-amd64.iso..."
    cd /var/www/html/4.ISOs
 #  wget  https://nyc3.dl.elementary.io/download/MTQ0MjE4OTk5Nw==/elementaryos-stable-0.3.1-i386.20150903.iso
 #  https://nyc3.dl.elementary.io/download/MTQ3NDg1NjE4MA==/elementaryos-0.4-stable-amd64.20160921.iso
 #   wget http://releases.ubuntu.com/14.04.3/ubuntu-14.04.3-desktop-i386.iso
-   wget http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-desktop-amd64.iso
+   wget http://releases.ubuntu.com/16.04.2/ubuntu-16.04.2-desktop-amd64.iso
 else
-   echo "ubuntu-16.04.1-desktop-amd64.iso found."
-   cp /home/user/Downloads/ubuntu-16.04.1-desktop-amd64.iso /var/www/html/4.ISOs
+   echo "ubuntu-16.04.2-desktop-amd64.iso found."
+   cp /home/user/Downloads/ubuntu-16.04.2-desktop-amd64.iso /var/www/html/4.ISOs
 fi
 
 echo ""
@@ -181,8 +181,8 @@ chown -R nobody:nogroup /var/lib/tftpboot
 # https://nyc3.dl.elementary.io/download/MTQ0MjE4OTk5Nw==/elementaryos-stable-0.3.1-amd64.20150903.iso
 # Sperated to be readable
 
-   mkdir -p /srv/install/ubuntu-16.04.1-desktop-amd64
-   mkdir -p /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64
+   mkdir -p /srv/install/ubuntu-16.04.2-desktop-amd64
+   mkdir -p /var/lib/tftpboot/ubuntu-16.04.2-desktop-amd64
    mkdir -p /var/lib/tftpboot/clonezilla-live-2.5.0-25-amd64
    mkdir -p /var/lib/tftpboot/dban-2.3.0_i586 /srv/install/dban-2.3.0_i586 
 
@@ -196,11 +196,11 @@ chown -R nobody:nogroup /var/lib/tftpboot
  cp /mnt/loop/live/filesystem.squashfs /var/lib/tftpboot/clonezilla-live-2.5.0-25-amd64
  umount /mnt/loop
 
- mount -o loop -t iso9660 /var/www/html/4.ISOs/ubuntu-16.04.1-desktop-amd64.iso /mnt/loop
- cp /mnt/loop/casper/vmlinuz.efi /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64
- cp /mnt/loop/casper/initrd.lz /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64
- cp -R /mnt/loop/* /srv/install/ubuntu-16.04.1-desktop-amd64
- cp -R /mnt/loop/.disk /srv/install/ubuntu-16.04.1-desktop-amd64
+ mount -o loop -t iso9660 /var/www/html/4.ISOs/ubuntu-16.04.2-desktop-amd64.iso /mnt/loop
+ cp /mnt/loop/casper/vmlinuz.efi /var/lib/tftpboot/ubuntu-16.04.2-desktop-amd64
+ cp /mnt/loop/casper/initrd.lz /var/lib/tftpboot/ubuntu-16.04.2-desktop-amd64
+ cp -R /mnt/loop/* /srv/install/ubuntu-16.04.2-desktop-amd64
+ cp -R /mnt/loop/.disk /srv/install/ubuntu-16.04.2-desktop-amd64
  umount /mnt/loop
 
 # /var/lib/tftpboot/pxelinux.cfg/pxe.conf ############################################
@@ -261,13 +261,13 @@ cat <<EOF_default >> /var/lib/tftpboot/pxelinux.cfg/default
         Boot the Create Image
         ENDTEXT
   LABEL 5
-        MENU LABEL Ubuntu-16.04.1-desktop-amd64
+        MENU LABEL Ubuntu-16.04.2-desktop-amd64
         KERNEL ubuntu-16.04.1-desktop-amd64/vmlinuz.efi
-        APPEND boot=casper netboot=nfs nfsroot=10.10.10.10:/srv/install/ubuntu-16.04.1-desktop-amd64 initrd=ubuntu-16.04.1-desktop-amd64/initrd.lz
+        APPEND boot=casper netboot=nfs nfsroot=10.10.10.10:/srv/install/ubuntu-16.04.2-desktop-amd64 initrd=ubuntu-16.04.2-desktop-amd64/initrd.lz
         # Preseed from website
 # append auto=true priority=critical vga=788 initrd=ubuntu-installer/amd64/initrd.gz preseed/url=tftp://10.10.10.10/preseed/ubuntu-16.04-preseed.cfg preseed/interactive=false
         TEXT HELP
-        Boot the ubuntu-16.04.1-desktop-amd64
+        Boot the ubuntu-16.04.2-desktop-amd64
         ENDTEXT
 EOF_default
 
