@@ -21,8 +21,9 @@ tftpd-hpa nfs-kernel-server samba apache2 cifs-utils openssh-server isc-dhcp-ser
 We will attempt to locate these files in /home/users/Downloads : 
    netboot.tar.gz
    dban-2.3.0_i586.iso
-   clonezilla-live-2.4.2-10-i586.iso
-   ubuntu-16.04.1-desktop-amd64.iso
+#   clonezilla-live-2.4.2-10-i586.iso
+   clonezilla-live-2.5.0-25-amd64.iso
+   ubuntu-16.04.2-desktop-amd64.iso
 
 EOF_introduction
 #   dban-2.3.0_i586.iso
@@ -108,21 +109,23 @@ fi
 echo ""
 
 # 7/23/15 Clonezilla version updated
-if [ ! -f /home/user/Downloads/clonezilla-live-2.4.7-8-amd64.iso ]; then
-   echo "clonezilla-live-2.4.7-8-amd64.iso NOT found, attempting to download."
-   echo "--Downloading clonezilla-live-2.4.7-8-amd64.iso ..."
+if [ ! -f /home/user/Downloads/clonezilla-live-2.5.0-25-amd64.iso ]; then
+   echo "clonezilla-live-2.5.0-25-amd64.iso NOT found, attempting to download."
+   echo "--Downloading clonezilla-live-2.5.0-25-amd64.iso ..."
    cd /var/www/html/4.ISOs
-#   wget http://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.4.2-10/clonezilla-live-2.4.2-10-i586.iso
+#   wget http://downloads.sourceforge.net/project/clonezilla/clonezilla_live_stable/2.4.2-10/clonezilla-live-2.5.0-25-amd64.iso
 #  7/23/16 Clonezilla update
 #   wget http://osdn.jp/frs/redir.php?m=gigenet&f=%2Fclonezilla%2F66042%2Fclonezilla-live-2.4.7-8-amd64.iso
 # Ubuntu testing verison
 # wget https://osdn.net/projects/clonezilla/downloads/65894/clonezilla-live-20160529-xenial-amd64.iso/
 # mv index.html clonezilla-live-20160529-xenial-amd64.iso
-wget https://osdn.net/projects/clonezilla/downloads/66042/clonezilla-live-2.4.7-8-amd64.iso/
-mv index.html clonezilla-live-2.4.7-8-amd64.iso
+
+wget https://osdn.net/projects/clonezilla/downloads/67139/clonezilla-live-2.5.0-25-amd64.iso/
+# wget https://osdn.net/projects/clonezilla/downloads/66042/clonezilla-live-2.4.7-8-amd64.iso/
+mv index.html clonezilla-live-2.5.0-25-amd64
 else
-   echo "clonezilla-live-2.4.7-8-amd64.iso found."
-   mv /home/user/Downloads/clonezilla-live-2.4.7-8-amd64.iso /var/www/html/4.ISOs
+   echo "clonezilla-live-2.5.0-25-amd64.iso found."
+   mv /home/user/Downloads/clonezilla-live-2.5.0-25-amd64.iso /var/www/html/4.ISOs
 fi
 
 echo ""
@@ -180,17 +183,17 @@ chown -R nobody:nogroup /var/lib/tftpboot
 
    mkdir -p /srv/install/ubuntu-16.04.1-desktop-amd64
    mkdir -p /var/lib/tftpboot/ubuntu-16.04.1-desktop-amd64
-   mkdir -p /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64 
+   mkdir -p /var/lib/tftpboot/clonezilla-live-2.5.0-25-amd64
    mkdir -p /var/lib/tftpboot/dban-2.3.0_i586 /srv/install/dban-2.3.0_i586 
 
  mount -o loop -t iso9660 /var/www/html/4.ISOs/dban-2.3.0_i586.iso /mnt/loop
  cp /mnt/loop/dban.bzi /var/lib/tftpboot/dban-2.3.0_i586/dban.bzi
  umount /mnt/loop
 
- mount -o loop -t iso9660 /var/www/html/4.ISOs/clonezilla-live-2.4.7-8-amd64.iso /mnt/loop
- cp /mnt/loop/live/vmlinuz /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64
- cp /mnt/loop/live/initrd.img /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64
- cp /mnt/loop/live/filesystem.squashfs /var/lib/tftpboot/clonezilla-live-2.4.7-8-amd64
+ mount -o loop -t iso9660 /var/www/html/4.ISOs/clonezilla-live-2.5.0-25-amd64.iso /mnt/loop
+ cp /mnt/loop/live/vmlinuz /var/lib/tftpboot/clonezilla-live-2.5.0-25-amd64
+ cp /mnt/loop/live/initrd.img /var/lib/tftpboot/clonezilla-live-2.5.0-25-amd64
+ cp /mnt/loop/live/filesystem.squashfs /var/lib/tftpboot/clonezilla-live-2.5.0-25-amd64
  umount /mnt/loop
 
  mount -o loop -t iso9660 /var/www/html/4.ISOs/ubuntu-16.04.1-desktop-amd64.iso /mnt/loop
@@ -237,23 +240,23 @@ cat <<EOF_default >> /var/lib/tftpboot/pxelinux.cfg/default
 
 # echo "LABEL 2" >> /var/lib/tftpboot/pxelinux.cfg/default
 # echo "        MENU LABEL Inventory Machine - Alpha (not working)" >> /var/lib/tftpboot/pxelinux.cfg/default
-# echo "        KERNEL clonezilla-live-2.4.2-10-i586.iso/vmlinuz" >> /var/lib/tftpboot/pxelinux.cfg/default
-# echo "        APPEND initrd=clonezilla-live-2.4.2-10-i586.iso/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"/var/www/html/TM_Inventory_Scanner.sh\" ocs_live_run=\"\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.1.10/clonezilla-live-2.4.2-10-i586/filesystem.squashfs" >> /var/lib/tftpboot/pxelinux.cfg/default
+# echo "        KERNEL clonezilla-live-2.5.0-25-amd64.iso/vmlinuz" >> /var/lib/tftpboot/pxelinux.cfg/default
+# echo "        APPEND initrd=clonezilla-live-2.5.0-25-amd64.iso/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"/var/www/html/TM_Inventory_Scanner.sh\" ocs_live_run=\"\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.1.10/clonezilla-live-2.4.2-10-i586/filesystem.squashfs" >> /var/lib/tftpboot/pxelinux.cfg/default
 # echo "        TEXT HELP" >> /var/lib/tftpboot/pxelinux.cfg/default
 # echo "        Boot the Inventory Machine" >> /var/lib/tftpboot/pxelinux.cfg/default
 # echo "        ENDTEXT" >> /var/lib/tftpboot/pxelinux.cfg/default
 
   LABEL 3
         MENU LABEL List Images
-        KERNEL clonezilla-live-2.4.7-8-amd64/vmlinuz
-        APPEND initrd=clonezilla-live-2.4.7-8-amd64/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"mount -t cifs -o user=user,password=password //10.10.10.10/Images /home/partimag\" ocs_live_run=\"ocs-sr -g auto -e1 auto -e2 -batch -icds -r -j2 -k1 -p reboot restoredisk ask_user sda\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.10.10/clonezilla-live-2.4.7-8-amd64/filesystem.squashfs
+        KERNEL clonezilla-live-2.5.0-25-amd64/vmlinuz
+        APPEND initrd=clonezilla-live-2.5.0-25-amd64/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"mount -t cifs -o user=user,password=password //10.10.10.10/Images /home/partimag\" ocs_live_run=\"ocs-sr -g auto -e1 auto -e2 -batch -icds -r -j2 -k1 -p reboot restoredisk ask_user sda\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.10.10/clonezilla-live-2.5.0-25-amd64/filesystem.squashfs
         TEXT HELP
         Boot the List Images
         ENDTEXT
   LABEL 4
         MENU LABEL Create Image
-        KERNEL clonezilla-live-2.4.7-8-amd64/vmlinuz
-        APPEND initrd=clonezilla-live-2.4.7-8-amd64/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"mount -t cifs -o user=user,password=password //10.10.10.10/Images /home/partimag\" ocs_live_run=\"ocs-sr -q2 -j2 -rm-win-swap-hib -z1 -i 2000 -sc -fsck-src-part-y -p true savedisk ask_user sda\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.10.10/clonezilla-live-2.4.7-8-amd64/filesystem.squashfs
+        KERNEL clonezilla-live-2.5.0-25-amd64/vmlinuz
+        APPEND initrd=clonezilla-live-2.5.0-25-amd64/initrd.img boot=live config noswap nolocales edd=on nomodeset noprompt ocs_prerun=\"mount -t cifs -o user=user,password=password //10.10.10.10/Images /home/partimag\" ocs_live_run=\"ocs-sr -q2 -j2 -rm-win-swap-hib -z1 -i 2000 -sc -fsck-src-part-y -p true savedisk ask_user sda\" ocs_live_keymap=\"NONE\" ocs_live_batch=\"yes\" ocs_lang=\"en_US.UTF-8\" vga=791 ip=frommedia nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.blacklist=yes fetch=tftp://10.10.10.10/clonezilla-live-2.5.0-25-amd64/filesystem.squashfs
         TEXT HELP
         Boot the Create Image
         ENDTEXT
