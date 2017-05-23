@@ -26,9 +26,10 @@ We will attempt to locate these files in /home/users/Downloads :
    ubuntu-16.04.2-desktop-amd64.iso
 
 EOF_introduction
-#   dban-2.3.0_i586.iso
-#   clonezilla-live-2.4.2-10-i586.iso
-#   ubuntu-16.04.1-desktop-amd64.iso
+
+ubuntu-folder = 
+ubuntu-iso
+
 
 sleep 2
 # We want the most up to date packages to avoid conflict. Install required rependancies
@@ -262,7 +263,7 @@ cat <<EOF_default >> /var/lib/tftpboot/pxelinux.cfg/default
         ENDTEXT
   LABEL 5
         MENU LABEL Ubuntu-16.04.2-desktop-amd64
-        KERNEL ubuntu-16.04.1-desktop-amd64/vmlinuz.efi
+        KERNEL ubuntu-16.04.2-desktop-amd64/vmlinuz.efi
         APPEND boot=casper netboot=nfs nfsroot=10.10.10.10:/srv/install/ubuntu-16.04.2-desktop-amd64 initrd=ubuntu-16.04.2-desktop-amd64/initrd.lz
         # Preseed from website
 # append auto=true priority=critical vga=788 initrd=ubuntu-installer/amd64/initrd.gz preseed/url=tftp://10.10.10.10/preseed/ubuntu-16.04-preseed.cfg preseed/interactive=false
