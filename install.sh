@@ -123,7 +123,7 @@ if [ ! -f /home/user/Downloads/clonezilla-live-2.5.0-25-amd64.iso ]; then
 
 wget https://osdn.net/projects/clonezilla/downloads/67139/clonezilla-live-2.5.0-25-amd64.iso/
 # wget https://osdn.net/projects/clonezilla/downloads/66042/clonezilla-live-2.4.7-8-amd64.iso/
-mv index.html clonezilla-live-2.5.0-25-amd64
+mv index.html clonezilla-live-2.5.0-25-amd64.iso
 else
    echo "clonezilla-live-2.5.0-25-amd64.iso found."
    mv /home/user/Downloads/clonezilla-live-2.5.0-25-amd64.iso /var/www/html/4.ISOs
