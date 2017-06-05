@@ -27,8 +27,8 @@ We will attempt to locate these files in /home/users/Downloads :
 
 EOF_introduction
 
-ubuntu-folder = 
-ubuntu-iso
+# ubuntu-folder = 
+# ubuntu-iso
 
 
 sleep 2
