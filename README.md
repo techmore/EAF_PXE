@@ -3,6 +3,10 @@
 Install on a clean Ubuntu, this script will allow pxe boot of ubuntu installs
 This script assumes an internet connect
 
+Download Virtual Appliance here
+https://drive.google.com/open?id=0Bxk2XRsIw7UTSDRxb2lyQ2NUdzA
+
+
 TODO
 Give an option for PXE DBAN, Clonezilla cloner, Elementary OS,
                    Ubuntu LTS family install 
