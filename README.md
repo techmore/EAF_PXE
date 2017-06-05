@@ -1,6 +1,6 @@
 # EAF_PXE
 
-Fresh ubuntu install, allows pxe boot of ubuntu installs
+Install on a clean Ubuntu, this script will allow pxe boot of ubuntu installs
 This script assumes an internet connect
 
 TODO
