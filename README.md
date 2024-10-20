@@ -6,6 +6,8 @@ This script assumes an internet connect
 Download Virtual Appliance here
 https://drive.google.com/open?id=0Bxk2XRsIw7UTSDRxb2lyQ2NUdzA
 
+https://www.youtube.com/watch?v=y2uJeX7WibM
+
 
 TODO
 Give an option for PXE DBAN, Clonezilla cloner, Elementary OS,
@@ -13,3 +15,6 @@ Give an option for PXE DBAN, Clonezilla cloner, Elementary OS,
                    Option to add windows
 
 Download torrent files and use CLI torrent to download faster
+
+
+
